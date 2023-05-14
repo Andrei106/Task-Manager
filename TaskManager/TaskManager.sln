@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feature", "Feature\Feature.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bug", "Bug\Bug.csproj", "{76CBBCEF-15A9-42F7-A45F-4FAE16A93B7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTest", "DBTest\DBTest.csproj", "{2D5F18F8-277C-4DD3-9C5F-1673FA505A60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{76CBBCEF-15A9-42F7-A45F-4FAE16A93B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CBBCEF-15A9-42F7-A45F-4FAE16A93B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CBBCEF-15A9-42F7-A45F-4FAE16A93B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D5F18F8-277C-4DD3-9C5F-1673FA505A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5F18F8-277C-4DD3-9C5F-1673FA505A60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5F18F8-277C-4DD3-9C5F-1673FA505A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5F18F8-277C-4DD3-9C5F-1673FA505A60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

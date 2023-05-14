@@ -31,7 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Project">
+    <Reference Include="Member, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Member\bin\Debug\Member.dll</HintPath>
+    </Reference>
+    <Reference Include="Project, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Project\bin\Debug\Project.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -42,7 +47,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TaskFactory">
+    <Reference Include="Task, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Task\bin\Debug\Task.dll</HintPath>
+    </Reference>
+    <Reference Include="TaskFactory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\TaskFactory\bin\Debug\TaskFactory.dll</HintPath>
     </Reference>
   </ItemGroup>
