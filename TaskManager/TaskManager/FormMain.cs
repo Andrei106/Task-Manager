@@ -26,25 +26,38 @@ namespace TaskManager
         public FormMain()
         {
             InitializeComponent();
+
+            // Initializare casuta si logica pentru logare
             LoginWindowInitialization();
 
+            // Leg metoda ConnectionValid de eventul pentru logare cu succes
             LoginService.OnLoginSuccessed += ConnectionValid;
+
+            // Leg metoda ConnectionNotValid de eventul pentru logare esuata
             LoginService.OnLoginFailed += ConnectionNotValid;
+
+            // Leg metoda ShowPopUp de eventul din logger, ca vreau sa afisez utilizatorului un mesaj
             Logger.OnPopUpMessageLogged += ShowPopUp;
         }
 
         private void LoginWindowInitialization()
         {
+            // Ascund toate controalele incat sa ramana doar casuta de login
             HideAllExceptLogin();
+
             SetControlLocationInMiddle(login1);
+
+            // Cand butonul "Login" este apasat va face call la metoda ConnectionTry
             login1.ConnectAction = ConnectionTry;
         }
 
         private void HideAllExceptLogin()
         {
+            // trec prin toate controalele 
             foreach (Control childControl in Controls)
             {
-                if (childControl.GetType() != typeof(UserControls.Login))
+                // daca controlul nu este de tip Login, il ascund
+                if (childControl.GetType() != typeof(Login))
                 {
                     childControl.Hide();
                 }
@@ -53,16 +66,19 @@ namespace TaskManager
 
         private void ConnectionTry()
         {
+            // folosesc proxy-ul incat sa nu interoghez baza de date daca nu e nevoie 
             ILogin loginService = new LoginProxy();
 
             var username = login1.GetUserText();
             var password = login1.GetPasswordText();
 
+            // apelez metoda din proxy, incepe propriu zis verificarea pentru user si parola
             loginService.LoginMethod(username, password);
         }
 
         private void ConnectionValid()
         {
+            // ascund casuta de login si afisez restul interfetei
             login1.Hide();
             foreach (Control childControl in Controls)
             {

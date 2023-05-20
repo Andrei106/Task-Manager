@@ -20,6 +20,7 @@ namespace Proxy
 
         public void LoginMethod(string username, string password)
         {
+            // intai se testeaza daca parola indeplineste conditiile
             if (!IsValidLoginAttempt(username, password))
             {
                 Logger.LogIt("Invalid login attempt");
@@ -28,18 +29,20 @@ namespace Proxy
 
             LogLoginAttempt(username);
 
-            // Real Login method
+            // Metoda reala din clasa adevarata, aici se va verifica cu intrari din baza de date
             realLogin.LoginMethod(username, password);
         }
 
         private bool IsValidLoginAttempt(string username, string password)
         {
+            // daca parola contine caractere speciale nu e valida
             if (Regex.IsMatch(username, @"[^a-zA-Z0-9_]"))
             {
                 Logger.PopUpIt("Username contains special characters");
                 return false;
             }
 
+            // parola trebuie sa aiba minim 8 caractere altfel nu e valida
             if (password.Length < 8)
             {
                 Logger.PopUpIt("Too short password");
@@ -52,7 +55,6 @@ namespace Proxy
         private void LogLoginAttempt(string username)
         {
             Logger.LogIt($"Login attempts for user: {username}");
-
         }
     }
 }

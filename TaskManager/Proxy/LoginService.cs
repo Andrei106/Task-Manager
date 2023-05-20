@@ -14,18 +14,18 @@ namespace Proxy
 
         public void LoginMethod(string username, string password)
         {
-            // Implementation of the actual login logic
-            // (Andrei Ioan E.) Check data from data base
+            // (Andrei Ioan E.) Te rog foloseste codul din L9 pentru partea cu criptarea
+            // In baza de date ar trebui sa avem username-ul in "alb" si parola criptata
 
-            var isValid = false;
+            var isValid = false; // pentru test, daca e true conctarea are loc
             if(isValid)
             {
-                OnLoginSuccessed?.Invoke();
+                OnLoginSuccessed?.Invoke(); // event pentru conectare cu succes
                 Console.WriteLine("Login successful");
             }
             else
             {
-                OnLoginFailed?.Invoke();
+                OnLoginFailed?.Invoke(); // event pentru conectare esuata
                 Console.WriteLine("Login unsuccessful");
             }           
         }
