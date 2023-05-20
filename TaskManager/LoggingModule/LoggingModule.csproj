@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2AC035EA-8B2B-488A-9C16-FE62B865ED76}</ProjectGuid>
+    <ProjectGuid>{7DB16604-618A-4F29-9007-511173B536F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Proxy</RootNamespace>
-    <AssemblyName>Proxy</AssemblyName>
+    <RootNamespace>LoggingModule</RootNamespace>
+    <AssemblyName>LoggingModule</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,16 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoginProxy.cs" />
-    <Compile Include="ILogin.cs" />
-    <Compile Include="LoginService.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LoggingModule\LoggingModule.csproj">
-      <Project>{7db16604-618a-4f29-9007-511173b536f2}</Project>
-      <Name>LoggingModule</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

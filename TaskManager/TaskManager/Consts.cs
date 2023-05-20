@@ -8,7 +8,7 @@ namespace TaskManager
 {
     static class Consts
     {
-        public const string message = "Datele introduse sunt aiurea";
-        public const string caption = "Nu ai acces";
+        public const string message = "Datele de logare sunt gresite";
+        public const string caption = "Mesaj";
     }
 }

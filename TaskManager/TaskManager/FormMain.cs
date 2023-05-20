@@ -1,4 +1,5 @@
-﻿using Proxy;
+﻿using LoggingModule;
+using Proxy;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,9 +28,9 @@ namespace TaskManager
             InitializeComponent();
             LoginWindowInitialization();
 
-            Proxy.LoginService.OnLoginSuccessed += ConnectionValid;
-            Proxy.LoginService.OnLoginFailed += ConnectionNotValid;
-
+            LoginService.OnLoginSuccessed += ConnectionValid;
+            LoginService.OnLoginFailed += ConnectionNotValid;
+            Logger.OnPopUpMessageLogged += ShowPopUp;
         }
 
         private void LoginWindowInitialization()
@@ -74,7 +75,12 @@ namespace TaskManager
 
         private void ConnectionNotValid()
         {
-            MessageBox.Show(this, Consts.message, Consts.caption, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            Logger.PopUpIt(Consts.message);
+        }
+
+        private void ShowPopUp(string message)
+        {
+            MessageBox.Show(this, message, Consts.caption, MessageBoxButtons.OK);
         }
 
         private void FormMain_Load(object sender,EventArgs e) {        

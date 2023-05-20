@@ -130,6 +130,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LoggingModule\LoggingModule.csproj">
+      <Project>{7db16604-618a-4f29-9007-511173b536f2}</Project>
+      <Name>LoggingModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Proxy\Login.csproj">
       <Project>{2AC035EA-8B2B-488A-9C16-FE62B865ED76}</Project>
       <Name>Login</Name>

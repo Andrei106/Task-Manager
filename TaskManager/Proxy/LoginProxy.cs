@@ -1,5 +1,7 @@
-﻿using System;
+﻿using LoggingModule;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,7 +22,7 @@ namespace Proxy
         {
             if (!IsValidLoginAttempt(username, password))
             {
-                Console.WriteLine("Invalid login attempt");
+                Logger.LogIt("Invalid login attempt");
                 return;
             }
 
@@ -34,13 +36,13 @@ namespace Proxy
         {
             if (Regex.IsMatch(username, @"[^a-zA-Z0-9_]"))
             {
-                Console.WriteLine("Username contains special characters");
+                Logger.PopUpIt("Username contains special characters");
                 return false;
             }
 
             if (password.Length < 8)
             {
-                Console.WriteLine("Too short password");
+                Logger.PopUpIt("Too short password");
                 return false;
             }
 
@@ -49,8 +51,8 @@ namespace Proxy
 
         private void LogLoginAttempt(string username)
         {
-            // Perform logging operations, such as writing to a log file or database
-            Console.WriteLine($"Login attempt for user: {username}");
+            Logger.LogIt($"Login attempts for user: {username}");
+
         }
     }
 }

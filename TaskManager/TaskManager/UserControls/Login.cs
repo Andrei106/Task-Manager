@@ -15,6 +15,8 @@ namespace TaskManager.UserControls
         public Login()
         {
             InitializeComponent();
+
+            passwordBox.UseSystemPasswordChar = true;
         }
 
         public Action ConnectAction { get; set; }

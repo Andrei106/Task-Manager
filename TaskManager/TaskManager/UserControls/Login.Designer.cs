@@ -71,7 +71,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(141, 247);
+            this.button1.Location = new System.Drawing.Point(132, 234);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(148, 56);
             this.button1.TabIndex = 5;
@@ -99,7 +99,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Name = "Login";
-            this.Size = new System.Drawing.Size(433, 337);
+            this.Size = new System.Drawing.Size(433, 351);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

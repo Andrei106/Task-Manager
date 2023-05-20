@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBTest", "DBTest\DBTest.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Login", "Proxy\Login.csproj", "{2AC035EA-8B2B-488A-9C16-FE62B865ED76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingModule", "LoggingModule\LoggingModule.csproj", "{7DB16604-618A-4F29-9007-511173B536F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{2AC035EA-8B2B-488A-9C16-FE62B865ED76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AC035EA-8B2B-488A-9C16-FE62B865ED76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AC035EA-8B2B-488A-9C16-FE62B865ED76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DB16604-618A-4F29-9007-511173B536F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB16604-618A-4F29-9007-511173B536F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DB16604-618A-4F29-9007-511173B536F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB16604-618A-4F29-9007-511173B536F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
