@@ -38,10 +38,13 @@ namespace TaskManager
             this.panelLogo = new System.Windows.Forms.Panel();
             this.labelApp = new System.Windows.Forms.Label();
             this.panelTitle = new System.Windows.Forms.Panel();
-            this.homeCtrl = new TaskManager.homeControl();
-            this.projectCtrl = new TaskManager.projectControl();
-            this.toDosCtrl = new TaskManager.toDosControll();
             this.labelCurrent = new System.Windows.Forms.Label();
+            this.buttonLogout = new System.Windows.Forms.Button();
+            this.register1 = new TaskManager.UserControls.Register();
+            this.login1 = new TaskManager.UserControls.Login();
+            this.toDosCtrl = new TaskManager.toDosControll();
+            this.projectCtrl = new TaskManager.projectControl();
+            this.homeCtrl = new TaskManager.homeControl();
             this.panelMain.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.panelTitle.SuspendLayout();
@@ -58,7 +61,7 @@ namespace TaskManager
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(200, 692);
+            this.panelMain.Size = new System.Drawing.Size(200, 690);
             this.panelMain.TabIndex = 0;
             // 
             // btnHelp
@@ -161,38 +164,13 @@ namespace TaskManager
             // panelTitle
             // 
             this.panelTitle.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.panelTitle.Controls.Add(this.buttonLogout);
             this.panelTitle.Controls.Add(this.labelCurrent);
             this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTitle.Location = new System.Drawing.Point(200, 0);
             this.panelTitle.Name = "panelTitle";
-            this.panelTitle.Size = new System.Drawing.Size(1250, 70);
+            this.panelTitle.Size = new System.Drawing.Size(1240, 70);
             this.panelTitle.TabIndex = 1;
-            // 
-            // homeCtrl
-            // 
-            this.homeCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.homeCtrl.Location = new System.Drawing.Point(200, 70);
-            this.homeCtrl.Name = "homeCtrl";
-            this.homeCtrl.Size = new System.Drawing.Size(1250, 622);
-            this.homeCtrl.TabIndex = 2;
-            // 
-            // projectCtrl
-            // 
-            this.projectCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.projectCtrl.Location = new System.Drawing.Point(200, 70);
-            this.projectCtrl.Name = "projectCtrl";
-            this.projectCtrl.Size = new System.Drawing.Size(1250, 622);
-            this.projectCtrl.TabIndex = 3;
-            this.projectCtrl.Visible = false;
-            // 
-            // toDosCtrl
-            // 
-            this.toDosCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toDosCtrl.Location = new System.Drawing.Point(200, 70);
-            this.toDosCtrl.Name = "toDosCtrl";
-            this.toDosCtrl.Size = new System.Drawing.Size(1250, 622);
-            this.toDosCtrl.TabIndex = 4;
-            this.toDosCtrl.Visible = false;
             // 
             // labelCurrent
             // 
@@ -205,11 +183,75 @@ namespace TaskManager
             this.labelCurrent.TabIndex = 0;
             this.labelCurrent.Text = "Home";
             // 
+            // buttonLogout
+            // 
+            this.buttonLogout.BackColor = System.Drawing.Color.SlateGray;
+            this.buttonLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonLogout.Image = ((System.Drawing.Image)(resources.GetObject("buttonLogout.Image")));
+            this.buttonLogout.Location = new System.Drawing.Point(1082, 12);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(137, 39);
+            this.buttonLogout.TabIndex = 1;
+            this.buttonLogout.Text = "       Logout";
+            this.buttonLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonLogout.UseVisualStyleBackColor = false;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+            // 
+            // register1
+            // 
+           // this.register1.ConnectAction = null;
+            this.register1.ConnectActionBack = null;
+            this.register1.Location = new System.Drawing.Point(844, 101);
+            this.register1.Name = "register1";
+            this.register1.Size = new System.Drawing.Size(304, 210);
+            this.register1.TabIndex = 6;
+            // 
+            // login1
+            // 
+            this.login1.ConnectAction = null;
+            this.login1.ConnectActionRegister = null;
+            this.login1.Location = new System.Drawing.Point(525, 101);
+            this.login1.Margin = new System.Windows.Forms.Padding(1);
+            this.login1.Name = "login1";
+            this.login1.Size = new System.Drawing.Size(289, 219);
+            this.login1.TabIndex = 5;
+            // 
+            // toDosCtrl
+            // 
+            this.toDosCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.toDosCtrl.Location = new System.Drawing.Point(200, 70);
+            this.toDosCtrl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.toDosCtrl.Name = "toDosCtrl";
+            this.toDosCtrl.Size = new System.Drawing.Size(1240, 620);
+            this.toDosCtrl.TabIndex = 4;
+            this.toDosCtrl.Visible = false;
+            // 
+            // projectCtrl
+            // 
+            this.projectCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.projectCtrl.Location = new System.Drawing.Point(200, 70);
+            this.projectCtrl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.projectCtrl.Name = "projectCtrl";
+            this.projectCtrl.Size = new System.Drawing.Size(1240, 620);
+            this.projectCtrl.TabIndex = 3;
+            this.projectCtrl.Visible = false;
+            // 
+            // homeCtrl
+            // 
+            this.homeCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.homeCtrl.Location = new System.Drawing.Point(200, 70);
+            this.homeCtrl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.homeCtrl.Name = "homeCtrl";
+            this.homeCtrl.Size = new System.Drawing.Size(1240, 620);
+            this.homeCtrl.TabIndex = 2;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1450, 692);
+            this.ClientSize = new System.Drawing.Size(1440, 690);
+            this.Controls.Add(this.register1);
+            this.Controls.Add(this.login1);
             this.Controls.Add(this.toDosCtrl);
             this.Controls.Add(this.projectCtrl);
             this.Controls.Add(this.homeCtrl);
@@ -241,6 +283,9 @@ namespace TaskManager
         private projectControl projectCtrl;
         private toDosControll toDosCtrl;
         private System.Windows.Forms.Label labelCurrent;
+        private UserControls.Login login1;
+        private UserControls.Register register1;
+        private System.Windows.Forms.Button buttonLogout;
     }
 }
 

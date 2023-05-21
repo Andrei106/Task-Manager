@@ -26,12 +26,15 @@ namespace DatabaseManager
             }
         }
 
-
+        /// <summary>
+        /// Metoda de conectare la baza de date si creare de tabele
+        /// </summary>
+        /// <returns></returns>
         public string createConnection()
         {
             try
             {
-                // Check if the database already exists
+                // Verificare daca baza de date deja exista
                 using (var conn = new NpgsqlConnection(_connectionString))
                 {
                     conn.Open();
@@ -49,7 +52,7 @@ namespace DatabaseManager
                         }
                         else
                         {
-                            // Create the database
+                            // Creare baza de date
                             cmd.CommandText = "CREATE DATABASE taskmanager;";
                             cmd.ExecuteNonQuery();
                             Console.WriteLine("Database created.");
@@ -57,7 +60,7 @@ namespace DatabaseManager
                     }
                 }
 
-                // Create a new table
+                // Crearea noului tabel projects
                 using (var conn = new NpgsqlConnection(_connectionString))
                 {
                     conn.Open();
@@ -74,7 +77,23 @@ namespace DatabaseManager
                     }
                 }
 
-                // Connect to the new database and table
+                // Crearea noului tabel users
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'users' LIMIT 1;";
+                        var result = cmd.ExecuteScalar();
+                        if (result == null)
+                        {
+                            cmd.CommandText = "CREATE TABLE users (id SERIAL PRIMARY KEY, username VARCHAR(100) UNIQUE ,password VARCHAR(100))";
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                // Conectare la noua baza de date si tabel
                 using (var conn = new NpgsqlConnection(_connectionString))
                 {
                     conn.Open();
@@ -88,32 +107,51 @@ namespace DatabaseManager
         }
 
 
-        public bool SaveString(string project)
+        /// <summary>
+        /// Metoda ce salveaza in baza de date un utlizator nou
+        /// </summary>
+        /// <param name = "username" > Username - ul utilizatorului</param>
+        /// <param name="password">Parola utilizatorului</param>
+        /// <returns></returns>
+        public bool SaveUser(string username,string password)
         {
 
             try
             {
-                using (var conn = new NpgsqlConnection(_connectionString))
+                //Se verifica daca deja exista un utilizator cu aceleasi date
+                if (!CheckUserExits(username, password))
                 {
-                    conn.Open();
-                    using (var cmd = new NpgsqlCommand())
+                    //Daca nu exista adaugam in baza de date noul utilizator
+                    using (var conn = new NpgsqlConnection(_connectionString))
                     {
-                        cmd.Connection = conn;
-                        cmd.CommandText = "INSERT INTO projects (data) VALUES (@data)";
-                        cmd.Parameters.AddWithValue("data", project);
-                        cmd.ExecuteNonQuery();
+                        conn.Open();
+                        using (var cmd = new NpgsqlCommand())
+                        {
+                            //Inserare in baza de date
+                            cmd.Connection = conn;
+                            cmd.CommandText = "INSERT INTO users (username,password) VALUES (@username,@password) "; // on conflict (username) do nothing";
+                            cmd.Parameters.AddWithValue("username", username);
+                            cmd.Parameters.AddWithValue("password", password);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+                    return true;
                 }
-                return true;
+                else { return false; }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error saving project: " + ex.Message);
+                Console.WriteLine("Error saving user: " + ex.Message);
                 return false;
             }
         }
-
-        public string GetString(int id)
+        /// <summary>
+        /// Metoda de verificare daca un utilizator exista deja 
+        /// </summary>
+        /// <param name="username">Username-ul utilizatorului</param>
+        /// <param name="password">Parola utilizatorului</param>
+        /// <returns></returns>
+        public bool CheckUserExits(string username, string password)
         {
             try
             {
@@ -122,28 +160,31 @@ namespace DatabaseManager
                     conn.Open();
                     using (var cmd = new NpgsqlCommand())
                     {
+                        //Cautare daca exista un utilizator cu aceleasi date
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT data FROM projects WHERE id = @id";
-                        cmd.Parameters.AddWithValue("id", id);
+                        cmd.CommandText = "SELECT id FROM users WHERE username = @username AND password = @password";
+                        cmd.Parameters.AddWithValue("username", username);
+                        cmd.Parameters.AddWithValue("password", password);
                         var result = cmd.ExecuteScalar();
+                        
+                        //Daca e diferit de null,inseamna ce exista
                         if (result != null)
                         {
-                            return result.ToString();
+                            return true;
                         }
                         else
                         {
-                            return null;
+                            return false;
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error getting string: " + ex.Message);
-                return null;
+                Console.WriteLine("Error getting user: " + ex.Message);
+                return false;
             }
         }
-
 
         public bool SaveProject(Project.Project project)
         {
