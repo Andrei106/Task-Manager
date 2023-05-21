@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DatabaseManager;
 
 namespace Proxy
-{
+{ 
     public class LoginService : ILogin
     {
+        private DatabaseManager.DatabaseManager _databaseManager=DatabaseManager.DatabaseManager.Instance;
         public delegate void LoginAction();
         public static event LoginAction OnLoginSuccessed;
         public static event LoginAction OnLoginFailed;
 
         public void LoginMethod(string username, string password)
         {
-            // (Andrei Ioan E.) Te rog foloseste codul din L9 pentru partea cu criptarea
-            // In baza de date ar trebui sa avem username-ul in "alb" si parola criptata
-
-            var isValid = false; // pentru test, daca e true conctarea are loc
-            if(isValid)
+            var isValid = _databaseManager.CheckUserExits(username,Cryptography.HashString(password)); //Verificare existenta utilizator
+            if (isValid)
             {
+                //Utilizator gasit
                 OnLoginSuccessed?.Invoke(); // event pentru conectare cu succes
                 Console.WriteLine("Login successful");
             }
             else
             {
+                //Utilizator inexistent
                 OnLoginFailed?.Invoke(); // event pentru conectare esuata
                 Console.WriteLine("Login unsuccessful");
             }           

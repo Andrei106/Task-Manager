@@ -36,6 +36,10 @@
     <StartupObject>TaskManager.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DatabaseManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DatabaseManager\bin\Debug\DatabaseManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -76,6 +80,12 @@
       <DependentUpon>ProjectControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\Register.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Register.Designer.cs">
+      <DependentUpon>Register.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Task.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -104,6 +114,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Register.resx">
+      <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Task.resx">
       <DependentUpon>Task.cs</DependentUpon>
@@ -143,6 +156,7 @@
     <Content Include="resources\imgs\filter.png" />
     <Content Include="resources\imgs\help.png" />
     <Content Include="resources\imgs\home.png" />
+    <Content Include="resources\imgs\logout.png" />
     <Content Include="resources\imgs\plus.png" />
     <Content Include="resources\imgs\project.png" />
     <Content Include="resources\imgs\to-dos.png" />

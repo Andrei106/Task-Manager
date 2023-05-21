@@ -42,26 +42,46 @@ namespace TaskManager
 
         private void LoginWindowInitialization()
         {
+            login1.SetUserText("");
+            login1.SetPasswordText("");
             // Ascund toate controalele incat sa ramana doar casuta de login
-            HideAllExceptLogin();
+            HideAllExceptThis(login1);
 
             SetControlLocationInMiddle(login1);
 
             // Cand butonul "Login" este apasat va face call la metoda ConnectionTry
             login1.ConnectAction = ConnectionTry;
+            login1.ConnectActionRegister = RegisterWindowInitialization;
+           
+        }
+        private void RegisterWindowInitialization()
+        {
+            // Ascund toate controalele incat sa ramana doar casuta de login
+            register1.SetUserText("");
+            register1.SetPasswordText("");
+            register1.SetConfirmPasswordText("");
+            HideAllExceptThis(register1);
+         
+            SetControlLocationInMiddle(register1);
+            register1.ConnectActionBack = LoginWindowInitialization;
+
+            // Cand butonul "Login" este apasat va face call la metoda ConnectionTry
+            //  register1.ConnectAction = ConnectionTry;
         }
 
-        private void HideAllExceptLogin()
+        private void HideAllExceptThis(Control userControl)
         {
             // trec prin toate controalele 
+            userControl.Show();
             foreach (Control childControl in Controls)
             {
-                // daca controlul nu este de tip Login, il ascund
-                if (childControl.GetType() != typeof(Login))
+                // daca controlul nu este de tipul primit, il ascund
+                if (childControl.GetType() !=userControl.GetType())
                 {
                     childControl.Hide();
                 }
             }
+
         }
 
         private void ConnectionTry()
@@ -82,7 +102,7 @@ namespace TaskManager
             login1.Hide();
             foreach (Control childControl in Controls)
             {
-                if (childControl.GetType() != typeof(UserControls.Login))
+                if (childControl.GetType() != typeof(UserControls.Login) && childControl.GetType() != typeof(UserControls.Register))
                 {
                     childControl.Show();
                 }
@@ -138,6 +158,11 @@ namespace TaskManager
         private void btnHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Help", "Help");
+        }
+
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            LoginWindowInitialization();
         }
     }
 }

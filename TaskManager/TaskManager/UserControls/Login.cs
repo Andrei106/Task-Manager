@@ -20,20 +20,33 @@ namespace TaskManager.UserControls
         }
 
         public Action ConnectAction { get; set; }
-
+        public Action ConnectActionRegister { get; set; }
         public void button1_Click(object sender, EventArgs e)
         {
             ConnectAction?.Invoke();
         }
-
+        private void buttonRegister_Click(object sender, EventArgs e)
+        {
+            ConnectActionRegister?.Invoke();
+        }
         public string GetUserText()
         {
             return userBox.Text;
+        }
+        public void SetUserText(string text)
+        {
+             userBox.Text=text;
         }
 
         public string GetPasswordText()
         {
             return passwordBox.Text;
         }
+        public void SetPasswordText(string text)
+        {
+            passwordBox.Text=text;
+        }
+
+
     }
 }
