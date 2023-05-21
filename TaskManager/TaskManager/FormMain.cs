@@ -25,11 +25,6 @@ namespace TaskManager
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            Task t = new Task();
-            t.Show();
-         
-            homeCtrl.Controls.Add(t);
-   
                homeCtrl.Show();
             projectCtrl.Hide();
             toDosCtrl.Hide();

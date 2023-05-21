@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task;
 namespace Spike
 {
-    public class Spike:Task.Task
+    public class Spike:TaskNamespace.Task
     {
-        private string purpose;
+        public string Purpose { get; set; }
+
+        public Spike(int id, string title, string description, string purpose) : base(id, description, 1, title)
+        {
+            this.Purpose = purpose;
+        }
     }
 }

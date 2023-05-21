@@ -8,6 +8,6 @@ namespace TaskFactory
 {
     public interface TaskFactory
     {
-        Task.Task CreateTask();
+        Task.Task CreateTask(int id, string title, string description, int priority);
     }
 }

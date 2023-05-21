@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task;
 namespace Feature
 {
-    public class Feature:Task.Task
+    public class Feature:TaskNamespace.Task
     {
-        private int _priority;
+        public int Priority { get; set; }
+
+        public Feature(int id, string title, string description, int priority): base(id, description, 0, title)
+        {
+            this.Priority = priority;
+        }
     }
 }

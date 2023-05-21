@@ -32,42 +32,47 @@ namespace TaskManager
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(toDosControll));
             this.panelDone = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.labelDone = new System.Windows.Forms.Label();
             this.panelWaiting = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.labelWaiting = new System.Windows.Forms.Label();
             this.panelInProgress = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.labelInProgress = new System.Windows.Forms.Label();
             this.panelBlocked = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.labelBlocked = new System.Windows.Forms.Label();
             this.panelNew = new System.Windows.Forms.Panel();
-            this.labelNew = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.labelNew = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStripNewItem = new System.Windows.Forms.MenuStrip();
             this.NewItem = new System.Windows.Forms.ToolStripMenuItem();
             this.storyNewItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskNewItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bugNewtem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelCmd = new System.Windows.Forms.Panel();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.filterItem = new System.Windows.Forms.ToolStripMenuItem();
             this.storyFilterItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taskFilterItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bugFilterItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panelCmd = new System.Windows.Forms.Panel();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.flowLayoutNewTasks = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutBlockedTasks = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutInProgressTasks = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutWaitingTasks = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutDoneTasks = new System.Windows.Forms.FlowLayoutPanel();
             this.panelDone.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panelWaiting.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panelInProgress.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panelBlocked.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panelNew.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.menuStripNewItem.SuspendLayout();
             this.panelCmd.SuspendLayout();
             this.SuspendLayout();
@@ -75,12 +80,23 @@ namespace TaskManager
             // panelDone
             // 
             this.panelDone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelDone.Controls.Add(this.flowLayoutDoneTasks);
             this.panelDone.Controls.Add(this.panel5);
             this.panelDone.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDone.Location = new System.Drawing.Point(1000, 46);
             this.panelDone.Name = "panelDone";
             this.panelDone.Size = new System.Drawing.Size(247, 602);
             this.panelDone.TabIndex = 13;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel5.Controls.Add(this.labelDone);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(245, 56);
+            this.panel5.TabIndex = 2;
             // 
             // labelDone
             // 
@@ -95,12 +111,23 @@ namespace TaskManager
             // panelWaiting
             // 
             this.panelWaiting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelWaiting.Controls.Add(this.flowLayoutWaitingTasks);
             this.panelWaiting.Controls.Add(this.panel4);
             this.panelWaiting.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelWaiting.Location = new System.Drawing.Point(750, 46);
             this.panelWaiting.Name = "panelWaiting";
             this.panelWaiting.Size = new System.Drawing.Size(250, 602);
             this.panelWaiting.TabIndex = 12;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel4.Controls.Add(this.labelWaiting);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(248, 56);
+            this.panel4.TabIndex = 2;
             // 
             // labelWaiting
             // 
@@ -115,12 +142,23 @@ namespace TaskManager
             // panelInProgress
             // 
             this.panelInProgress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelInProgress.Controls.Add(this.flowLayoutInProgressTasks);
             this.panelInProgress.Controls.Add(this.panel3);
             this.panelInProgress.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelInProgress.Location = new System.Drawing.Point(500, 46);
             this.panelInProgress.Name = "panelInProgress";
             this.panelInProgress.Size = new System.Drawing.Size(250, 602);
             this.panelInProgress.TabIndex = 11;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel3.Controls.Add(this.labelInProgress);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(248, 56);
+            this.panel3.TabIndex = 2;
             // 
             // labelInProgress
             // 
@@ -135,12 +173,23 @@ namespace TaskManager
             // panelBlocked
             // 
             this.panelBlocked.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBlocked.Controls.Add(this.flowLayoutBlockedTasks);
             this.panelBlocked.Controls.Add(this.panel2);
             this.panelBlocked.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelBlocked.Location = new System.Drawing.Point(250, 46);
             this.panelBlocked.Name = "panelBlocked";
             this.panelBlocked.Size = new System.Drawing.Size(250, 602);
             this.panelBlocked.TabIndex = 10;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel2.Controls.Add(this.labelBlocked);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(248, 56);
+            this.panel2.TabIndex = 2;
             // 
             // labelBlocked
             // 
@@ -155,22 +204,13 @@ namespace TaskManager
             // panelNew
             // 
             this.panelNew.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelNew.Controls.Add(this.flowLayoutNewTasks);
             this.panelNew.Controls.Add(this.panel1);
             this.panelNew.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelNew.Location = new System.Drawing.Point(0, 46);
             this.panelNew.Name = "panelNew";
             this.panelNew.Size = new System.Drawing.Size(250, 602);
             this.panelNew.TabIndex = 9;
-            // 
-            // labelNew
-            // 
-            this.labelNew.AutoSize = true;
-            this.labelNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelNew.Location = new System.Drawing.Point(85, 16);
-            this.labelNew.Name = "labelNew";
-            this.labelNew.Size = new System.Drawing.Size(51, 25);
-            this.labelNew.TabIndex = 0;
-            this.labelNew.Text = "New";
             // 
             // panel1
             // 
@@ -182,45 +222,15 @@ namespace TaskManager
             this.panel1.Size = new System.Drawing.Size(248, 56);
             this.panel1.TabIndex = 1;
             // 
-            // panel2
+            // labelNew
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel2.Controls.Add(this.labelBlocked);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(248, 56);
-            this.panel2.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel3.Controls.Add(this.labelInProgress);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(248, 56);
-            this.panel3.TabIndex = 2;
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel4.Controls.Add(this.labelWaiting);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(248, 56);
-            this.panel4.TabIndex = 2;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.panel5.Controls.Add(this.labelDone);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(245, 56);
-            this.panel5.TabIndex = 2;
+            this.labelNew.AutoSize = true;
+            this.labelNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelNew.Location = new System.Drawing.Point(85, 16);
+            this.labelNew.Name = "labelNew";
+            this.labelNew.Size = new System.Drawing.Size(51, 25);
+            this.labelNew.TabIndex = 0;
+            this.labelNew.Text = "New";
             // 
             // contextMenuStrip1
             // 
@@ -258,6 +268,7 @@ namespace TaskManager
             this.storyNewItem.Name = "storyNewItem";
             this.storyNewItem.Size = new System.Drawing.Size(180, 32);
             this.storyNewItem.Text = "Story";
+            this.storyNewItem.Click += new System.EventHandler(this.storyNewItem_Click);
             // 
             // taskNewItem
             // 
@@ -265,6 +276,7 @@ namespace TaskManager
             this.taskNewItem.Name = "taskNewItem";
             this.taskNewItem.Size = new System.Drawing.Size(180, 32);
             this.taskNewItem.Text = "Task";
+            this.taskNewItem.Click += new System.EventHandler(this.taskNewItem_Click);
             // 
             // bugNewtem
             // 
@@ -272,21 +284,7 @@ namespace TaskManager
             this.bugNewtem.Name = "bugNewtem";
             this.bugNewtem.Size = new System.Drawing.Size(180, 32);
             this.bugNewtem.Text = "Bug";
-            // 
-            // panelCmd
-            // 
-            this.panelCmd.BackColor = System.Drawing.Color.SkyBlue;
-            this.panelCmd.Controls.Add(this.menuStripNewItem);
-            this.panelCmd.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelCmd.Location = new System.Drawing.Point(0, 0);
-            this.panelCmd.Name = "panelCmd";
-            this.panelCmd.Size = new System.Drawing.Size(1247, 46);
-            this.panelCmd.TabIndex = 8;
-            // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            this.bugNewtem.Click += new System.EventHandler(this.bugNewtem_Click);
             // 
             // filterItem
             // 
@@ -305,22 +303,77 @@ namespace TaskManager
             // 
             this.storyFilterItem.BackColor = System.Drawing.Color.Lime;
             this.storyFilterItem.Name = "storyFilterItem";
-            this.storyFilterItem.Size = new System.Drawing.Size(180, 32);
+            this.storyFilterItem.Size = new System.Drawing.Size(130, 32);
             this.storyFilterItem.Text = "Story";
             // 
             // taskFilterItem
             // 
             this.taskFilterItem.BackColor = System.Drawing.Color.Aqua;
             this.taskFilterItem.Name = "taskFilterItem";
-            this.taskFilterItem.Size = new System.Drawing.Size(180, 32);
+            this.taskFilterItem.Size = new System.Drawing.Size(130, 32);
             this.taskFilterItem.Text = "Task";
             // 
             // bugFilterItem
             // 
             this.bugFilterItem.BackColor = System.Drawing.Color.Red;
             this.bugFilterItem.Name = "bugFilterItem";
-            this.bugFilterItem.Size = new System.Drawing.Size(180, 32);
+            this.bugFilterItem.Size = new System.Drawing.Size(130, 32);
             this.bugFilterItem.Text = "Bug";
+            // 
+            // panelCmd
+            // 
+            this.panelCmd.BackColor = System.Drawing.Color.SkyBlue;
+            this.panelCmd.Controls.Add(this.menuStripNewItem);
+            this.panelCmd.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCmd.Location = new System.Drawing.Point(0, 0);
+            this.panelCmd.Name = "panelCmd";
+            this.panelCmd.Size = new System.Drawing.Size(1247, 46);
+            this.panelCmd.TabIndex = 8;
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            // 
+            // flowLayoutNewTasks
+            // 
+            this.flowLayoutNewTasks.AutoScroll = true;
+            this.flowLayoutNewTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutNewTasks.Name = "flowLayoutNewTasks";
+            this.flowLayoutNewTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutNewTasks.TabIndex = 2;
+            // 
+            // flowLayoutBlockedTasks
+            // 
+            this.flowLayoutBlockedTasks.AutoScroll = true;
+            this.flowLayoutBlockedTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutBlockedTasks.Name = "flowLayoutBlockedTasks";
+            this.flowLayoutBlockedTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutBlockedTasks.TabIndex = 3;
+            // 
+            // flowLayoutInProgressTasks
+            // 
+            this.flowLayoutInProgressTasks.AutoScroll = true;
+            this.flowLayoutInProgressTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutInProgressTasks.Name = "flowLayoutInProgressTasks";
+            this.flowLayoutInProgressTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutInProgressTasks.TabIndex = 4;
+            // 
+            // flowLayoutWaitingTasks
+            // 
+            this.flowLayoutWaitingTasks.AutoScroll = true;
+            this.flowLayoutWaitingTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutWaitingTasks.Name = "flowLayoutWaitingTasks";
+            this.flowLayoutWaitingTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutWaitingTasks.TabIndex = 5;
+            // 
+            // flowLayoutDoneTasks
+            // 
+            this.flowLayoutDoneTasks.AutoScroll = true;
+            this.flowLayoutDoneTasks.Location = new System.Drawing.Point(20, 62);
+            this.flowLayoutDoneTasks.Name = "flowLayoutDoneTasks";
+            this.flowLayoutDoneTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutDoneTasks.TabIndex = 6;
             // 
             // toDosControll
             // 
@@ -335,20 +388,20 @@ namespace TaskManager
             this.Name = "toDosControll";
             this.Size = new System.Drawing.Size(1247, 648);
             this.panelDone.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panelWaiting.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.panelInProgress.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panelBlocked.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panelNew.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.menuStripNewItem.ResumeLayout(false);
             this.menuStripNewItem.PerformLayout();
             this.panelCmd.ResumeLayout(false);
@@ -368,16 +421,13 @@ namespace TaskManager
         private System.Windows.Forms.Panel panelBlocked;
         private System.Windows.Forms.Label labelBlocked;
         private System.Windows.Forms.Panel panelNew;
-        private System.Windows.Forms.Label labelNew;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.MenuStrip menuStripNewItem;
         private System.Windows.Forms.ToolStripMenuItem NewItem;
-        private System.Windows.Forms.ToolStripMenuItem storyNewItem;
         private System.Windows.Forms.ToolStripMenuItem taskNewItem;
         private System.Windows.Forms.ToolStripMenuItem bugNewtem;
         private System.Windows.Forms.Panel panelCmd;
@@ -386,5 +436,13 @@ namespace TaskManager
         private System.Windows.Forms.ToolStripMenuItem taskFilterItem;
         private System.Windows.Forms.ToolStripMenuItem bugFilterItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        public System.Windows.Forms.ToolStripMenuItem storyNewItem;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelNew;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutDoneTasks;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutWaitingTasks;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutInProgressTasks;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutBlockedTasks;
+        public System.Windows.Forms.FlowLayoutPanel flowLayoutNewTasks;
     }
 }
