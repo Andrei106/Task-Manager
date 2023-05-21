@@ -36,6 +36,10 @@
     <StartupObject>TaskManager.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DatabaseManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DatabaseManager\bin\Debug\DatabaseManager.dll</HintPath>
+    </Reference>
     <Reference Include="Bug">
       <HintPath>..\Bug\bin\Debug\Bug.dll</HintPath>
     </Reference>
@@ -56,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consts.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +74,12 @@
       <DependentUpon>HomeControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="UserControls\Login.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProjectControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -76,6 +87,12 @@
       <DependentUpon>ProjectControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserControls\Register.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Register.Designer.cs">
+      <DependentUpon>Register.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Task.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -100,6 +117,9 @@
     <EmbeddedResource Include="UserControls\HomeControl.resx">
       <DependentUpon>HomeControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ProjectControl.resx">
       <DependentUpon>ProjectControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +127,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Register.resx">
+      <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Task.resx">
       <DependentUpon>Task.cs</DependentUpon>
@@ -136,6 +159,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LoggingModule\LoggingModule.csproj">
+      <Project>{7db16604-618a-4f29-9007-511173b536f2}</Project>
+      <Name>LoggingModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Proxy\Login.csproj">
+      <Project>{2AC035EA-8B2B-488A-9C16-FE62B865ED76}</Project>
+      <Name>Login</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Feature\Feature.csproj">
       <Project>{1B3595FE-BCF2-41D0-A844-308281CA7741}</Project>
       <Name>Feature</Name>
@@ -149,6 +182,7 @@
     <Content Include="resources\imgs\filter.png" />
     <Content Include="resources\imgs\help.png" />
     <Content Include="resources\imgs\home.png" />
+    <Content Include="resources\imgs\logout.png" />
     <Content Include="resources\imgs\plus.png" />
     <Content Include="resources\imgs\project.png" />
     <Content Include="resources\imgs\to-dos.png" />
