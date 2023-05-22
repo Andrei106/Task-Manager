@@ -11,11 +11,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskManager.UserControls;
-
+using DatabaseManager;
 namespace TaskManager
 {
     public partial class FormMain : Form
     {
+        private DatabaseManager.DatabaseManager _databaseManager = DatabaseManager.DatabaseManager.Instance;
         private void SetControlLocationInMiddle(Control control)
         {
             int x = (this.Width - control.Width) / 2;
@@ -25,7 +26,11 @@ namespace TaskManager
 
         public FormMain()
         {
+           
             InitializeComponent();
+
+            //Initializare conectiune la baza de date(creare database si tabele)
+            _databaseManager.createConnection();
 
             // Initializare casuta si logica pentru logare
             LoginWindowInitialization();

@@ -9,7 +9,7 @@ namespace DatabaseManager
 {
     public class DatabaseManager
     {
-        private string _connectionString = @"Server=localhost;Port=5432;Database=taskmanager;User Id=postgres;Password=postgres;";
+        private string _connectionString = @"Server=localhost;Port=5432;User Id=postgres;Password=postgres;";
         private static readonly DatabaseManager _dbInstance = new DatabaseManager();
         static DatabaseManager()
         {
@@ -56,6 +56,7 @@ namespace DatabaseManager
                             cmd.CommandText = "CREATE DATABASE taskmanager;";
                             cmd.ExecuteNonQuery();
                             Console.WriteLine("Database created.");
+                            _connectionString += "Database = taskmanager;";
                         }
                     }
                 }
