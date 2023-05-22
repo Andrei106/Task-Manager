@@ -12,9 +12,9 @@ namespace FeatureFactory
     {
         public int _type;
 
-        TaskElement TaskFactory.TaskFactory.CreateTask(int id, string description, string title, int priorityOrSeverity, string purpose)
+        public TaskElement CreateTask(int id, string description, string title, int priorityOrSeverity, string status, string purpose = "")
         {
-            throw new NotImplementedException();
+            return new Elements.FeatureElement(id, description, title, priorityOrSeverity,status);
         }
     }
 }

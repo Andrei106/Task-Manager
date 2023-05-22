@@ -8,7 +8,7 @@ namespace Elements
     public class BugElement :Elements.TaskElement
     {
         private int _severity { get; set; }
-        public BugElement(int id,string title,string descripition,int severity):base(id,descripition,2,title)
+        public BugElement(int id,string title,string descripition,int severity,string status):base(id,descripition,2,title,status)
         {
             _severity = severity;
         }
@@ -23,6 +23,10 @@ namespace Elements
         public int GetSeverity()
         {
             return this._severity;
+        }
+        public void SetId(int id)
+        {
+            this._id = id;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace TaskFactory
 {
     public class TaskFactoryImpl : TaskFactory
     {
-        public TaskElement CreateTask(int id, string description, string title, int priorityOrSeverity, string purpose = "")
+        public TaskElement CreateTask(int id, string description, string title, int priorityOrSeverity, string status, string purpose = "")
         {
             throw new NotImplementedException();
         }
