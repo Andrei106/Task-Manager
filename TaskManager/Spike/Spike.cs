@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Spike
+namespace Elements
 {
-    public class Spike:TaskNamespace.Task
+    public class SpikeElement:Elements.TaskElement
     {
-        public string Purpose { get; set; }
-
-        public Spike(int id, string title, string description, string purpose) : base(id, description, 1, title)
+        private string _purpose { get; set; }
+        public SpikeElement(int id,string description,string title,string purpose):base(id,description,1,title)
         {
-            this.Purpose = purpose;
+            _purpose = purpose;
+        }
+        public string GetDescription()
+        {
+            return this._description;
+        }
+        public string GetTitle()
+        {
+            return this._title;
+        }
+        public string GetPurpose()
+        {
+            return this._purpose;
         }
     }
 }

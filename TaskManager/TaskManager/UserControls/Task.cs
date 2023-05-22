@@ -15,13 +15,13 @@ namespace TaskManager.UserControls
         private bool _isDragging = false;
         private int _oldX, _oldY;
         private Control _newPane, _blockedPane, _inProgressPane, _waitingPane, _donePane;
-        public Task(Feature.Feature feature, Control newPane, Control blockedPane, Control inProgressPane, Control waitingPane, Control donePane)
+        public Task(Elements.FeatureElement feature, Control newPane, Control blockedPane, Control inProgressPane, Control waitingPane, Control donePane)
         {
             InitializeComponent();
             this.labelTitle.Text = feature.GetTitle();
             this.labelTaskTitle.Text = "Feature";
             this.labelSpecificField.Text = "Priority";
-            this.labelSpecificFieldValue.Text = feature.Priority + "";
+            this.labelSpecificFieldValue.Text = feature.GetPriority() + "";
             this.textBoxDescription.Text = feature.GetDescription();
             this.labelTaskTitle.BackColor = Color.Lime;
             this._newPane = newPane;
@@ -31,13 +31,13 @@ namespace TaskManager.UserControls
             this._donePane = donePane;
         }
 
-        public Task(Spike.Spike spike, Control newPane, Control blockedPane, Control inProgressPane, Control waitingPane, Control donePane)
+        public Task(Elements.SpikeElement spike, Control newPane, Control blockedPane, Control inProgressPane, Control waitingPane, Control donePane)
         {
             InitializeComponent();
             this.labelTitle.Text = spike.GetTitle();
             this.labelTaskTitle.Text = "Spike";
             this.labelSpecificField.Text = "Purpose";
-            this.labelSpecificFieldValue.Text = spike.Purpose;
+            this.labelSpecificFieldValue.Text = spike.GetPurpose();
             this.textBoxDescription.Text = spike.GetDescription();
             this.labelTaskTitle.BackColor = Color.Aqua;
             this._newPane = newPane;
@@ -47,13 +47,13 @@ namespace TaskManager.UserControls
             this._donePane = donePane;
         }
 
-        public Task(Bug.Bug bug, Control newPane, Control blockedPane, Control inProgressPane, Control waitingPane, Control donePane)
+        public Task(Elements.BugElement bug, Control newPane, Control blockedPane, Control inProgressPane, Control waitingPane, Control donePane)
         {
             InitializeComponent();
             this.labelTitle.Text = bug.GetTitle();
             this.labelTaskTitle.Text = "Bug";
             this.labelSpecificField.Text = "Severity";
-            this.labelSpecificFieldValue.Text = bug.Severity + "";
+            this.labelSpecificFieldValue.Text = bug.GetSeverity() + "";
             this.textBoxDescription.Text = bug.GetDescription();
             this.labelTaskTitle.BackColor = Color.Red;
             this._newPane = newPane;

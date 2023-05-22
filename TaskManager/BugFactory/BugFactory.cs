@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task;
+using Elements;
 using TaskFactory;
-using Bug;
 namespace BugFactory
 {
     public class BugFactory:TaskFactory.TaskFactory
     {
         public int _type;
-        public Task.Task CreateTask() {
-            return new Bug.Bug();
+
+        TaskElement TaskFactory.TaskFactory.CreateTask(int id, string description, string title, int priorityOrSeverity, string purpose)
+        {
+            throw new NotImplementedException();
         }
     }
 }

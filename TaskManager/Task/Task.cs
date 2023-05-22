@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskNamespace
+namespace Elements
 {
-    public abstract class Task
+    public abstract class TaskElement
     {
         protected int _id;
         //protected State _currentState;
@@ -15,24 +15,13 @@ namespace TaskNamespace
         protected string _title { get; }
         // protected Button edit;
 
-        public Task(int id, string description, int type, string title)
+        public TaskElement(int id,string description,int type,string title)
         {
             this._id = id;
             this._description = description;
             this._type = type;
             this._title = title;
         }
-
-        public string GetTitle()
-        {
-            return _title;
-        }
-
-        public string GetDescription()
-        {
-            return _description;
-        }
-
         public void TaskComplete() { 
         
         }

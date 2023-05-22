@@ -26,7 +26,7 @@ namespace TaskManager
             int priority;
             Int32.TryParse(form.textBoxPriority.Text, out priority); 
             //TODO: use factory
-            flowLayoutNewTasks.Controls.Add(new UserControls.Task(new Feature.Feature(0, form.textBoxTitle.Text, form.textBoxDescription.Text, priority), 
+            flowLayoutNewTasks.Controls.Add(new UserControls.Task(new Elements.FeatureElement(0, form.textBoxTitle.Text, form.textBoxDescription.Text, priority), 
                 this.flowLayoutNewTasks, this.flowLayoutBlockedTasks, this.flowLayoutInProgressTasks, this.flowLayoutWaitingTasks, this.flowLayoutDoneTasks));
         }
 
@@ -36,7 +36,7 @@ namespace TaskManager
             DialogResult res = form.ShowDialog();
             Console.WriteLine(res);
 
-            flowLayoutNewTasks.Controls.Add(new UserControls.Task(new Spike.Spike(0, form.textBoxTitle.Text, form.textBoxDescription.Text, form.textBoxPurpose.Text),
+            flowLayoutNewTasks.Controls.Add(new UserControls.Task(new Elements.SpikeElement(0, form.textBoxTitle.Text, form.textBoxDescription.Text, form.textBoxPurpose.Text),
                 this.flowLayoutNewTasks, this.flowLayoutBlockedTasks, this.flowLayoutInProgressTasks, this.flowLayoutWaitingTasks, this.flowLayoutDoneTasks));
         }
 
@@ -49,7 +49,7 @@ namespace TaskManager
 
             Int32.TryParse(form.textBoxSeverity.Text, out severity);
             //TODO: use factory
-            flowLayoutNewTasks.Controls.Add(new UserControls.Task(new Bug.Bug(0, form.textBoxTitle.Text, form.textBoxDescription.Text, severity),
+            flowLayoutNewTasks.Controls.Add(new UserControls.Task(new Elements.BugElement(0, form.textBoxTitle.Text, form.textBoxDescription.Text, severity),
                 this.flowLayoutNewTasks, this.flowLayoutBlockedTasks, this.flowLayoutInProgressTasks, this.flowLayoutWaitingTasks, this.flowLayoutDoneTasks));
         }
     }

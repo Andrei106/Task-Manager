@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Feature
+namespace Elements
 {
-    public class Feature:TaskNamespace.Task
+    public class FeatureElement:Elements.TaskElement
     {
-        public int Priority { get; set; }
-
-        public Feature(int id, string title, string description, int priority): base(id, description, 0, title)
+        private int _priority { get; set; }
+        public FeatureElement(int id,string descpription,string title,int priority):base(id,descpription,0,title)
         {
-            this.Priority = priority;
+            _priority = priority;
+        }
+        public string GetDescription()
+        {
+            return this._description;
+        }
+        public string GetTitle()
+        {
+            return this._title;
+        }
+        public int GetPriority()
+        {
+            return this._priority;
         }
     }
 }

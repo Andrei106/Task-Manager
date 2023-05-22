@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace Bug
+namespace Elements
 {
-    public class Bug :TaskNamespace.Task
+    public class BugElement :Elements.TaskElement
     {
-        public int Severity { get; set; }
-
-        public Bug(int id, string title, string description, int severity) : base(id, description, 2, title)
+        private int _severity { get; set; }
+        public BugElement(int id,string title,string descripition,int severity):base(id,descripition,2,title)
         {
-            this.Severity = severity;
+            _severity = severity;
+        }
+        public string GetDescription()
+        {
+            return this._description;
+        }
+        public string GetTitle()
+        {
+            return this._title;
+        }
+        public int GetSeverity()
+        {
+            return this._severity;
         }
     }
 }
