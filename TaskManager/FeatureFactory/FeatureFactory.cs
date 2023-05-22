@@ -11,9 +11,9 @@ namespace FeatureFactory
     public class FeatureFactory:TaskFactory.TaskFactory
     {
         public int _type;
-        public Task.Task CreateTask()
+        public Task.Task CreateTask(int id, string description, string title, int priorityOrSeverity, string purpose = "")
         {
-            return new Feature.Feature();
+            return new Feature.Feature(id, description, title, priorityOrSeverity);
         }
     }
 }

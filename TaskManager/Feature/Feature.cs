@@ -8,6 +8,10 @@ namespace Feature
 {
     public class Feature:Task.Task
     {
-        private int _priority;
+        private int _priority { get; set; }
+        public Feature(int id,string descpription,string title,int priority):base(id,descpription,0,title)
+        {
+            _priority = priority;
+        }
     }
 }

@@ -11,8 +11,9 @@ namespace BugFactory
     public class BugFactory:TaskFactory.TaskFactory
     {
         public int _type;
-        public Task.Task CreateTask() {
-            return new Bug.Bug();
+        public Task.Task CreateTask(int id, string description, string title, int priorityOrSeverity, string purpose = "")
+        {
+            return new Bug.Bug(id, title, description, priorityOrSeverity);
         }
     }
 }
