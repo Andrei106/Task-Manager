@@ -46,7 +46,8 @@ namespace TaskManager.UserControls
             this.ControlBox = false;
             panelPurpose.Visible = false;
             panelSeverity.Visible = false;
-            
+
+            labelTitle.Text = "Edit task";
             buttonCreateNewTask.Text = "Save";
             buttonCancel.Text = "Delete";
             List<ComboboxUserEntry> entries = new List<ComboboxUserEntry>();
