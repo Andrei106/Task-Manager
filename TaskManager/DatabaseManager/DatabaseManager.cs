@@ -107,6 +107,7 @@ namespace DatabaseManager
                         var result = cmd.ExecuteScalar();
                         if (result == null)
                         {
+                            // TODO: add boardId
                             cmd.CommandText = "CREATE TABLE task (id SERIAL PRIMARY KEY, type VARCHAR(16), title VARCHAR(128), description VARCHAR(128),status VARCHAR(32), priority INTEGER, SEVERITY INTEGER, purpose VARCHAR(64), currentAsigneeId INTEGER, reporterId INTEGER NOT NULL)";
                             cmd.ExecuteNonQuery();
                         }
@@ -222,6 +223,7 @@ namespace DatabaseManager
                     {
                         //Inserare in baza de date
                         cmd.Connection = conn;
+                        // TODO: populate boardId
                         cmd.CommandText = "INSERT INTO task (type,title,description,status,priority,reporterId) VALUES ('FEATURE', @title, @description, 'TO_DO', @priority, @reporterId) RETURNING id";
                         cmd.Parameters.AddWithValue("title", task.GetTitle());
                         cmd.Parameters.AddWithValue("description", task.GetDescription());
@@ -255,6 +257,7 @@ namespace DatabaseManager
                     {
                         //Inserare in baza de date
                         cmd.Connection = conn;
+                        // TODO: populate boardId
                         cmd.CommandText = "INSERT INTO task (type,title,description,status,purpose,reporterId) VALUES ('SPIKE', @title, @description, 'TO_DO', @purpose,@reporterId) RETURNING id";
                         cmd.Parameters.AddWithValue("title", task.GetTitle());
                         cmd.Parameters.AddWithValue("description", task.GetDescription());
@@ -288,6 +291,7 @@ namespace DatabaseManager
                     {
                         //Inserare in baza de date
                         cmd.Connection = conn;
+                        // TODO: populate boardId
                         cmd.CommandText = "INSERT INTO task (type,title,description,status,severity,reporterId) VALUES ('BUG', @title, @description, 'TO_DO', @severity,@reporterId) RETURNING id";
                         cmd.Parameters.AddWithValue("title", task.GetTitle());
                         cmd.Parameters.AddWithValue("description", task.GetDescription());
@@ -310,7 +314,7 @@ namespace DatabaseManager
             }
             return true;
         }
-        private Member.Member fetchUserById(int id)
+        private Member.Member FetchUserById(int id)
         {
             try
             {
@@ -335,7 +339,7 @@ namespace DatabaseManager
             }
             return null;
         }
-        public List<Member.Member> fetchUsers()
+        public List<Member.Member> FetchUsers()
         {
             List<Member.Member> users = new List<Member.Member>();
             try
@@ -391,7 +395,7 @@ namespace DatabaseManager
                                 row.Add("reporter", userCache[(int)reader["reporterId"]]);
                             } else
                             {
-                                Member.Member reporter = fetchUserById((int)reader["reporterId"]);
+                                Member.Member reporter = FetchUserById((int)reader["reporterId"]);
                                 row.Add("reporter", reporter);
                                 userCache.Add((int)reader["reporterId"], reporter);
                             }
@@ -403,7 +407,7 @@ namespace DatabaseManager
                                 }
                                 else
                                 {
-                                    Member.Member asignee = fetchUserById((int)reader["currentAsigneeId"]);
+                                    Member.Member asignee = FetchUserById((int)reader["currentAsigneeId"]);
                                     row.Add("asignee", asignee);
                                     userCache.Add((int)reader["currentAsigneeId"], asignee);
                                 }

@@ -77,7 +77,7 @@ namespace TaskManager.UserControls
 
         private void buttonEditTask_Click(object sender, EventArgs e)
         {
-            TaskDialogForm editform = new TaskDialogForm(_task, DatabaseManager.DatabaseManager.Instance.fetchUsers());
+            TaskDialogForm editform = new TaskDialogForm(_task, DatabaseManager.DatabaseManager.Instance.FetchUsers());
             if (editform.ShowDialog() == DialogResult.OK)
             {
                 if (editform.comboBoxUsers.SelectedItem != null)
