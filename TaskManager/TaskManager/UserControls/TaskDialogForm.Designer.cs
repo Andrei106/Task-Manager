@@ -75,39 +75,45 @@ namespace TaskManager.UserControls
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.Location = new System.Drawing.Point(14, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 13);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "Title";
             // 
             // buttonCreateNewTask
             // 
-            this.buttonCreateNewTask.Location = new System.Drawing.Point(120, 16);
+            this.buttonCreateNewTask.BackColor = System.Drawing.Color.Chartreuse;
+            this.buttonCreateNewTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonCreateNewTask.Location = new System.Drawing.Point(120, 3);
             this.buttonCreateNewTask.Name = "buttonCreateNewTask";
-            this.buttonCreateNewTask.Size = new System.Drawing.Size(75, 23);
+            this.buttonCreateNewTask.Size = new System.Drawing.Size(75, 36);
             this.buttonCreateNewTask.TabIndex = 6;
             this.buttonCreateNewTask.Text = "Create";
-            this.buttonCreateNewTask.UseVisualStyleBackColor = true;
+            this.buttonCreateNewTask.UseVisualStyleBackColor = false;
             this.buttonCreateNewTask.Click += new System.EventHandler(this.buttonCreateNewTask_Click);
             // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
-            this.labelTitle.Location = new System.Drawing.Point(203, 9);
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTitle.Location = new System.Drawing.Point(177, 23);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(84, 13);
+            this.labelTitle.Size = new System.Drawing.Size(158, 24);
             this.labelTitle.TabIndex = 5;
             this.labelTitle.Text = "Create new task";
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(17, 16);
+            this.buttonCancel.BackColor = System.Drawing.Color.Tomato;
+            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonCancel.Location = new System.Drawing.Point(17, 3);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(75, 36);
             this.buttonCancel.TabIndex = 10;
             this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // flowLayoutPanel1
@@ -118,7 +124,7 @@ namespace TaskManager.UserControls
             this.flowLayoutPanel1.Controls.Add(this.panelSeverity);
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(124, 25);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(137, 63);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(232, 413);
             this.flowLayoutPanel1.TabIndex = 11;
@@ -152,9 +158,10 @@ namespace TaskManager.UserControls
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.Location = new System.Drawing.Point(14, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Priority";
             // 
@@ -178,9 +185,10 @@ namespace TaskManager.UserControls
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label4.Location = new System.Drawing.Point(14, 7);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Purpose";
             // 
@@ -204,9 +212,10 @@ namespace TaskManager.UserControls
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label5.Location = new System.Drawing.Point(14, 7);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 7;
             this.label5.Text = "Severity";
             // 
@@ -232,9 +241,10 @@ namespace TaskManager.UserControls
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.Location = new System.Drawing.Point(14, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Description";
             // 
@@ -253,7 +263,7 @@ namespace TaskManager.UserControls
             this.panelAuditFields.Controls.Add(this.label7);
             this.panelAuditFields.Controls.Add(this.labelReporterUsername);
             this.panelAuditFields.Controls.Add(this.label6);
-            this.panelAuditFields.Location = new System.Drawing.Point(374, 150);
+            this.panelAuditFields.Location = new System.Drawing.Point(387, 188);
             this.panelAuditFields.Name = "panelAuditFields";
             this.panelAuditFields.Size = new System.Drawing.Size(160, 100);
             this.panelAuditFields.TabIndex = 12;
@@ -269,9 +279,10 @@ namespace TaskManager.UserControls
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label7.Location = new System.Drawing.Point(11, 24);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(45, 13);
+            this.label7.Size = new System.Drawing.Size(52, 13);
             this.label7.TabIndex = 2;
             this.label7.Text = "Asignee";
             // 
@@ -287,9 +298,10 @@ namespace TaskManager.UserControls
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label6.Location = new System.Drawing.Point(9, 7);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.Size = new System.Drawing.Size(60, 13);
             this.label6.TabIndex = 0;
             this.label6.Text = "Reporter:";
             // 
@@ -297,10 +309,12 @@ namespace TaskManager.UserControls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 450);
+            this.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.ClientSize = new System.Drawing.Size(546, 500);
             this.Controls.Add(this.panelAuditFields);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.labelTitle);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "TaskDialogForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

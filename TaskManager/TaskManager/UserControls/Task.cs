@@ -45,34 +45,42 @@ namespace TaskManager.UserControls
         {
             this.labelTitle.Text = feature.GetTitle();
             this.labelTaskTitle.Text = "Feature";
-            this.labelSpecificField.Text = "Priority";
+            this.labelTaskTitle.Font = new Font(this.labelTaskTitle.Font.FontFamily, 12.0F, FontStyle.Bold | FontStyle.Italic);
+            this.labelSpecificField.Text = "Priority"; 
+            this.labelSpecificField.Font = new Font(this.labelSpecificField.Font.FontFamily, 8.0F, FontStyle.Bold);
             this.labelSpecificFieldValue.Text = feature.GetPriority() + "";
             this.textBoxDescription.Text = feature.GetDescription();
             this.labelTaskTitle.BackColor = Color.Lime;
             this.labelAsigneeUsername.Text = feature.CurrentAsignee != null ? feature.CurrentAsignee.Nickname : "Unassigned";
+            this.BackColor = Color.Lime;
         }
 
         private void InitSpike(Elements.SpikeElement spike)
         {
             this.labelTitle.Text = spike.GetTitle();
             this.labelTaskTitle.Text = "Spike";
+            this.labelTaskTitle.Font = new Font(this.labelTaskTitle.Font.FontFamily,12.0F,FontStyle.Bold | FontStyle.Italic);
             this.labelSpecificField.Text = "Purpose";
+            this.labelSpecificField.Font = new Font(this.labelSpecificField.Font.FontFamily, 8.0F, FontStyle.Bold);
             this.labelSpecificFieldValue.Text = spike.GetPurpose();
             this.textBoxDescription.Text = spike.GetDescription();
             this.labelTaskTitle.BackColor = Color.Aqua;
             this.labelAsigneeUsername.Text = spike.CurrentAsignee != null ? spike.CurrentAsignee.Nickname : "Unassigned";
-
+            this.BackColor = Color.Aqua;
         }
 
         private void InitBug(Elements.BugElement bug)
         {
             this.labelTitle.Text = bug.GetTitle();
             this.labelTaskTitle.Text = "Bug";
+            this.labelTaskTitle.Font = new Font(this.labelTaskTitle.Font.FontFamily, 12.0F, FontStyle.Bold | FontStyle.Italic);
             this.labelSpecificField.Text = "Severity";
+            this.labelSpecificField.Font = new Font(this.labelSpecificField.Font.FontFamily, 8.0F, FontStyle.Bold);
             this.labelSpecificFieldValue.Text = bug.GetSeverity() + "";
             this.textBoxDescription.Text = bug.GetDescription();
-            this.labelTaskTitle.BackColor = Color.Red;
+            this.labelTaskTitle.BackColor = Color.Tomato;
             this.labelAsigneeUsername.Text = bug.CurrentAsignee != null ? bug.CurrentAsignee.Nickname : "Unassigned";
+            this.BackColor = Color.Tomato;
         }
 
         private void buttonEditTask_Click(object sender, EventArgs e)

@@ -20,7 +20,7 @@ namespace TaskManager
         private void SetControlLocationInMiddle(Control control)
         {
             int x = (this.Width - control.Width) / 2;
-            int y = (this.Height - control.Height) / 2;
+            int y = (this.Height - control.Height) / 2 - 50;
             control.Location = new Point(x, y);
         }
 
