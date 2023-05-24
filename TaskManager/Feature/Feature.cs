@@ -24,6 +24,10 @@ namespace Elements
         {
             return this._priority;
         }
+        public void SetPriority(int priority)
+        {
+            this._priority = priority;
+        }
         public void SetId(int id)
         {
             this._id = id;

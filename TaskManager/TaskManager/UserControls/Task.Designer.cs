@@ -33,13 +33,16 @@ namespace TaskManager.UserControls
             this.panelPriority = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelTaskTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelSpecificFieldValue = new System.Windows.Forms.Label();
             this.labelSpecificField = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelTaskTitle = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelAsigneeUsername = new System.Windows.Forms.Label();
+            this.buttonEditTask = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.panelPriority.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -83,15 +86,6 @@ namespace TaskManager.UserControls
             this.label1.TabIndex = 0;
             this.label1.Text = "Title";
             // 
-            // labelTaskTitle
-            // 
-            this.labelTaskTitle.AutoSize = true;
-            this.labelTaskTitle.Location = new System.Drawing.Point(71, 2);
-            this.labelTaskTitle.Name = "labelTaskTitle";
-            this.labelTaskTitle.Size = new System.Drawing.Size(35, 13);
-            this.labelTaskTitle.TabIndex = 4;
-            this.labelTaskTitle.Text = "label1";
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.labelSpecificFieldValue);
@@ -127,15 +121,6 @@ namespace TaskManager.UserControls
             this.panel2.Size = new System.Drawing.Size(161, 70);
             this.panel2.TabIndex = 2;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Description";
-            // 
             // textBoxDescription
             // 
             this.textBoxDescription.Location = new System.Drawing.Point(7, 21);
@@ -145,15 +130,64 @@ namespace TaskManager.UserControls
             this.textBoxDescription.Size = new System.Drawing.Size(142, 46);
             this.textBoxDescription.TabIndex = 1;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Description";
+            // 
+            // labelTaskTitle
+            // 
+            this.labelTaskTitle.AutoSize = true;
+            this.labelTaskTitle.Location = new System.Drawing.Point(71, 2);
+            this.labelTaskTitle.Name = "labelTaskTitle";
+            this.labelTaskTitle.Size = new System.Drawing.Size(35, 13);
+            this.labelTaskTitle.TabIndex = 4;
+            this.labelTaskTitle.Text = "label1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Asignee:";
+            // 
+            // labelAsigneeUsername
+            // 
+            this.labelAsigneeUsername.AutoSize = true;
+            this.labelAsigneeUsername.Location = new System.Drawing.Point(49, 14);
+            this.labelAsigneeUsername.Name = "labelAsigneeUsername";
+            this.labelAsigneeUsername.Size = new System.Drawing.Size(35, 13);
+            this.labelAsigneeUsername.TabIndex = 7;
+            this.labelAsigneeUsername.Text = "label4";
+            // 
+            // buttonEditTask
+            // 
+            this.buttonEditTask.Location = new System.Drawing.Point(48, 208);
+            this.buttonEditTask.Name = "buttonEditTask";
+            this.buttonEditTask.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditTask.TabIndex = 8;
+            this.buttonEditTask.Text = "Edit";
+            this.buttonEditTask.UseVisualStyleBackColor = true;
+            this.buttonEditTask.Click += new System.EventHandler(this.buttonEditTask_Click);
+            // 
             // Task
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.buttonEditTask);
+            this.Controls.Add(this.labelAsigneeUsername);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.labelTaskTitle);
             this.Name = "Task";
-            this.Size = new System.Drawing.Size(188, 220);
+            this.Size = new System.Drawing.Size(189, 234);
             this.Load += new System.EventHandler(this.Task_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Task_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Task_MouseMove);
@@ -183,5 +217,8 @@ namespace TaskManager.UserControls
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelAsigneeUsername;
+        public System.Windows.Forms.Button buttonEditTask;
     }
 }

@@ -36,14 +36,20 @@ namespace TaskManager
                 {
                     case "FEATURE":
                         Elements.FeatureElement feature = (Elements.FeatureElement)_featureFactory.CreateTask((int)entry["id"], (string)entry["description"], (string)entry["title"], (int)entry["priority"], (string)entry["status"]);
+                        feature.CurrentAsignee = entry["asignee"] != null ? (Member.Member)entry["asignee"] : null;
+                        feature.Reporter = entry["reporter"] != null ? (Member.Member)entry["reporter"] : null;
                         AddTaskToColumn(feature);
                         break;
                     case "SPIKE":
                         Elements.SpikeElement spike = (Elements.SpikeElement)_spikeFactory.CreateTask((int)entry["id"], (string)entry["description"], (string)entry["title"], 0, (string)entry["status"], (string)entry["purpose"]);
+                        spike.CurrentAsignee = entry["asignee"] != null ? (Member.Member)entry["asignee"] : null;
+                        spike.Reporter = entry["reporter"] != null ? (Member.Member)entry["reporter"] : null;
                         AddTaskToColumn(spike);
                         break;
                     case "BUG":
                         Elements.BugElement bug = (Elements.BugElement)_bugFactory.CreateTask((int)entry["id"], (string)entry["description"], (string)entry["title"], (int)entry["severity"], (string)entry["status"]);
+                        bug.CurrentAsignee = entry["asignee"] != null ? (Member.Member)entry["asignee"] : null;
+                        bug.Reporter = entry["reporter"] != null ? (Member.Member)entry["reporter"] : null;
                         AddTaskToColumn(bug);
                         break;
                 }

@@ -24,6 +24,10 @@ namespace Elements
         {
             return this._severity;
         }
+        public void SetSeverity(int severity)
+        {
+            this._severity = severity;
+        }
         public void SetId(int id)
         {
             this._id = id;

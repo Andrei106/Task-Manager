@@ -36,7 +36,69 @@ namespace TaskManager.UserControls
                     panelPurpose.Visible = false;
                     break;
             }
+            panelAuditFields.Visible = false;
             buttonCreateNewTask.Enabled = false;
+        }
+
+        public TaskDialogForm(Elements.TaskElement task, List<Member.Member> users)
+        {
+            InitializeComponent();
+            this.ControlBox = false;
+            panelPurpose.Visible = false;
+            panelSeverity.Visible = false;
+            
+            buttonCreateNewTask.Text = "Save";
+            buttonCancel.Text = "Delete";
+            List<ComboboxUserEntry> entries = new List<ComboboxUserEntry>();
+            foreach (var user in users)
+            {
+                entries.Add(new ComboboxUserEntry(user.Nickname, user));
+            }
+            comboBoxUsers.DataSource = entries;
+            if (task.CurrentAsignee != null)
+            {
+                comboBoxUsers.SelectedItem = task.CurrentAsignee;
+            }
+            else
+            {
+                comboBoxUsers.SelectedIndex = -1;
+            }
+            if (task is Elements.FeatureElement)
+            {
+                InitEditForm((Elements.FeatureElement)task);
+            }
+            else if (task is Elements.SpikeElement)
+            {
+                InitEditForm((Elements.SpikeElement)task);
+            }
+            else
+            {
+                InitEditForm((Elements.BugElement)task);
+            }
+        }
+
+        private void InitEditForm(Elements.FeatureElement feature)
+        {
+            textBoxTitle.Text = feature.GetTitle();
+            textBoxDescription.Text = feature.GetDescription();
+            textBoxPriority.Text = feature.GetPriority() + "";
+            labelReporterUsername.Text = feature.Reporter.Nickname;
+        }
+
+        private void InitEditForm(Elements.SpikeElement feature)
+        {
+            textBoxTitle.Text = feature.GetTitle();
+            textBoxDescription.Text = feature.GetDescription();
+            textBoxPriority.Text = feature.GetPurpose();
+            labelReporterUsername.Text = feature.Reporter.Nickname;
+        }
+
+        private void InitEditForm(Elements.BugElement feature)
+        {
+            textBoxTitle.Text = feature.GetTitle();
+            textBoxDescription.Text = feature.GetDescription();
+            textBoxPriority.Text = feature.GetSeverity() + "";
+            labelReporterUsername.Text = feature.Reporter.Nickname;
         }
 
         private void buttonCreateNewTask_Click(object sender, EventArgs e)
@@ -54,6 +116,23 @@ namespace TaskManager.UserControls
         {
             buttonCreateNewTask.Enabled = textBoxTitle.Text.Length > 0 && textBoxDescription.Text.Length > 0
                 && ((_type == 0 && textBoxPriority.Text.Length > 0) || (_type == 1 && textBoxPurpose.Text.Length > 0) || (_type == 2 && textBoxSeverity.Text.Length > 0));
+        }
+    }
+
+    class ComboboxUserEntry
+    {
+        public string Text { get; set; }
+        public Member.Member Value { get; set; }
+
+        public ComboboxUserEntry(string text, Member.Member value)
+        {
+            Text = text;
+            Value = value;
+        }
+
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

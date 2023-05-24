@@ -24,6 +24,10 @@ namespace Elements
         {
             return this._purpose;
         }
+        public void SetPurpose(string purpose)
+        {
+            this._purpose = purpose;
+        }
         public void SetId(int id)
         {
             this._id = id;

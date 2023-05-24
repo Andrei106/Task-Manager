@@ -49,6 +49,11 @@ namespace TaskManager.UserControls
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelAuditFields = new System.Windows.Forms.Panel();
+            this.comboBoxUsers = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.labelReporterUsername = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.panelTitle.SuspendLayout();
             this.panelPriority.SuspendLayout();
@@ -56,6 +61,7 @@ namespace TaskManager.UserControls
             this.panelSeverity.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panelAuditFields.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxTitle
@@ -241,11 +247,58 @@ namespace TaskManager.UserControls
             this.panel1.Size = new System.Drawing.Size(225, 42);
             this.panel1.TabIndex = 15;
             // 
+            // panelAuditFields
+            // 
+            this.panelAuditFields.Controls.Add(this.comboBoxUsers);
+            this.panelAuditFields.Controls.Add(this.label7);
+            this.panelAuditFields.Controls.Add(this.labelReporterUsername);
+            this.panelAuditFields.Controls.Add(this.label6);
+            this.panelAuditFields.Location = new System.Drawing.Point(374, 150);
+            this.panelAuditFields.Name = "panelAuditFields";
+            this.panelAuditFields.Size = new System.Drawing.Size(160, 100);
+            this.panelAuditFields.TabIndex = 12;
+            // 
+            // comboBoxUsers
+            // 
+            this.comboBoxUsers.FormattingEnabled = true;
+            this.comboBoxUsers.Location = new System.Drawing.Point(13, 41);
+            this.comboBoxUsers.Name = "comboBoxUsers";
+            this.comboBoxUsers.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxUsers.TabIndex = 3;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 24);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Asignee";
+            // 
+            // labelReporterUsername
+            // 
+            this.labelReporterUsername.AutoSize = true;
+            this.labelReporterUsername.Location = new System.Drawing.Point(61, 7);
+            this.labelReporterUsername.Name = "labelReporterUsername";
+            this.labelReporterUsername.Size = new System.Drawing.Size(35, 13);
+            this.labelReporterUsername.TabIndex = 1;
+            this.labelReporterUsername.Text = "label7";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Reporter:";
+            // 
             // TaskDialogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(546, 450);
+            this.Controls.Add(this.panelAuditFields);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.labelTitle);
             this.Name = "TaskDialogForm";
@@ -264,6 +317,8 @@ namespace TaskManager.UserControls
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panelAuditFields.ResumeLayout(false);
+            this.panelAuditFields.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,5 +345,10 @@ namespace TaskManager.UserControls
         public System.Windows.Forms.TextBox textBoxPurpose;
         public System.Windows.Forms.TextBox textBoxSeverity;
         public System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.Panel panelAuditFields;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelReporterUsername;
+        private System.Windows.Forms.Label label6;
+        public System.Windows.Forms.ComboBox comboBoxUsers;
     }
 }

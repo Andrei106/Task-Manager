@@ -23,16 +23,17 @@ namespace TaskManager.UserControls
             this._task = task;
             if (task is Elements.FeatureElement)
             {
-                initFeature((Elements.FeatureElement)task);
+                InitFeature((Elements.FeatureElement)task);
             } 
             else if (task is Elements.SpikeElement)
             {
-                initSpike((Elements.SpikeElement)task);
+                InitSpike((Elements.SpikeElement)task);
             } 
             else
             {
-                initBug((Elements.BugElement)task);
+                InitBug((Elements.BugElement)task);
             }
+            this.labelAsigneeUsername.Text = task.CurrentAsignee != null ? task.CurrentAsignee.Nickname : "Unassigned";
             this._newPane = newPane;
             this._blockedPane = blockedPane;
             this._inProgressPane = inProgressPane;
@@ -40,7 +41,7 @@ namespace TaskManager.UserControls
             this._donePane = donePane;
         }
 
-        private void initFeature(Elements.FeatureElement feature)
+        private void InitFeature(Elements.FeatureElement feature)
         {
             this.labelTitle.Text = feature.GetTitle();
             this.labelTaskTitle.Text = "Feature";
@@ -48,9 +49,10 @@ namespace TaskManager.UserControls
             this.labelSpecificFieldValue.Text = feature.GetPriority() + "";
             this.textBoxDescription.Text = feature.GetDescription();
             this.labelTaskTitle.BackColor = Color.Lime;
+            this.labelAsigneeUsername.Text = feature.CurrentAsignee != null ? feature.CurrentAsignee.Nickname : "Unassigned";
         }
 
-        private void initSpike(Elements.SpikeElement spike)
+        private void InitSpike(Elements.SpikeElement spike)
         {
             this.labelTitle.Text = spike.GetTitle();
             this.labelTaskTitle.Text = "Spike";
@@ -58,9 +60,11 @@ namespace TaskManager.UserControls
             this.labelSpecificFieldValue.Text = spike.GetPurpose();
             this.textBoxDescription.Text = spike.GetDescription();
             this.labelTaskTitle.BackColor = Color.Aqua;
+            this.labelAsigneeUsername.Text = spike.CurrentAsignee != null ? spike.CurrentAsignee.Nickname : "Unassigned";
+
         }
 
-        private void initBug(Elements.BugElement bug)
+        private void InitBug(Elements.BugElement bug)
         {
             this.labelTitle.Text = bug.GetTitle();
             this.labelTaskTitle.Text = "Bug";
@@ -68,6 +72,59 @@ namespace TaskManager.UserControls
             this.labelSpecificFieldValue.Text = bug.GetSeverity() + "";
             this.textBoxDescription.Text = bug.GetDescription();
             this.labelTaskTitle.BackColor = Color.Red;
+            this.labelAsigneeUsername.Text = bug.CurrentAsignee != null ? bug.CurrentAsignee.Nickname : "Unassigned";
+        }
+
+        private void buttonEditTask_Click(object sender, EventArgs e)
+        {
+            TaskDialogForm editform = new TaskDialogForm(_task, DatabaseManager.DatabaseManager.Instance.fetchUsers());
+            if (editform.ShowDialog() == DialogResult.OK)
+            {
+                if (editform.comboBoxUsers.SelectedItem != null)
+                {
+                    _task.CurrentAsignee = (Member.Member)(editform.comboBoxUsers.SelectedItem as dynamic).Value;
+                }
+                else
+                {
+                    _task.CurrentAsignee = null;
+                }
+                _task.Title = editform.textBoxTitle.Text;
+                _task.Description = editform.textBoxDescription.Text;
+                if (_task is Elements.FeatureElement)
+                {
+                    Elements.FeatureElement feature = (Elements.FeatureElement)_task;
+                    int priority;
+                    Int32.TryParse(editform.textBoxPriority.Text, out priority);
+                    feature.SetPriority(priority);
+                    DatabaseManager.DatabaseManager.Instance.UpdateTask(feature);
+                    InitFeature(feature);
+                }
+                else if (_task is Elements.SpikeElement)
+                {
+                    Elements.SpikeElement spike = (Elements.SpikeElement)_task;
+                    spike.SetPurpose(editform.textBoxPurpose.Text);
+                    DatabaseManager.DatabaseManager.Instance.UpdateTask(spike);
+                    InitSpike(spike);
+                }
+                else
+                {
+                    Elements.BugElement bug = (Elements.BugElement)_task;
+                    int severity;
+                    Int32.TryParse(editform.textBoxPriority.Text, out severity);
+                    bug.SetSeverity(severity);
+                    DatabaseManager.DatabaseManager.Instance.UpdateTask(bug);
+                    InitBug(bug);
+                }
+                return;
+            }
+            else
+            {
+                if (DatabaseManager.DatabaseManager.Instance.DeleteTask(_task.GetId()))
+                {
+                    this.Dispose();
+                }
+            }
+
         }
 
         private void Task_Load(object sender, EventArgs e)
@@ -96,7 +153,7 @@ namespace TaskManager.UserControls
         private void Task_MouseUp(object sender, MouseEventArgs e)
         {
             _isDragging = false;
-            if (Cursor.Position.X < 560)
+            if (Cursor.Position.X < 630)
             {
                 this.Parent = this._newPane;
                 this._task.SetStatus("TO_DO");

@@ -171,6 +171,10 @@
       <Project>{7db16604-618a-4f29-9007-511173b536f2}</Project>
       <Name>LoggingModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Member\Member.csproj">
+      <Project>{B31CB141-0B0C-424C-9709-F36E858B01E7}</Project>
+      <Name>Member</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Proxy\Login.csproj">
       <Project>{2AC035EA-8B2B-488A-9C16-FE62B865ED76}</Project>
       <Name>Login</Name>

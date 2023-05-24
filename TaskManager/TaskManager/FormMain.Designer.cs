@@ -38,8 +38,8 @@ namespace TaskManager
             this.panelLogo = new System.Windows.Forms.Panel();
             this.labelApp = new System.Windows.Forms.Label();
             this.panelTitle = new System.Windows.Forms.Panel();
-            this.labelCurrent = new System.Windows.Forms.Label();
             this.buttonLogout = new System.Windows.Forms.Button();
+            this.labelCurrent = new System.Windows.Forms.Label();
             this.register1 = new TaskManager.UserControls.Register();
             this.login1 = new TaskManager.UserControls.Login();
             this.toDosCtrl = new TaskManager.toDosControll();
@@ -172,17 +172,6 @@ namespace TaskManager
             this.panelTitle.Size = new System.Drawing.Size(1240, 70);
             this.panelTitle.TabIndex = 1;
             // 
-            // labelCurrent
-            // 
-            this.labelCurrent.AutoSize = true;
-            this.labelCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelCurrent.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.labelCurrent.Location = new System.Drawing.Point(31, 21);
-            this.labelCurrent.Name = "labelCurrent";
-            this.labelCurrent.Size = new System.Drawing.Size(108, 39);
-            this.labelCurrent.TabIndex = 0;
-            this.labelCurrent.Text = "Home";
-            // 
             // buttonLogout
             // 
             this.buttonLogout.BackColor = System.Drawing.Color.SlateGray;
@@ -197,9 +186,19 @@ namespace TaskManager
             this.buttonLogout.UseVisualStyleBackColor = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
+            // labelCurrent
+            // 
+            this.labelCurrent.AutoSize = true;
+            this.labelCurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelCurrent.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.labelCurrent.Location = new System.Drawing.Point(31, 21);
+            this.labelCurrent.Name = "labelCurrent";
+            this.labelCurrent.Size = new System.Drawing.Size(108, 39);
+            this.labelCurrent.TabIndex = 0;
+            this.labelCurrent.Text = "Home";
+            // 
             // register1
             // 
-           // this.register1.ConnectAction = null;
             this.register1.ConnectActionBack = null;
             this.register1.Location = new System.Drawing.Point(844, 101);
             this.register1.Name = "register1";
