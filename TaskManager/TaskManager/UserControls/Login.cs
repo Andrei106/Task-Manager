@@ -15,7 +15,7 @@ namespace TaskManager.UserControls
         public Login()
         {
             InitializeComponent();
-
+            this.BackColor = Color.FromArgb(200, Color.Transparent);
             passwordBox.UseSystemPasswordChar = true;
         }
 
@@ -46,7 +46,5 @@ namespace TaskManager.UserControls
         {
             passwordBox.Text=text;
         }
-
-
     }
 }

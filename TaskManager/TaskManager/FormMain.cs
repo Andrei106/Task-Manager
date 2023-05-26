@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskManager.UserControls;
 using DatabaseManager;
+using TaskManager.Properties;
+using System.Resources;
+
 namespace TaskManager
 {
     public partial class FormMain : Form
@@ -26,9 +29,11 @@ namespace TaskManager
 
         public FormMain()
         {
-           
-            InitializeComponent();
+            this.BackgroundImage = TaskManager.Properties.Resources.logIn_img;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
 
+            InitializeComponent();
+            //this.BackgroundImage = Image.FromFile()
             //Initializare conectiune la baza de date(creare database si tabele)
             //_databaseManager.createConnection();
 
@@ -134,7 +139,7 @@ namespace TaskManager
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-               homeCtrl.Show();
+            homeCtrl.Show();
             projectCtrl.Hide();
             toDosCtrl.Hide();
             labelCurrent.Text = "Home";
@@ -167,6 +172,7 @@ namespace TaskManager
         private void btnHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Help", "Help");
+            //Help.ShowHelp(this, "A4TaskHelp.chm");
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)

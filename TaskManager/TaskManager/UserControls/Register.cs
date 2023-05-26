@@ -19,6 +19,7 @@ namespace TaskManager.UserControls
         public Register()
         {
             InitializeComponent();
+            this.BackColor = Color.FromArgb(200, Color.Transparent);
             textBoxRegisterPassword.UseSystemPasswordChar = true;
             textBoxRegisterConfirmPassword.UseSystemPasswordChar = true;
         }

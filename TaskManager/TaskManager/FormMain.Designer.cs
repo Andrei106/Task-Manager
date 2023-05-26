@@ -1,5 +1,4 @@
-﻿
-namespace TaskManager
+﻿namespace TaskManager
 {
     partial class FormMain
     {
@@ -30,6 +29,7 @@ namespace TaskManager
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnHelp = new System.Windows.Forms.Button();
             this.btnToDos = new System.Windows.Forms.Button();
