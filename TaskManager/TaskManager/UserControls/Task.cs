@@ -193,5 +193,10 @@ namespace TaskManager.UserControls
         {
             get { return _task.ProjectId; }
         }
+
+        public int TaskType
+        {
+            get { return _task.Type; }
+        }
     }
 }

@@ -348,6 +348,7 @@ namespace TaskManager
             this.storyFilterItem.Name = "storyFilterItem";
             this.storyFilterItem.Size = new System.Drawing.Size(180, 32);
             this.storyFilterItem.Text = "Story";
+            this.storyFilterItem.Click += new System.EventHandler(this.storyFilterItem_Click);
             // 
             // taskFilterItem
             // 
@@ -355,6 +356,7 @@ namespace TaskManager
             this.taskFilterItem.Name = "taskFilterItem";
             this.taskFilterItem.Size = new System.Drawing.Size(180, 32);
             this.taskFilterItem.Text = "Task";
+            this.taskFilterItem.Click += new System.EventHandler(this.taskFilterItem_Click);
             // 
             // bugFilterItem
             // 
@@ -362,6 +364,7 @@ namespace TaskManager
             this.bugFilterItem.Name = "bugFilterItem";
             this.bugFilterItem.Size = new System.Drawing.Size(180, 32);
             this.bugFilterItem.Text = "Bug";
+            this.bugFilterItem.Click += new System.EventHandler(this.bugFilterItem_Click);
             // 
             // panelCmd
             // 
@@ -383,6 +386,7 @@ namespace TaskManager
             this.noneFiltertem.Name = "noneFiltertem";
             this.noneFiltertem.Size = new System.Drawing.Size(180, 32);
             this.noneFiltertem.Text = "None";
+            this.noneFiltertem.Click += new System.EventHandler(this.noneFiltertem_Click);
             // 
             // ToDosControl
             // 

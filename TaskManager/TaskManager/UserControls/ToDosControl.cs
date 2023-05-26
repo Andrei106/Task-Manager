@@ -122,7 +122,6 @@ namespace TaskManager
 
                     if (task.TaskProjectId == _currentProject)
                     {
-                        Console.WriteLine(task.GetType());
                         task.Show();
                     }
                 }
@@ -151,6 +150,86 @@ namespace TaskManager
                 }
 
             }
+        }
+
+        private void storyFilterItem_Click(object sender, EventArgs e)
+        {
+            List<Control> controlLists = new List<Control>
+            {
+                flowLayoutNewTasks,
+                flowLayoutBlockedTasks,
+                flowLayoutInProgressTasks,
+                flowLayoutWaitingTasks,
+                flowLayoutDoneTasks
+            };
+            foreach (var control in controlLists)
+            {
+                foreach (UserControls.Task task in control.Controls)
+                {
+                    task.Hide();
+
+                    if ((task.TaskType == 0) && (task.TaskProjectId == _currentProject))
+                    {
+                        task.Show();
+                    }
+                }
+
+            }
+        }
+
+        private void taskFilterItem_Click(object sender, EventArgs e)
+        {
+            List<Control> controlLists = new List<Control>
+            {
+                flowLayoutNewTasks,
+                flowLayoutBlockedTasks,
+                flowLayoutInProgressTasks,
+                flowLayoutWaitingTasks,
+                flowLayoutDoneTasks
+            };
+            foreach (var control in controlLists)
+            {
+                foreach (UserControls.Task task in control.Controls)
+                {
+                    task.Hide();
+
+                    if ((task.TaskType == 1) && (task.TaskProjectId == _currentProject))
+                    {
+                        task.Show();
+                    }
+                }
+
+            }
+        }
+
+        private void bugFilterItem_Click(object sender, EventArgs e)
+        {
+            List<Control> controlLists = new List<Control>
+            {
+                flowLayoutNewTasks,
+                flowLayoutBlockedTasks,
+                flowLayoutInProgressTasks,
+                flowLayoutWaitingTasks,
+                flowLayoutDoneTasks
+            };
+            foreach (var control in controlLists)
+            {
+                foreach (UserControls.Task task in control.Controls)
+                {
+                    task.Hide();
+
+                    if ((task.TaskType == 2) && (task.TaskProjectId == _currentProject))
+                    {
+                        task.Show();
+                    }
+                }
+
+            }
+        }
+
+        private void noneFiltertem_Click(object sender, EventArgs e)
+        {
+            hideAndshowTask();
         }
 
         private void bugNewtem_Click(object sender, EventArgs e)

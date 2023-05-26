@@ -12,7 +12,7 @@ namespace Elements
         protected int _id;
         //protected State _currentState;
         protected string _description { get; set; }
-        protected int _type;//instead of TaskType we could use an integer as well
+        protected int _type;
         protected string _status { get; set; }
         protected string _title { get; set; }
         protected Member.Member currentAsignee;
@@ -23,6 +23,11 @@ namespace Elements
 
         public int ProjectId {
             get { return _projectId; }
+
+        }
+        public int Type
+        {
+            get { return _type; }
 
         }
 
