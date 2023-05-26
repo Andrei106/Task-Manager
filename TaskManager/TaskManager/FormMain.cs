@@ -30,7 +30,7 @@ namespace TaskManager
             InitializeComponent();
 
             //Initializare conectiune la baza de date(creare database si tabele)
-            _databaseManager.createConnection();
+            //_databaseManager.createConnection();
 
             // Initializare casuta si logica pentru logare
             LoginWindowInitialization();
@@ -112,6 +112,7 @@ namespace TaskManager
                     childControl.Show();
                 }
             }
+            labelCurrent.Text = "To-Dos";
         }
 
         private void ConnectionNotValid()
@@ -153,6 +154,14 @@ namespace TaskManager
             projectCtrl.Hide();
             toDosCtrl.Show();
             labelCurrent.Text = "To-Dos";
+            int projectId = projectCtrl.ComboBoxSelectedProject;
+            if (projectId>0)
+             {
+                toDosCtrl.activateButtons();
+                toDosCtrl.CurrentProjectId = projectCtrl.ComboBoxSelectedProject;
+                toDosCtrl.hideAndshowTask();
+            }
+           
         }
 
         private void btnHelp_Click(object sender, EventArgs e)

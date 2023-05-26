@@ -17,15 +17,23 @@ namespace Elements
         protected string _title { get; set; }
         protected Member.Member currentAsignee;
         protected Member.Member reporter;
+
+        protected int _projectId;
         // protected Button edit;
 
-        public TaskElement(int id, string description, int type, string title, string status)
+        public int ProjectId {
+            get { return _projectId; }
+
+        }
+
+        public TaskElement(int id, string description, int type, string title, string status,int projectId)
         {
             this._id = id;
             this._description = description;
             this._type = type;
             this._title = title;
             this._status = status;
+            this._projectId = projectId;
         }
         public void TaskComplete() {
 

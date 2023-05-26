@@ -187,5 +187,11 @@ namespace TaskManager.UserControls
             }
             DatabaseManager.DatabaseManager.Instance.UpdateTaskStatus(this._task);
         }
+
+
+        public int TaskProjectId
+        {
+            get { return _task.ProjectId; }
+        }
     }
 }

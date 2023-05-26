@@ -11,9 +11,9 @@ namespace BugFactory
     {
         public int _type;
 
-        public TaskElement CreateTask(int id, string description, string title, int priorityOrSeverity, string status, string purpose = "")
+        public TaskElement CreateTask(int id, string description, string title, int priorityOrSeverity, string status, int projectId ,string purpose = "")
         {
-            return new Elements.BugElement(id, title, description, priorityOrSeverity, status);
+            return new Elements.BugElement(id, title, description, priorityOrSeverity, status,projectId);
         }
     }
 }

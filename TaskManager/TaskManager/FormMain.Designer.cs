@@ -42,9 +42,9 @@ namespace TaskManager
             this.labelCurrent = new System.Windows.Forms.Label();
             this.register1 = new TaskManager.UserControls.Register();
             this.login1 = new TaskManager.UserControls.Login();
-            this.toDosCtrl = new TaskManager.toDosControll();
-            this.projectCtrl = new TaskManager.projectControl();
-            this.homeCtrl = new TaskManager.homeControl();
+            this.toDosCtrl = new TaskManager.ToDosControl();
+            this.projectCtrl = new TaskManager.ProjectControl();
+            this.homeCtrl = new TaskManager.HomeControl();
             this.panelMain.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.panelTitle.SuspendLayout();
@@ -278,9 +278,9 @@ namespace TaskManager
         private System.Windows.Forms.Button btnProject;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label labelApp;
-        private homeControl homeCtrl;
-        private projectControl projectCtrl;
-        private toDosControll toDosCtrl;
+        private HomeControl homeCtrl;
+        private ProjectControl projectCtrl;
+        private ToDosControl toDosCtrl;
         private System.Windows.Forms.Label labelCurrent;
         private UserControls.Login login1;
         private UserControls.Register register1;

@@ -1,7 +1,7 @@
 ﻿
 namespace TaskManager
 {
-    partial class toDosControll
+    partial class ToDosControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,20 +30,25 @@ namespace TaskManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(toDosControll));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToDosControl));
             this.panelDone = new System.Windows.Forms.Panel();
+            this.flowLayoutDoneTasks = new System.Windows.Forms.FlowLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.labelDone = new System.Windows.Forms.Label();
             this.panelWaiting = new System.Windows.Forms.Panel();
+            this.flowLayoutWaitingTasks = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.labelWaiting = new System.Windows.Forms.Label();
             this.panelInProgress = new System.Windows.Forms.Panel();
+            this.flowLayoutInProgressTasks = new System.Windows.Forms.FlowLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.labelInProgress = new System.Windows.Forms.Label();
             this.panelBlocked = new System.Windows.Forms.Panel();
+            this.flowLayoutBlockedTasks = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelBlocked = new System.Windows.Forms.Label();
             this.panelNew = new System.Windows.Forms.Panel();
+            this.flowLayoutNewTasks = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelNew = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -58,11 +63,7 @@ namespace TaskManager
             this.bugFilterItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelCmd = new System.Windows.Forms.Panel();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.flowLayoutNewTasks = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutBlockedTasks = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutInProgressTasks = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutWaitingTasks = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutDoneTasks = new System.Windows.Forms.FlowLayoutPanel();
+            this.noneFiltertem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDone.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panelWaiting.SuspendLayout();
@@ -87,6 +88,14 @@ namespace TaskManager
             this.panelDone.Name = "panelDone";
             this.panelDone.Size = new System.Drawing.Size(247, 602);
             this.panelDone.TabIndex = 13;
+            // 
+            // flowLayoutDoneTasks
+            // 
+            this.flowLayoutDoneTasks.AutoScroll = true;
+            this.flowLayoutDoneTasks.Location = new System.Drawing.Point(20, 62);
+            this.flowLayoutDoneTasks.Name = "flowLayoutDoneTasks";
+            this.flowLayoutDoneTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutDoneTasks.TabIndex = 6;
             // 
             // panel5
             // 
@@ -119,6 +128,14 @@ namespace TaskManager
             this.panelWaiting.Size = new System.Drawing.Size(250, 602);
             this.panelWaiting.TabIndex = 12;
             // 
+            // flowLayoutWaitingTasks
+            // 
+            this.flowLayoutWaitingTasks.AutoScroll = true;
+            this.flowLayoutWaitingTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutWaitingTasks.Name = "flowLayoutWaitingTasks";
+            this.flowLayoutWaitingTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutWaitingTasks.TabIndex = 5;
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -149,6 +166,14 @@ namespace TaskManager
             this.panelInProgress.Name = "panelInProgress";
             this.panelInProgress.Size = new System.Drawing.Size(250, 602);
             this.panelInProgress.TabIndex = 11;
+            // 
+            // flowLayoutInProgressTasks
+            // 
+            this.flowLayoutInProgressTasks.AutoScroll = true;
+            this.flowLayoutInProgressTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutInProgressTasks.Name = "flowLayoutInProgressTasks";
+            this.flowLayoutInProgressTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutInProgressTasks.TabIndex = 4;
             // 
             // panel3
             // 
@@ -181,6 +206,14 @@ namespace TaskManager
             this.panelBlocked.Size = new System.Drawing.Size(250, 602);
             this.panelBlocked.TabIndex = 10;
             // 
+            // flowLayoutBlockedTasks
+            // 
+            this.flowLayoutBlockedTasks.AutoScroll = true;
+            this.flowLayoutBlockedTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutBlockedTasks.Name = "flowLayoutBlockedTasks";
+            this.flowLayoutBlockedTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutBlockedTasks.TabIndex = 3;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -211,6 +244,14 @@ namespace TaskManager
             this.panelNew.Name = "panelNew";
             this.panelNew.Size = new System.Drawing.Size(250, 602);
             this.panelNew.TabIndex = 9;
+            // 
+            // flowLayoutNewTasks
+            // 
+            this.flowLayoutNewTasks.AutoScroll = true;
+            this.flowLayoutNewTasks.Location = new System.Drawing.Point(21, 62);
+            this.flowLayoutNewTasks.Name = "flowLayoutNewTasks";
+            this.flowLayoutNewTasks.Size = new System.Drawing.Size(222, 514);
+            this.flowLayoutNewTasks.TabIndex = 2;
             // 
             // panel1
             // 
@@ -247,6 +288,7 @@ namespace TaskManager
             this.menuStripNewItem.Name = "menuStripNewItem";
             this.menuStripNewItem.Size = new System.Drawing.Size(1247, 36);
             this.menuStripNewItem.TabIndex = 1;
+            this.menuStripNewItem.Visible = false;
             // 
             // NewItem
             // 
@@ -266,7 +308,7 @@ namespace TaskManager
             // 
             this.storyNewItem.BackColor = System.Drawing.Color.Lime;
             this.storyNewItem.Name = "storyNewItem";
-            this.storyNewItem.Size = new System.Drawing.Size(180, 32);
+            this.storyNewItem.Size = new System.Drawing.Size(130, 32);
             this.storyNewItem.Text = "Story";
             this.storyNewItem.Click += new System.EventHandler(this.storyNewItem_Click);
             // 
@@ -274,7 +316,7 @@ namespace TaskManager
             // 
             this.taskNewItem.BackColor = System.Drawing.Color.Aqua;
             this.taskNewItem.Name = "taskNewItem";
-            this.taskNewItem.Size = new System.Drawing.Size(180, 32);
+            this.taskNewItem.Size = new System.Drawing.Size(130, 32);
             this.taskNewItem.Text = "Task";
             this.taskNewItem.Click += new System.EventHandler(this.taskNewItem_Click);
             // 
@@ -282,7 +324,7 @@ namespace TaskManager
             // 
             this.bugNewtem.BackColor = System.Drawing.Color.Red;
             this.bugNewtem.Name = "bugNewtem";
-            this.bugNewtem.Size = new System.Drawing.Size(180, 32);
+            this.bugNewtem.Size = new System.Drawing.Size(130, 32);
             this.bugNewtem.Text = "Bug";
             this.bugNewtem.Click += new System.EventHandler(this.bugNewtem_Click);
             // 
@@ -292,7 +334,8 @@ namespace TaskManager
             this.filterItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.storyFilterItem,
             this.taskFilterItem,
-            this.bugFilterItem});
+            this.bugFilterItem,
+            this.noneFiltertem});
             this.filterItem.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.filterItem.Image = ((System.Drawing.Image)(resources.GetObject("filterItem.Image")));
             this.filterItem.Name = "filterItem";
@@ -303,21 +346,21 @@ namespace TaskManager
             // 
             this.storyFilterItem.BackColor = System.Drawing.Color.Lime;
             this.storyFilterItem.Name = "storyFilterItem";
-            this.storyFilterItem.Size = new System.Drawing.Size(130, 32);
+            this.storyFilterItem.Size = new System.Drawing.Size(180, 32);
             this.storyFilterItem.Text = "Story";
             // 
             // taskFilterItem
             // 
             this.taskFilterItem.BackColor = System.Drawing.Color.Aqua;
             this.taskFilterItem.Name = "taskFilterItem";
-            this.taskFilterItem.Size = new System.Drawing.Size(130, 32);
+            this.taskFilterItem.Size = new System.Drawing.Size(180, 32);
             this.taskFilterItem.Text = "Task";
             // 
             // bugFilterItem
             // 
             this.bugFilterItem.BackColor = System.Drawing.Color.Red;
             this.bugFilterItem.Name = "bugFilterItem";
-            this.bugFilterItem.Size = new System.Drawing.Size(130, 32);
+            this.bugFilterItem.Size = new System.Drawing.Size(180, 32);
             this.bugFilterItem.Text = "Bug";
             // 
             // panelCmd
@@ -335,47 +378,13 @@ namespace TaskManager
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // flowLayoutNewTasks
+            // noneFiltertem
             // 
-            this.flowLayoutNewTasks.AutoScroll = true;
-            this.flowLayoutNewTasks.Location = new System.Drawing.Point(21, 62);
-            this.flowLayoutNewTasks.Name = "flowLayoutNewTasks";
-            this.flowLayoutNewTasks.Size = new System.Drawing.Size(222, 514);
-            this.flowLayoutNewTasks.TabIndex = 2;
+            this.noneFiltertem.Name = "noneFiltertem";
+            this.noneFiltertem.Size = new System.Drawing.Size(180, 32);
+            this.noneFiltertem.Text = "None";
             // 
-            // flowLayoutBlockedTasks
-            // 
-            this.flowLayoutBlockedTasks.AutoScroll = true;
-            this.flowLayoutBlockedTasks.Location = new System.Drawing.Point(21, 62);
-            this.flowLayoutBlockedTasks.Name = "flowLayoutBlockedTasks";
-            this.flowLayoutBlockedTasks.Size = new System.Drawing.Size(222, 514);
-            this.flowLayoutBlockedTasks.TabIndex = 3;
-            // 
-            // flowLayoutInProgressTasks
-            // 
-            this.flowLayoutInProgressTasks.AutoScroll = true;
-            this.flowLayoutInProgressTasks.Location = new System.Drawing.Point(21, 62);
-            this.flowLayoutInProgressTasks.Name = "flowLayoutInProgressTasks";
-            this.flowLayoutInProgressTasks.Size = new System.Drawing.Size(222, 514);
-            this.flowLayoutInProgressTasks.TabIndex = 4;
-            // 
-            // flowLayoutWaitingTasks
-            // 
-            this.flowLayoutWaitingTasks.AutoScroll = true;
-            this.flowLayoutWaitingTasks.Location = new System.Drawing.Point(21, 62);
-            this.flowLayoutWaitingTasks.Name = "flowLayoutWaitingTasks";
-            this.flowLayoutWaitingTasks.Size = new System.Drawing.Size(222, 514);
-            this.flowLayoutWaitingTasks.TabIndex = 5;
-            // 
-            // flowLayoutDoneTasks
-            // 
-            this.flowLayoutDoneTasks.AutoScroll = true;
-            this.flowLayoutDoneTasks.Location = new System.Drawing.Point(20, 62);
-            this.flowLayoutDoneTasks.Name = "flowLayoutDoneTasks";
-            this.flowLayoutDoneTasks.Size = new System.Drawing.Size(222, 514);
-            this.flowLayoutDoneTasks.TabIndex = 6;
-            // 
-            // toDosControll
+            // ToDosControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -385,7 +394,7 @@ namespace TaskManager
             this.Controls.Add(this.panelBlocked);
             this.Controls.Add(this.panelNew);
             this.Controls.Add(this.panelCmd);
-            this.Name = "toDosControll";
+            this.Name = "ToDosControl";
             this.Size = new System.Drawing.Size(1247, 648);
             this.panelDone.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -444,5 +453,6 @@ namespace TaskManager
         private System.Windows.Forms.FlowLayoutPanel flowLayoutInProgressTasks;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutBlockedTasks;
         public System.Windows.Forms.FlowLayoutPanel flowLayoutNewTasks;
+        private System.Windows.Forms.ToolStripMenuItem noneFiltertem;
     }
 }

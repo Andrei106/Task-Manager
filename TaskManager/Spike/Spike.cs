@@ -8,7 +8,7 @@ namespace Elements
     public class SpikeElement:Elements.TaskElement
     {
         private string _purpose { get; set; }
-        public SpikeElement(int id,string description,string title,string purpose,string status):base(id,description,1,title,status)
+        public SpikeElement(int id,string description,string title,string purpose,string status,int projectId):base(id,description,1,title,status, projectId)
         {
             _purpose = purpose;
         }

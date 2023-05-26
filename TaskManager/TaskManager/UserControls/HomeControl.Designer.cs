@@ -1,7 +1,7 @@
 ﻿
 namespace TaskManager
 {
-    partial class homeControl
+    partial class HomeControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace TaskManager
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(homeControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeControl));
             this.labelHome = new System.Windows.Forms.Label();
             this.labelAdditionalText = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -53,13 +53,13 @@ namespace TaskManager
             this.labelAdditionalText.TabIndex = 2;
             this.labelAdditionalText.Text = resources.GetString("labelAdditionalText.Text");
             // 
-            // homeControl
+            // HomeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelAdditionalText);
             this.Controls.Add(this.labelHome);
-            this.Name = "homeControl";
+            this.Name = "HomeControl";
             this.Size = new System.Drawing.Size(944, 511);
             this.ResumeLayout(false);
             this.PerformLayout();

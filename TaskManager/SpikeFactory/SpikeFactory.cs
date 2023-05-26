@@ -11,9 +11,9 @@ namespace SpikeFactory
     {
         public int _type;
 
-        public TaskElement CreateTask(int id, string description, string title, int priorityOrSeverity, string status, string purpose = "")
+        public TaskElement CreateTask(int id, string description, string title, int priorityOrSeverity, string status,int projectId ,string purpose = "")
         {
-            return new Elements.SpikeElement(id, description, title, purpose,status);
+            return new Elements.SpikeElement(id, description, title, purpose,status, projectId);
         }
     }
 }
