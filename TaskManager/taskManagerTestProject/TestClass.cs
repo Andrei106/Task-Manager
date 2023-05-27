@@ -62,7 +62,7 @@ namespace TaskManager
             app.login1.userBox.Text = "TEST";
             app.login1.passwordBox.Text = "12345678";
             app.ConnectionTry();
-            NUnit.Framework.Assert.IsTrue(app.labelCurrent.Text.Equals("To-Dos"));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("To-Dos", app.labelCurrent.Text);
         }
         [TestMethod]
         // Testare functionalitatem buton Register din UserControl:Login
