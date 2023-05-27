@@ -25,7 +25,7 @@ namespace TaskManager.UserControls
         {
             ConnectAction?.Invoke();
         }
-        private void buttonRegister_Click(object sender, EventArgs e)
+        public void buttonRegister_Click(object sender, EventArgs e)
         {
             ConnectActionRegister?.Invoke();
         }

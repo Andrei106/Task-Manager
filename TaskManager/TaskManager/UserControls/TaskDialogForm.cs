@@ -102,7 +102,7 @@ namespace TaskManager.UserControls
             labelReporterUsername.Text = feature.Reporter.Nickname;
         }
 
-        private void buttonCreateNewTask_Click(object sender, EventArgs e)
+        public void buttonCreateNewTask_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();

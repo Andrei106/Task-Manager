@@ -32,7 +32,7 @@ namespace TaskManager.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonRegisterAddUser_Click(object sender, EventArgs e)
+        public void buttonRegisterAddUser_Click(object sender, EventArgs e)
         {
             // ConnectAction?.Invoke();
             // daca parola contine caractere speciale nu e valida
