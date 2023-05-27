@@ -22,10 +22,7 @@ namespace AppManager
             return true;
         }
 
-        public Project.Project GetCurrentProject()
-        {
-            return new Project.Project();
-        }
+       
         public List<Project.Project> GeProjects()
         {
             return _projects;

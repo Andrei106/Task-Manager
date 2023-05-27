@@ -8,21 +8,25 @@ namespace Project
 {
     public class Project
     {
-        private int _id;
-        private List<Elements.TaskElement> _tasks;
-        private List<Member.Member> _members;
+        private string _name;
+        private string _description;
 
-        public bool AddTask(Elements.TaskElement task)
+        public Project(string name, string description)
         {
-            return true;
+            this._name = name;
+            this._description = description;
         }
-        public bool RemoveTask(Elements.TaskElement task)
+
+        public string Name
         {
-            return true;
+            set { this._name = value; }
+            get { return this._name; }
         }
-        public List<Elements.TaskElement> GetTasks()
+
+        public string Description
         {
-            return _tasks;
+            set { this._description = value; }
+            get { return this._description; }
         }
     }
 }

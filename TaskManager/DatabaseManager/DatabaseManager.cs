@@ -281,30 +281,31 @@ namespace DatabaseManager
             }
         }
 
-        public IDictionary<string,string> GetProjects()
+        public IDictionary<string, string> GetProjects()
         {
-            IDictionary<string,string> projectsList=new Dictionary<string,string>();
+             IDictionary<string, string> projectsList = new Dictionary<string, string>();
 
             try
             {
-                    using (var conn = new NpgsqlConnection(_connectionString))
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
                     {
-                        conn.Open();
-                        using (var cmd = new NpgsqlCommand())
+                        //Selectare din baza de date
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT * FROM projects;";
+                        NpgsqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
                         {
-                            //Selectare din baza de date
-                            cmd.Connection = conn;
-                            cmd.CommandText = "SELECT * FROM projects;";
-                            NpgsqlDataReader reader = cmd.ExecuteReader();
-                            while (reader.Read())
-                            {
-                              projectsList[(string)reader["name"]]=(string)reader["description"];
-                            }
-                 
+                            projectsList[ (string)reader["name"] ]= (string)reader["description"];
+
                         }
+
                     }
-                    return projectsList;
-               
+                }
+                return projectsList;
+
             }
             catch (Exception ex)
             {
@@ -318,30 +319,30 @@ namespace DatabaseManager
         {
             try
             {
-             
-                    using (var conn = new NpgsqlConnection(_connectionString))
+
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
                     {
-                        conn.Open();
-                        using (var cmd = new NpgsqlCommand())
+                        //Inserare in baza de date
+                        cmd.Connection = conn;
+                        // TODO: populate boardId
+                        cmd.CommandText = "INSERT INTO task (type,title,description,status,priority,reporterId ,projectId) VALUES ('FEATURE', @title, @description, 'TO_DO', @priority, @reporterId, @projectId) RETURNING id";
+                        cmd.Parameters.AddWithValue("title", task.GetTitle());
+                        cmd.Parameters.AddWithValue("description", task.GetDescription());
+                        cmd.Parameters.AddWithValue("priority", task.GetPriority());
+                        cmd.Parameters.AddWithValue("reporterId", _loggedUser.Id);
+                        cmd.Parameters.AddWithValue("projectId", _selectedProjectID);
+                        object id = cmd.ExecuteScalar();
+                        if (id == null)
                         {
-                            //Inserare in baza de date
-                            cmd.Connection = conn;
-                            // TODO: populate boardId
-                            cmd.CommandText = "INSERT INTO task (type,title,description,status,priority,reporterId ,projectId) VALUES ('FEATURE', @title, @description, 'TO_DO', @priority, @reporterId, @projectId) RETURNING id";
-                            cmd.Parameters.AddWithValue("title", task.GetTitle());
-                            cmd.Parameters.AddWithValue("description", task.GetDescription());
-                            cmd.Parameters.AddWithValue("priority", task.GetPriority());
-                            cmd.Parameters.AddWithValue("reporterId", _loggedUser.Id);
-                            cmd.Parameters.AddWithValue("projectId", _selectedProjectID);
-                            object id = cmd.ExecuteScalar();
-                            if (id == null)
-                            {
-                                return false;
-                            }
-                            task.SetId((int)id);
-                            task.Reporter = _loggedUser;
+                            return false;
                         }
-                    
+                        task.SetId((int)id);
+                        task.Reporter = _loggedUser;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -355,31 +356,31 @@ namespace DatabaseManager
         {
             try
             {
-               
-                    using (var conn = new NpgsqlConnection(_connectionString))
-                    {
-                        conn.Open();
-                        using (var cmd = new NpgsqlCommand())
-                        {
-                            //Inserare in baza de date
-                            cmd.Connection = conn;
-                            // TODO: populate boardId
-                            cmd.CommandText = "INSERT INTO task (type,title,description,status,purpose,reporterId ,projectId) VALUES ('SPIKE', @title, @description, 'TO_DO', @purpose,@reporterId,@projectId) RETURNING id";
-                            cmd.Parameters.AddWithValue("title", task.GetTitle());
-                            cmd.Parameters.AddWithValue("description", task.GetDescription());
-                            cmd.Parameters.AddWithValue("purpose", task.GetPurpose());
-                            cmd.Parameters.AddWithValue("reporterId", _loggedUser.Id);
-                            cmd.Parameters.AddWithValue("projectId", _selectedProjectID);
 
-                            object id = cmd.ExecuteScalar();
-                            if (id == null)
-                            {
-                                return false;
-                            }
-                            task.SetId((int)id);
-                            task.Reporter = _loggedUser;
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        //Inserare in baza de date
+                        cmd.Connection = conn;
+                        // TODO: populate boardId
+                        cmd.CommandText = "INSERT INTO task (type,title,description,status,purpose,reporterId ,projectId) VALUES ('SPIKE', @title, @description, 'TO_DO', @purpose,@reporterId,@projectId) RETURNING id";
+                        cmd.Parameters.AddWithValue("title", task.GetTitle());
+                        cmd.Parameters.AddWithValue("description", task.GetDescription());
+                        cmd.Parameters.AddWithValue("purpose", task.GetPurpose());
+                        cmd.Parameters.AddWithValue("reporterId", _loggedUser.Id);
+                        cmd.Parameters.AddWithValue("projectId", _selectedProjectID);
+
+                        object id = cmd.ExecuteScalar();
+                        if (id == null)
+                        {
+                            return false;
                         }
-                    
+                        task.SetId((int)id);
+                        task.Reporter = _loggedUser;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -393,30 +394,30 @@ namespace DatabaseManager
         {
             try
             {
-             
-                    using (var conn = new NpgsqlConnection(_connectionString))
+
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
                     {
-                        conn.Open();
-                        using (var cmd = new NpgsqlCommand())
+                        //Inserare in baza de date
+                        cmd.Connection = conn;
+                        // TODO: populate boardId
+                        cmd.CommandText = "INSERT INTO task (type,title,description,status,severity,reporterId ,projectId) VALUES ('BUG', @title, @description, 'TO_DO', @severity,@reporterId,@projectId) RETURNING id";
+                        cmd.Parameters.AddWithValue("title", task.GetTitle());
+                        cmd.Parameters.AddWithValue("description", task.GetDescription());
+                        cmd.Parameters.AddWithValue("severity", task.GetSeverity());
+                        cmd.Parameters.AddWithValue("reporterId", _loggedUser.Id);
+                        cmd.Parameters.AddWithValue("projectId", _selectedProjectID);
+                        object id = cmd.ExecuteScalar();
+                        if (id == null)
                         {
-                            //Inserare in baza de date
-                            cmd.Connection = conn;
-                            // TODO: populate boardId
-                            cmd.CommandText = "INSERT INTO task (type,title,description,status,severity,reporterId ,projectId) VALUES ('BUG', @title, @description, 'TO_DO', @severity,@reporterId,@projectId) RETURNING id";
-                            cmd.Parameters.AddWithValue("title", task.GetTitle());
-                            cmd.Parameters.AddWithValue("description", task.GetDescription());
-                            cmd.Parameters.AddWithValue("severity", task.GetSeverity());
-                            cmd.Parameters.AddWithValue("reporterId", _loggedUser.Id);
-                            cmd.Parameters.AddWithValue("projectId", _selectedProjectID);
-                            object id = cmd.ExecuteScalar();
-                            if (id == null)
-                            {
-                                return false;
-                            }
-                            task.SetId((int)id);
-                            task.Reporter = _loggedUser;
+                            return false;
                         }
-                    
+                        task.SetId((int)id);
+                        task.Reporter = _loggedUser;
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -466,7 +467,7 @@ namespace DatabaseManager
                         NpgsqlDataReader reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            users.Add(new Member.Member((string)reader["username"], (int)reader["id"])); 
+                            users.Add(new Member.Member((string)reader["username"], (int)reader["id"]));
                         }
                     }
                 }
@@ -483,57 +484,57 @@ namespace DatabaseManager
             Dictionary<int, Member.Member> userCache = new Dictionary<int, Member.Member>();
             try
             {
-              
-                    using (var conn = new NpgsqlConnection(_connectionString))
+
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
                     {
-                        conn.Open();
-                        using (var cmd = new NpgsqlCommand())
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT * FROM task;";
+                        NpgsqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
                         {
-                            cmd.Connection = conn;
-                            cmd.CommandText = "SELECT * FROM task;";
-                            NpgsqlDataReader reader = cmd.ExecuteReader();
-                            while (reader.Read())
+                            Dictionary<string, object> row = new Dictionary<string, object>();
+                            row.Add("id", reader["id"]);
+                            row.Add("type", reader["type"]);
+                            row.Add("title", reader["title"]);
+                            row.Add("description", reader["description"]);
+                            row.Add("status", reader["status"]);
+                            row.Add("priority", reader["priority"]);
+                            row.Add("severity", reader["severity"]);
+                            row.Add("purpose", reader["purpose"]);
+                            row.Add("projectId", reader["projectId"]);
+                            if (userCache.ContainsKey((int)reader["reporterId"]))
                             {
-                                Dictionary<string, object> row = new Dictionary<string, object>();
-                                row.Add("id", reader["id"]);
-                                row.Add("type", reader["type"]);
-                                row.Add("title", reader["title"]);
-                                row.Add("description", reader["description"]);
-                                row.Add("status", reader["status"]);
-                                row.Add("priority", reader["priority"]);
-                                row.Add("severity", reader["severity"]);
-                                row.Add("purpose", reader["purpose"]);
-                                row.Add("projectId", reader["projectId"]);
-                                if (userCache.ContainsKey((int)reader["reporterId"]))
-                                {
-                                    row.Add("reporter", userCache[(int)reader["reporterId"]]);
-                                }
-                                else
-                                {
-                                    Member.Member reporter = FetchUserById((int)reader["reporterId"]);
-                                    row.Add("reporter", reporter);
-                                    userCache.Add((int)reader["reporterId"], reporter);
-                                }
-                                if (reader["currentAsigneeId"] != DBNull.Value)
-                                {
-                                    if (userCache.ContainsKey((int)reader["currentAsigneeId"]))
-                                    {
-                                        row.Add("asignee", userCache[(int)reader["currentAsigneeId"]]);
-                                    }
-                                    else
-                                    {
-                                        Member.Member asignee = FetchUserById((int)reader["currentAsigneeId"]);
-                                        row.Add("asignee", asignee);
-                                        userCache.Add((int)reader["currentAsigneeId"], asignee);
-                                    }
-                                }
-                                else
-                                {
-                                    row.Add("asignee", null);
-                                }
-                                result.Add(row);
+                                row.Add("reporter", userCache[(int)reader["reporterId"]]);
                             }
+                            else
+                            {
+                                Member.Member reporter = FetchUserById((int)reader["reporterId"]);
+                                row.Add("reporter", reporter);
+                                userCache.Add((int)reader["reporterId"], reporter);
+                            }
+                            if (reader["currentAsigneeId"] != DBNull.Value)
+                            {
+                                if (userCache.ContainsKey((int)reader["currentAsigneeId"]))
+                                {
+                                    row.Add("asignee", userCache[(int)reader["currentAsigneeId"]]);
+                                }
+                                else
+                                {
+                                    Member.Member asignee = FetchUserById((int)reader["currentAsigneeId"]);
+                                    row.Add("asignee", asignee);
+                                    userCache.Add((int)reader["currentAsigneeId"], asignee);
+                                }
+                            }
+                            else
+                            {
+                                row.Add("asignee", null);
+                            }
+                            result.Add(row);
                         }
+                    }
                 }
             }
 
@@ -590,7 +591,8 @@ namespace DatabaseManager
                         if (feature.CurrentAsignee != null)
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee.Id);
-                        } else
+                        }
+                        else
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", DBNull.Value);
                         }
@@ -711,6 +713,65 @@ namespace DatabaseManager
             catch (Exception ex)
             {
                 Console.WriteLine("Error deleting task: " + ex.Message);
+                return false;
+            }
+            return true;
+        }
+
+
+        public int GetProjectId(string name)
+        {
+            int projectId = -1;
+            try
+            {
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT id FROM projects WHERE name = @name";
+                        cmd.Parameters.AddWithValue("name", name);
+                        NpgsqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            projectId=(int)reader["id"];
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error deleting task: " + ex.Message);
+                return -1;
+            }
+            return projectId;
+        }
+
+
+        public bool DeleteProject(int projectId)
+        {
+            try
+            {
+                using (var conn = new NpgsqlConnection(_connectionString))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandText = "DELETE FROM task WHERE projectId = @projectId";
+                        cmd.Parameters.AddWithValue("projectId", projectId);
+                        cmd.ExecuteScalar();
+
+                         cmd.CommandText = "DELETE FROM projects WHERE id = @id";
+                        cmd.Parameters.AddWithValue("id", projectId);
+                        cmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error deleting project: " + ex.Message);
                 return false;
             }
             return true;

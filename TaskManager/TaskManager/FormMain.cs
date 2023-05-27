@@ -159,12 +159,20 @@ namespace TaskManager
             projectCtrl.Hide();
             toDosCtrl.Show();
             labelCurrent.Text = "To-Dos";
-            int projectId = projectCtrl.ComboBoxSelectedProject;
-            if (projectId>0)
-             {
+            int projectId = projectCtrl.GetComboBoxSelectedProject();
+            if (projectId > 0)
+            {
                 toDosCtrl.activateButtons();
-                toDosCtrl.CurrentProjectId = projectCtrl.ComboBoxSelectedProject;
+                toDosCtrl.CurrentProjectId = projectId;
                 toDosCtrl.hideAndshowTask();
+            }
+            else
+            {
+                if (toDosCtrl.CurrentProjectId != 0)
+                {
+                    toDosCtrl.removeTasks();
+                }
+            
             }
            
         }

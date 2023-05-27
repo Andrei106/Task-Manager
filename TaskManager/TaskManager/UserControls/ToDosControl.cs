@@ -132,6 +132,7 @@ namespace TaskManager
         public int CurrentProjectId
         {
             set { _currentProject = value; }
+            get { return _currentProject; }
            
         }
 
@@ -250,6 +251,36 @@ namespace TaskManager
                 }
             }
         }
+
+
+        public void removeTasks()
+        {
+
+            List<Control> controlLists = new List<Control>
+            {
+                flowLayoutNewTasks,
+                flowLayoutBlockedTasks,
+                flowLayoutInProgressTasks,
+                flowLayoutWaitingTasks,
+                flowLayoutDoneTasks
+            };
+            foreach (var control in controlLists)
+            {
+                foreach (UserControls.Task task in control.Controls)
+                {
+
+                    if (task.TaskProjectId == _currentProject)
+                    {
+                        control.Controls.Remove(task);
+                    }
+                }
+
+            }
+            _currentProject = 0;
+      
+            this.menuStripNewItem.Visible = false;
+        }
+
         public void activateButtons()
         {
              if (_currentProject == -1)
@@ -258,5 +289,7 @@ namespace TaskManager
              }
             this.menuStripNewItem.Visible = true;        
         }
+
+
     }
 }

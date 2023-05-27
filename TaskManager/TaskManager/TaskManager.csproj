@@ -43,6 +43,9 @@
     <Reference Include="Bug">
       <HintPath>..\Bug\bin\Debug\Bug.dll</HintPath>
     </Reference>
+    <Reference Include="Project">
+      <HintPath>..\Project\bin\Debug\Project.dll</HintPath>
+    </Reference>
     <Reference Include="Spike">
       <HintPath>..\Spike\bin\Debug\Spike.dll</HintPath>
     </Reference>

@@ -9,8 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LoggingModule;
-
-
+using Project;
 namespace TaskManager
 {
     public partial class ProjectControl : UserControl
@@ -20,8 +19,10 @@ namespace TaskManager
         public ProjectControl()
         {
             InitializeComponent();
-            _projects = _databaseManager.GetProjects();
-            //List<String> projects = _databaseManager.GetProjects();
+         
+            _projects =_databaseManager.GetProjects();
+
+
             foreach (var project in _projects)
             {
                 comboBoxCurrentProject.Items.Add(project.Key);
@@ -33,13 +34,24 @@ namespace TaskManager
             string name = textBoxProjectName.Text;
             string description = textBoxProjectDescription.Text;
 
+       
+
             if (!Regex.IsMatch(name, @"[^a-zA-Z0-9_]"))
             {
-                this._databaseManager.SaveProject(name, description);
-                _projects[name] = description;
-                comboBoxCurrentProject.Items.Add(name);
+                if (comboBoxCurrentProject.FindStringExact(name) == -1)
+                {
+                    this._databaseManager.SaveProject(name,description);
+                    _projects[name] = description;
+                    comboBoxCurrentProject.Items.Add(name);
 
-                Logger.PopUpIt("User created successfully");
+                    Logger.PopUpIt("Project created successfully");
+
+                    textBoxProjectName.Text = "";
+                    textBoxProjectDescription.Text = "";
+                }
+                else {
+                    Logger.PopUpIt("Project already exists");
+                }
             }
             else {
                 Logger.PopUpIt("Invalid data");
@@ -48,15 +60,48 @@ namespace TaskManager
 
         private void comboBoxCurrentProject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            textBoxCurrentProjectDescription.Text = _projects[comboBoxCurrentProject.SelectedItem.ToString()];
-            int selectedProject = comboBoxCurrentProject.SelectedIndex+1;
-            if (selectedProject != 0)
-                _databaseManager.SelectedProject = selectedProject;
-             
+            int index = comboBoxCurrentProject.SelectedIndex;
+            if (index != -1)
+            {
+                string projectName = comboBoxCurrentProject.SelectedItem.ToString();
+                buttonDeleteProject.Visible = true;
+
+                textBoxCurrentProjectDescription.Text =_projects[comboBoxCurrentProject.SelectedItem.ToString()];
+                int selectedProject = _databaseManager.GetProjectId(projectName);
+                if (selectedProject != -1)
+                    _databaseManager.SelectedProject = selectedProject;
+            }
         }
-        public int ComboBoxSelectedProject
+        public int GetComboBoxSelectedProject()
         {
-            get { return comboBoxCurrentProject.SelectedIndex + 1; }
+            if (comboBoxCurrentProject.SelectedIndex != -1)
+            {
+                string name = comboBoxCurrentProject.SelectedItem.ToString();
+                return _databaseManager.GetProjectId(name);
+            }
+            else {
+                return -1;
+            }
+        }
+
+        private void buttonDeleteProject_Click(object sender, EventArgs e)
+        {
+            if (comboBoxCurrentProject.SelectedIndex != -1)
+            {
+                string projectName = comboBoxCurrentProject.SelectedItem.ToString();
+                int selectedProject = _databaseManager.GetProjectId(projectName);
+                if (selectedProject != -1)
+                {
+                    _databaseManager.DeleteProject(selectedProject);
+                    Logger.PopUpIt("Deleted successfully");
+                    comboBoxCurrentProject.Items.Remove(projectName);
+                    _projects.Remove(projectName);
+                    comboBoxCurrentProject.Text = "";
+                    textBoxCurrentProjectDescription.Text = "";
+                    buttonDeleteProject.Visible = false;
+                    
+                }
+            }
         }
     }
 }
