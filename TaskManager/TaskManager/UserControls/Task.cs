@@ -118,7 +118,7 @@ namespace TaskManager.UserControls
                 {
                     Elements.BugElement bug = (Elements.BugElement)_task;
                     int severity;
-                    Int32.TryParse(editform.textBoxPriority.Text, out severity);
+                    Int32.TryParse(editform.textBoxSeverity.Text, out severity);
                     bug.SetSeverity(severity);
                     DatabaseManager.DatabaseManager.Instance.UpdateTask(bug);
                     InitBug(bug);

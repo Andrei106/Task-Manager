@@ -44,12 +44,12 @@ namespace TaskManager.UserControls
         {
             InitializeComponent();
             this.ControlBox = false;
-            panelPurpose.Visible = false;
-            panelSeverity.Visible = false;
 
             labelTitle.Text = "Edit task";
             buttonCreateNewTask.Text = "Save";
             buttonCancel.Text = "Delete";
+            this._type = task.Type;
+
             List<ComboboxUserEntry> entries = new List<ComboboxUserEntry>();
             foreach (var user in users)
             {
@@ -84,22 +84,28 @@ namespace TaskManager.UserControls
             textBoxDescription.Text = feature.GetDescription();
             textBoxPriority.Text = feature.GetPriority() + "";
             labelReporterUsername.Text = feature.Reporter.Nickname;
+            panelPurpose.Visible = false;
+            panelSeverity.Visible = false;
         }
 
         private void InitEditForm(Elements.SpikeElement feature)
         {
             textBoxTitle.Text = feature.GetTitle();
             textBoxDescription.Text = feature.GetDescription();
-            textBoxPriority.Text = feature.GetPurpose();
+            textBoxPurpose.Text = feature.GetPurpose();
             labelReporterUsername.Text = feature.Reporter.Nickname;
+            panelPriority.Visible = false;
+            panelSeverity.Visible = false;
         }
 
         private void InitEditForm(Elements.BugElement feature)
         {
             textBoxTitle.Text = feature.GetTitle();
             textBoxDescription.Text = feature.GetDescription();
-            textBoxPriority.Text = feature.GetSeverity() + "";
+            textBoxSeverity.Text = feature.GetSeverity() + "";
             labelReporterUsername.Text = feature.Reporter.Nickname;
+            panelPriority.Visible = false;
+            panelPurpose.Visible = false;
         }
 
         private void buttonCreateNewTask_Click(object sender, EventArgs e)
