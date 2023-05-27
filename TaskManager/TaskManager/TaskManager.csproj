@@ -40,8 +40,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DatabaseManager\bin\Debug\DatabaseManager.dll</HintPath>
     </Reference>
+    <Reference Include="Bug">
+      <HintPath>..\Bug\bin\Debug\Bug.dll</HintPath>
+    </Reference>
+    <Reference Include="Spike">
+      <HintPath>..\Spike\bin\Debug\Spike.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,6 +99,12 @@
     <Compile Include="UserControls\Task.Designer.cs">
       <DependentUpon>Task.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TaskDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\TaskDialogForm.Designer.cs">
+      <DependentUpon>TaskDialogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ToDosControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +134,9 @@
     <EmbeddedResource Include="UserControls\Task.resx">
       <DependentUpon>Task.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TaskDialogForm.resx">
+      <DependentUpon>TaskDialogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ToDosControl.resx">
       <DependentUpon>ToDosControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,13 +159,43 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BugFactory\BugFactory.csproj">
+      <Project>{E84BEDBF-2302-4DF6-AA7D-15D309163AAC}</Project>
+      <Name>BugFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FeatureFactory\FeatureFactory.csproj">
+      <Project>{BCF56329-EF4F-4542-8C0B-BFE0F79E5DFC}</Project>
+      <Name>FeatureFactory</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LoggingModule\LoggingModule.csproj">
       <Project>{7db16604-618a-4f29-9007-511173b536f2}</Project>
       <Name>LoggingModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Member\Member.csproj">
+      <Project>{B31CB141-0B0C-424C-9709-F36E858B01E7}</Project>
+      <Name>Member</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Proxy\Login.csproj">
       <Project>{2AC035EA-8B2B-488A-9C16-FE62B865ED76}</Project>
       <Name>Login</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Feature\Feature.csproj">
+      <Project>{1B3595FE-BCF2-41D0-A844-308281CA7741}</Project>
+      <Name>Feature</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpikeFactory\SpikeFactory.csproj">
+      <Project>{DDC0BD02-F8D4-4757-A583-F86C301EA83F}</Project>
+      <Name>SpikeFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskFactory\TaskFactory.csproj">
+      <Project>{A4E52083-5102-4DF3-91BD-A58B1722AA65}</Project>
+      <Name>TaskFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Task\Task.csproj">
+      <Project>{F8E42CC6-01F5-4B36-ACD4-C35F924E3152}</Project>
+      <Name>Task</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

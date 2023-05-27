@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TaskManager
 {
-    public partial class homeControl : UserControl
+    public partial class HomeControl : UserControl
     {
-        public homeControl()
+        public HomeControl()
         {
             InitializeComponent();
         }

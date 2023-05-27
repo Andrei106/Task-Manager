@@ -44,5 +44,11 @@
     <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Member\Member.csproj">
+      <Project>{B31CB141-0B0C-424C-9709-F36E858B01E7}</Project>
+      <Name>Member</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -20,7 +20,7 @@ namespace TaskManager
         private void SetControlLocationInMiddle(Control control)
         {
             int x = (this.Width - control.Width) / 2;
-            int y = (this.Height - control.Height) / 2;
+            int y = (this.Height - control.Height) / 2 - 50;
             control.Location = new Point(x, y);
         }
 
@@ -30,7 +30,7 @@ namespace TaskManager
             InitializeComponent();
 
             //Initializare conectiune la baza de date(creare database si tabele)
-            _databaseManager.createConnection();
+            //_databaseManager.createConnection();
 
             // Initializare casuta si logica pentru logare
             LoginWindowInitialization();
@@ -112,6 +112,7 @@ namespace TaskManager
                     childControl.Show();
                 }
             }
+            labelCurrent.Text = "To-Dos";
         }
 
         private void ConnectionNotValid()
@@ -133,11 +134,6 @@ namespace TaskManager
 
         private void btnHome_Click(object sender, EventArgs e)
         {
-            Task t = new Task();
-            t.Show();
-         
-            homeCtrl.Controls.Add(t);
-   
                homeCtrl.Show();
             projectCtrl.Hide();
             toDosCtrl.Hide();
@@ -158,6 +154,14 @@ namespace TaskManager
             projectCtrl.Hide();
             toDosCtrl.Show();
             labelCurrent.Text = "To-Dos";
+            int projectId = projectCtrl.ComboBoxSelectedProject;
+            if (projectId>0)
+             {
+                toDosCtrl.activateButtons();
+                toDosCtrl.CurrentProjectId = projectCtrl.ComboBoxSelectedProject;
+                toDosCtrl.hideAndshowTask();
+            }
+           
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
