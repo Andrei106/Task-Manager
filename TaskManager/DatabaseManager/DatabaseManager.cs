@@ -625,7 +625,7 @@ namespace DatabaseManager
                         cmd.CommandText = "UPDATE task set title=@title, description=@description, purpose=@purpose, currentAsigneeId=@currentAsigneeId where id=@id;";
                         cmd.Parameters.AddWithValue("title", feature.GetTitle());
                         cmd.Parameters.AddWithValue("description", feature.GetDescription());
-                        cmd.Parameters.AddWithValue("priority", feature.GetPurpose());
+                        cmd.Parameters.AddWithValue("purpose", feature.GetPurpose());
                         if (feature.CurrentAsignee != null)
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee.Id);
@@ -665,7 +665,7 @@ namespace DatabaseManager
                         cmd.CommandText = "UPDATE task set title=@title, description=@description, severity=@severity, currentAsigneeId=@currentAsigneeId where id=@id;";
                         cmd.Parameters.AddWithValue("title", feature.GetTitle());
                         cmd.Parameters.AddWithValue("description", feature.GetDescription());
-                        cmd.Parameters.AddWithValue("priority", feature.GetSeverity());
+                        cmd.Parameters.AddWithValue("severity", feature.GetSeverity());
                         if (feature.CurrentAsignee != null)
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee.Id);
