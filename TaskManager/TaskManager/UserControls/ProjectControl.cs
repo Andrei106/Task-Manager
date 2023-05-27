@@ -29,7 +29,7 @@ namespace TaskManager
             }
         }
 
-        private void buttonCreateProject_Click(object sender, EventArgs e)
+        public void buttonCreateProject_Click(object sender, EventArgs e)
         {
             string name = textBoxProjectName.Text;
             string description = textBoxProjectDescription.Text;
@@ -84,7 +84,7 @@ namespace TaskManager
             }
         }
 
-        private void buttonDeleteProject_Click(object sender, EventArgs e)
+        public void buttonDeleteProject_Click(object sender, EventArgs e)
         {
             if (comboBoxCurrentProject.SelectedIndex != -1)
             {

@@ -186,12 +186,24 @@ namespace TaskManager
             NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
-        public void Test13()
+        //Verificare functionalitate buton Delete din UserControl:ProjectControl
+        public void Test_Buton_Delete_ProjectControl()
         {
+            bool butonApasat = false;
+            var myUserControl = new TaskManager.ProjectControl();
+            myUserControl.buttonDeleteProject_Click(null, null);
+            butonApasat = true;
+            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
-        public void Test14()
+        //Verificare functionalitate buton Create din UserControl:ProjectControl
+        public void Test_Buton_Create_ProjectControl()
         {
+            bool butonApasat = false;
+            var myUserControl = new TaskManager.ProjectControl();
+            myUserControl.buttonCreateProject_Click(null, null);
+            butonApasat = true;
+            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
         public void Test15()
