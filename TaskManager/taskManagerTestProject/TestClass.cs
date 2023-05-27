@@ -5,7 +5,8 @@ using System.Data;
 using NUnit.Framework;
 using TaskManager;
 using System.Windows.Forms;
-
+using TaskManager.UserControls;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TaskManager
 {
@@ -101,7 +102,7 @@ namespace TaskManager
                 using (var command = new NpgsqlCommand(insertQuery, con))
                 {
                     command.Parameters.AddWithValue("username", "ion");
-                    command.Parameters.AddWithValue("password", "12345678");
+                    command.Parameters.AddWithValue("password", "1on123098");
 
                     // Executarea comenzii de inserare
                     int rowsAffected = command.ExecuteNonQuery();
@@ -164,12 +165,24 @@ namespace TaskManager
             NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
-        public void Test11()
+        //Verificare functionalitate buton LogOut din FormMain
+        public void Test_Buton_LogOut_FormMain()
         {
+            bool butonApasat = false;
+            var myForm = new FormMain();
+            myForm.buttonLogout_Click(null, null);
+            butonApasat = true;
+            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
-        public void Test12()
+        //Verificare functionalitate buton Cancel&Delete din UserControl:TaskDialogForm 
+        public void Test_Buton_Delete_Si_Cancel_TaskDialogForm()
         {
+            bool butonApasat = false;
+            var myUserControl = new UserControls.TaskDialogForm(1);
+            myUserControl.buttonCancel_Click(null, null);
+            butonApasat = true;
+            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
         public void Test13()

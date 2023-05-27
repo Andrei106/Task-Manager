@@ -108,7 +108,7 @@ namespace TaskManager.UserControls
             this.Close();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        public void buttonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
