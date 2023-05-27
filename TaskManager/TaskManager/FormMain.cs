@@ -183,7 +183,7 @@ namespace TaskManager
             //Help.ShowHelp(this, "A4TaskHelp.chm");
         }
 
-        private void buttonLogout_Click(object sender, EventArgs e)
+        public void buttonLogout_Click(object sender, EventArgs e)
         {
             LoginWindowInitialization();
         }

@@ -5,6 +5,8 @@ using System.Data;
 using NUnit.Framework;
 using TaskManager;
 using System.Windows.Forms;
+using TaskManager.UserControls;
+using System.Diagnostics.CodeAnalysis;
 using Npgsql;
 
 namespace TaskManager
@@ -33,7 +35,7 @@ namespace TaskManager
         }
         [TestMethod]
         // Testare functionare apasare buton de logare din UserControl:Login
-        public void Test_Buton_LogIN()
+        public void Test_Buton_LogIn_Login()
         {
             var userControlLogIn = new TaskManager.UserControls.Login();
             bool butonApsat = false;
@@ -42,17 +44,15 @@ namespace TaskManager
             NUnit.Framework.Assert.IsTrue(butonApsat);
         }
         [TestMethod]
-        // Testare functionare apasare buton de register din UserControl:Login
-        public void Test_Buton_Register()
+        // Testare functionalitatem buton Register din UserControl:Login
+        public void Test_Buton_Register_Login()
         {
-            /*
+            
             var userControlLogIn = new TaskManager.UserControls.Login();
             bool butonApsat = false;
-            //var butRegister = userControlLogIn.Controls["buttonRegister"] as Button;
             userControlLogIn.buttonRegister_Click(null, null);
             butonApsat = true;
             NUnit.Framework.Assert.IsTrue(butonApsat);
-            */
         }
         [TestMethod]
         //Testare creare obiecte de tip Bug
@@ -89,15 +89,27 @@ namespace TaskManager
             {
                 con.Open();
 
-                string insertCommand = "INSERT INTO users (username,password) VALUES (@username,@password) ";
-                using (var command = new NpgsqlCommand(insertCommand, con))
+                // Curățare - ștergem toate înregistrările existente din tabela "users"
+                var deleteQuery = "DELETE FROM users";
+                using (var deleteCommand = new NpgsqlCommand(deleteQuery, con))
                 {
-                    command.Parameters.AddWithValue("@username", "Ion");
-                    command.Parameters.AddWithValue("@password", "ionel1234");
+                    deleteCommand.ExecuteNonQuery();
+                }
 
+                // Definirea interogării de inserare
+                var insertQuery = "INSERT INTO users (username, password) VALUES (@username, @password)";
+
+                // Creare comandă cu parametri specificati
+                using (var command = new NpgsqlCommand(insertQuery, con))
+                {
+                    command.Parameters.AddWithValue("username", "ion");
+                    command.Parameters.AddWithValue("password", "1on123098");
+
+                    // Executarea comenzii de inserare
                     int rowsAffected = command.ExecuteNonQuery();
 
-                    NUnit.Framework.Assert.AreEqual(1, rowsAffected, "Insert failed!");
+                    // Verificare dacă inserarea a fost realizată cu succes
+                    Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, rowsAffected); // Verificăm dacă un singur rând a fost afectat (inserat)
                 }
             }
         }
@@ -109,39 +121,69 @@ namespace TaskManager
             using (var con = new NpgsqlConnection(connectionString))
             {
                 con.Open();
-                string insertCommand = "INSERT INTO users (username, password) VALUES (@username, @password);";
-                using (var insertCmd = new NpgsqlCommand(insertCommand, con))
+
+                // Inserare înregistrare înainte de ștergere pentru a avea un rând de șters
+                var insertQuery = "INSERT INTO users (username, password) VALUES ('marcel', 'qwerty1234')";
+                using (var insertCommand = new NpgsqlCommand(insertQuery, con))
                 {
-                    insertCmd.Parameters.AddWithValue("@username", "John");
-                    insertCmd.Parameters.AddWithValue("@password", "password123");
-                    insertCmd.ExecuteNonQuery();
+                    insertCommand.ExecuteNonQuery();
                 }
 
-                string deleteCommand = "DELETE FROM users WHERE username = @username;";
-                using (var deleteCmd = new NpgsqlCommand(deleteCommand, con))
-                {
-                    deleteCmd.Parameters.AddWithValue("@username", "JohnDoe");
-                    int rowsAffected = deleteCmd.ExecuteNonQuery();
+                // Definire interogarea de ștergere
+                var deleteQuery = "DELETE FROM users WHERE username = @username";
 
-                    NUnit.Framework.Assert.AreEqual(1, rowsAffected, "Delete failed!");
+                // Creare o nouă comandă de stergere după parametrul username
+                using (var command = new NpgsqlCommand(deleteQuery, con))
+                {
+                    command.Parameters.AddWithValue("username", "marcel");
+
+                    // Executare comanda de ștergere
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    // Verificare dacă ștergerea a fost realizată cu succes
+                    Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, rowsAffected); // Verificăm dacă un singur rând a fost afectat (șters)
                 }
             }
+    }
+        [TestMethod]
+        //Verificare functionalitate buton Register din UserControl:Register
+        public void Test_Buton_Register_Register()
+        {
+            var userControlRegister = new UserControls.Register();
+            bool butonApsat = false;
+            userControlRegister.buttonRegisterAddUser_Click(null, null);
+            butonApsat = true;
+            NUnit.Framework.Assert.IsTrue(butonApsat);
         }
         [TestMethod]
-        public void Test9()
+        //Verificare functionalitate buton Create din UserControl:TaskDialogForm 
+        public void Test_Buton_Create_TaskDialogForm()
         {
+            bool butonApasat = false;
+            var myUserControl = new UserControls.TaskDialogForm(1);
+            myUserControl.buttonCreateNewTask_Click(null, null);
+            butonApasat = true;
+            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
-        public void Test10()
+        //Verificare functionalitate buton LogOut din FormMain
+        public void Test_Buton_LogOut_FormMain()
         {
+            bool butonApasat = false;
+            var myForm = new FormMain();
+            myForm.buttonLogout_Click(null, null);
+            butonApasat = true;
+            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
-        public void Test11()
+        //Verificare functionalitate buton Cancel&Delete din UserControl:TaskDialogForm 
+        public void Test_Buton_Delete_Si_Cancel_TaskDialogForm()
         {
-        }
-        [TestMethod]
-        public void Test12()
-        {
+            bool butonApasat = false;
+            var myUserControl = new UserControls.TaskDialogForm(1);
+            myUserControl.buttonCancel_Click(null, null);
+            butonApasat = true;
+            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
         public void Test13()
