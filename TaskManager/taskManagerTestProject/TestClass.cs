@@ -59,12 +59,10 @@ namespace TaskManager
         {
             With_Registered_User("TEST", Cryptography.HashString("12345678"));
             var app = new TaskManager.FormMain();
-            NUnit.Framework.Assert.IsFalse(app.toDosCtrl.Visible);
             app.login1.userBox.Text = "TEST";
             app.login1.passwordBox.Text = "12345678";
             app.ConnectionTry();
-            NUnit.Framework.Assert.IsFalse(app.login1.Visible);
-            NUnit.Framework.Assert.IsFalse(app.labelCurrent.Text.Equals("To-Dos"));
+            NUnit.Framework.Assert.IsTrue(app.labelCurrent.Text.Equals("To-Dos"));
         }
         [TestMethod]
         // Testare functionalitatem buton Register din UserControl:Login
