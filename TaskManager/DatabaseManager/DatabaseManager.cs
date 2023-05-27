@@ -627,7 +627,7 @@ namespace DatabaseManager
                         cmd.CommandText = "UPDATE task set title=@title, description=@description, purpose=@purpose, currentAsigneeId=@currentAsigneeId where id=@id;";
                         cmd.Parameters.AddWithValue("title", feature.GetTitle());
                         cmd.Parameters.AddWithValue("description", feature.GetDescription());
-                        cmd.Parameters.AddWithValue("priority", feature.GetPurpose());
+                        cmd.Parameters.AddWithValue("purpose", feature.GetPurpose());
                         if (feature.CurrentAsignee != null)
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee.Id);
@@ -654,7 +654,7 @@ namespace DatabaseManager
             return true;
         }
 
-        public bool UpdateTask(Elements.BugElement feature)
+        public bool UpdateTask(Elements.BugElement bug)
         {
             try
             {
@@ -665,19 +665,19 @@ namespace DatabaseManager
                     {
                         cmd.Connection = conn;
                         cmd.CommandText = "UPDATE task set title=@title, description=@description, severity=@severity, currentAsigneeId=@currentAsigneeId where id=@id;";
-                        cmd.Parameters.AddWithValue("title", feature.GetTitle());
-                        cmd.Parameters.AddWithValue("description", feature.GetDescription());
-                        cmd.Parameters.AddWithValue("priority", feature.GetSeverity());
-                        if (feature.CurrentAsignee != null)
+                        cmd.Parameters.AddWithValue("title", bug.GetTitle());
+                        cmd.Parameters.AddWithValue("description", bug.GetDescription());
+                        cmd.Parameters.AddWithValue("severity", bug.GetSeverity());
+                        if (bug.CurrentAsignee != null)
                         {
-                            cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee.Id);
+                            cmd.Parameters.AddWithValue("currentAsigneeId", bug.CurrentAsignee.Id);
                         }
                         else
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", DBNull.Value);
                         }
                         //cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee != null ? feature.CurrentAsignee.Id : null); TODO: see if we can upgrade language level to 9.0
-                        cmd.Parameters.AddWithValue("id", feature.GetId());
+                        cmd.Parameters.AddWithValue("id", bug.GetId());
                         object id = cmd.ExecuteScalar();
                         if (id == null)
                         {
