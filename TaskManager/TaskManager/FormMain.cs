@@ -94,7 +94,7 @@ namespace TaskManager
 
         }
 
-        private void ConnectionTry()
+        public void ConnectionTry()
         {
             // folosesc proxy-ul incat sa nu interoghez baza de date daca nu e nevoie 
             ILogin loginService = new LoginProxy();

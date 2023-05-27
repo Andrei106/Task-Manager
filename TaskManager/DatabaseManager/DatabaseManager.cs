@@ -40,6 +40,11 @@ namespace DatabaseManager
         /// <returns></returns>
         public string createConnection()
         {
+            string databaseName = "taskmanager";
+            if (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.StartsWith("Microsoft.TestPlatform.PlatformAbstractions")))
+            {
+                databaseName = "test_taskmanager";
+            }
             try
             {
                 // Verificare daca baza de date deja exista
@@ -49,7 +54,7 @@ namespace DatabaseManager
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT 1 FROM pg_database WHERE datname = 'taskmanager';";
+                        cmd.CommandText = "SELECT 1 FROM pg_database WHERE datname = '" + databaseName + "';";
 
                         var result = cmd.ExecuteScalar();
 
@@ -61,11 +66,11 @@ namespace DatabaseManager
                         else
                         {
                             // Creare baza de date
-                            cmd.CommandText = "CREATE DATABASE taskmanager;";
+                            cmd.CommandText = "CREATE DATABASE " + databaseName + ";";
                             cmd.ExecuteNonQuery();
                             Console.WriteLine("Database created.");
                         }
-                        _connectionString += "Database = taskmanager;";
+                        _connectionString += "Database = " + databaseName + ";";
                     }
                 }
 

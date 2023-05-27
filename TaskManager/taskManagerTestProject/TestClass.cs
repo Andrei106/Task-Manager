@@ -8,12 +8,20 @@ using System.Windows.Forms;
 using TaskManager.UserControls;
 using System.Diagnostics.CodeAnalysis;
 using Npgsql;
+using DatabaseManager;
+using Proxy;
 
 namespace TaskManager
 {
     [TestClass]
     public class TestClass
     {
+        [TestInitialize]
+        public void InitDatabase()
+        {
+            DatabaseManager.DatabaseManager.Instance.createConnection();
+        }
+
         [TestMethod]
         //testare conectare la baza de date
         public void Test_Conectare_La_Baza_de_Date() 
@@ -34,14 +42,29 @@ namespace TaskManager
             }
         }
         [TestMethod]
+        //Testare metoda de inregistrare utilizator
+        public void Test_Inregistrare_Utilizator()
+        {
+            CleanTable("users");
+            string username = "TEST";
+            string password = "12345678";
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveUser(username, password);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(true, success);
+            bool userExists = DatabaseManager.DatabaseManager.Instance.CheckUserExits(username, password);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(true, userExists);
+        }
+        [TestMethod]
         // Testare functionare apasare buton de logare din UserControl:Login
         public void Test_Buton_LogIn_Login()
         {
-            var userControlLogIn = new TaskManager.UserControls.Login();
-            bool butonApsat = false;
-            userControlLogIn.button1_Click(null, null);
-            butonApsat = true;
-            NUnit.Framework.Assert.IsTrue(butonApsat);
+            With_Registered_User("TEST", Cryptography.HashString("12345678"));
+            var app = new TaskManager.FormMain();
+            NUnit.Framework.Assert.IsFalse(app.toDosCtrl.Visible);
+            app.login1.userBox.Text = "TEST";
+            app.login1.passwordBox.Text = "12345678";
+            app.ConnectionTry();
+            NUnit.Framework.Assert.IsFalse(app.login1.Visible);
+            NUnit.Framework.Assert.IsFalse(app.labelCurrent.Text.Equals("To-Dos"));
         }
         [TestMethod]
         // Testare functionalitatem buton Register din UserControl:Login
@@ -113,6 +136,7 @@ namespace TaskManager
                 }
             }
         }
+
         [TestMethod]
         //Testare stergere de valori in tabela users din baza de date
         public void Testare_Sterge_Din_Baza_De_Date()
@@ -228,6 +252,28 @@ namespace TaskManager
         [TestMethod]
         public void Test20()
         {
+        }
+
+        private void CleanTable(string tableName)
+        {
+            string connectionString = @"Server=localhost;Port=5432;User Id=postgres;Password=postgres; Database=test_taskmanager";
+            using (var con = new NpgsqlConnection(connectionString))
+            {
+                con.Open();
+
+                var deleteQuery = "DELETE FROM " + tableName + ";";
+
+                using (var command = new NpgsqlCommand(deleteQuery, con))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void With_Registered_User(string username, string password)
+        {
+            CleanTable("users");
+            DatabaseManager.DatabaseManager.Instance.SaveUser(username, password);
         }
     }
 }
