@@ -179,8 +179,8 @@ namespace TaskManager
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Help", "Help");
-            //Help.ShowHelp(this, "A4TaskHelp.chm");
+            //MessageBox.Show("Help", "Help");
+            System.Diagnostics.Process.Start("A4Task.chm");
         }
 
         public void buttonLogout_Click(object sender, EventArgs e)
