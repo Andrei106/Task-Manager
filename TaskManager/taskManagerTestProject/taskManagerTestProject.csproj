@@ -146,6 +146,10 @@
       <Project>{1b3595fe-bcf2-41d0-a844-308281ca7741}</Project>
       <Name>Feature</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Member\Member.csproj">
+      <Project>{B31CB141-0B0C-424C-9709-F36E858B01E7}</Project>
+      <Name>Member</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Proxy\Login.csproj">
       <Project>{2AC035EA-8B2B-488A-9C16-FE62B865ED76}</Project>
       <Name>Login</Name>

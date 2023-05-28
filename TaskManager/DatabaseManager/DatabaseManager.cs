@@ -44,6 +44,7 @@ namespace DatabaseManager
             if (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.StartsWith("Microsoft.TestPlatform.PlatformAbstractions")))
             {
                 databaseName = "test_taskmanager";
+                _loggedUser = new Member.Member("TEST_USER", 1);
             }
             try
             {
