@@ -565,10 +565,6 @@ namespace DatabaseManager
                         cmd.Parameters.AddWithValue("status", task.GetStatus());
                         cmd.Parameters.AddWithValue("id", task.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }
@@ -605,10 +601,6 @@ namespace DatabaseManager
                         //cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee != null ? feature.CurrentAsignee.Id : null); TODO: see if we can upgrade language level to 9.0
                         cmd.Parameters.AddWithValue("id", feature.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }
@@ -645,10 +637,6 @@ namespace DatabaseManager
                         //cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee != null ? feature.CurrentAsignee.Id : null); TODO: see if we can upgrade language level to 9.0
                         cmd.Parameters.AddWithValue("id", feature.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }
@@ -685,10 +673,6 @@ namespace DatabaseManager
                         //cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee != null ? feature.CurrentAsignee.Id : null); TODO: see if we can upgrade language level to 9.0
                         cmd.Parameters.AddWithValue("id", bug.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }

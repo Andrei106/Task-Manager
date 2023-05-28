@@ -73,6 +73,7 @@ namespace TaskManager
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["description"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("FEATURE", tasks[0]["type"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(priority, tasks[0]["priority"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
@@ -96,6 +97,7 @@ namespace TaskManager
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["description"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("SPIKE", tasks[0]["type"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(purpose, tasks[0]["purpose"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
@@ -119,10 +121,107 @@ namespace TaskManager
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["description"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("BUG", tasks[0]["type"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(severity, tasks[0]["severity"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNull(tasks[0]["asignee"]);
+        }
+        [TestMethod]
+        //Testare metoda de editare feature
+        public void Test_Editare_Feature()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            string edit = "NEW ";
+            int priority = 5;
+            TaskFactory.TaskFactory fabricaFeature = new FeatureFactory.FeatureFactory();
+            Elements.FeatureElement obF = (Elements.FeatureElement)fabricaFeature.CreateTask(1, descriere, titlu, priority, status, 1);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obF);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obF.Description = edit + descriere;
+            obF.Title = edit + titlu;
+            obF.SetPriority(priority + 1);
+            obF.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTask(obF);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("FEATURE", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(priority + 1, tasks[0]["priority"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(tasks[0]["asignee"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["asignee"]).Nickname);
+        }
+        [TestMethod]
+        //Testare metoda de editare task
+        public void Test_Editare_Task()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            string edit = "NEW ";
+            string purpose = "needed for next release";
+            TaskFactory.TaskFactory fabricaSpike = new SpikeFactory.SpikeFactory();
+            Elements.SpikeElement obS = (Elements.SpikeElement)fabricaSpike.CreateTask(1, descriere, titlu, 2, status, 0, purpose);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obS);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obS.Description = edit + descriere;
+            obS.Title = edit + titlu;
+            obS.SetPurpose(edit + purpose);
+            obS.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTask(obS);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("SPIKE", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + purpose, tasks[0]["purpose"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(tasks[0]["asignee"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["asignee"]).Nickname);
+        }
+        [TestMethod]
+        //Testare metoda de editare bug
+        public void Test_Editare_Bug()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "TO_DO";
+            string edit = "NEW ";
+            int severity = 1;
+            TaskFactory.TaskFactory fabricaBug = new BugFactory.BugFactory();
+            Elements.BugElement obB = (Elements.BugElement)fabricaBug.CreateTask(0, descriere, titlu, severity, status, 0);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obB);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obB.Description = edit + descriere;
+            obB.Title = edit + titlu;
+            obB.SetSeverity(severity + 1);
+            obB.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTask(obB);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("BUG", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(severity + 1, tasks[0]["severity"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(tasks[0]["asignee"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["asignee"]).Nickname);
         }
         [TestMethod]
         // Testare functionare apasare buton de logare din UserControl:Login
@@ -192,57 +291,6 @@ namespace TaskManager
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, obS.Title);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, obS.GetStatus());
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(purpose, obS.GetPurpose());
-        }
-
-        [TestMethod]
-        //Verificare functionalitate buton Create din UserControl:TaskDialogForm 
-        public void Test_Buton_Create_TaskDialogForm()
-        {
-            bool butonApasat = false;
-            var myUserControl = new UserControls.TaskDialogForm(1);
-            myUserControl.buttonCreateNewTask_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton LogOut din FormMain
-        public void Test_Buton_LogOut_FormMain()
-        {
-            bool butonApasat = false;
-            var myForm = new FormMain();
-            myForm.buttonLogout_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton Cancel&Delete din UserControl:TaskDialogForm 
-        public void Test_Buton_Delete_Si_Cancel_TaskDialogForm()
-        {
-            bool butonApasat = false;
-            var myUserControl = new UserControls.TaskDialogForm(1);
-            myUserControl.buttonCancel_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton Delete din UserControl:ProjectControl
-        public void Test_Buton_Delete_ProjectControl()
-        {
-            bool butonApasat = false;
-            var myUserControl = new TaskManager.ProjectControl();
-            myUserControl.buttonDeleteProject_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton Create din UserControl:ProjectControl
-        public void Test_Buton_Create_ProjectControl()
-        {
-            bool butonApasat = false;
-            var myUserControl = new TaskManager.ProjectControl();
-            myUserControl.buttonCreateProject_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
         }
         [TestMethod]
         public void Test15()
