@@ -149,11 +149,11 @@ namespace TaskManager.UserControls
         private System.Windows.Forms.GroupBox groupBoxRegister;
         private System.Windows.Forms.Label labelRegisterUsername;
         private System.Windows.Forms.Label labelRegisterPassword;
-        private System.Windows.Forms.TextBox textBoxRegisterPassword;
-        private System.Windows.Forms.TextBox textBoxRegisterUsername;
-        private System.Windows.Forms.TextBox textBoxRegisterConfirmPassword;
         private System.Windows.Forms.Label labelRegisterConfirmPassword;
-        private System.Windows.Forms.Button buttonRegisterAddUser;
         private System.Windows.Forms.Button buttonRegisterBack;
+        public System.Windows.Forms.TextBox textBoxRegisterPassword;
+        public System.Windows.Forms.TextBox textBoxRegisterUsername;
+        public System.Windows.Forms.TextBox textBoxRegisterConfirmPassword;
+        public System.Windows.Forms.Button buttonRegisterAddUser;
     }
 }

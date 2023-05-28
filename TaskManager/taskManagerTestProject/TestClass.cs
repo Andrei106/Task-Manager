@@ -8,12 +8,22 @@ using System.Windows.Forms;
 using TaskManager.UserControls;
 using System.Diagnostics.CodeAnalysis;
 using Npgsql;
+using DatabaseManager;
+using Proxy;
+using System.Collections.Generic;
+using Member;
 
 namespace TaskManager
 {
     [TestClass]
     public class TestClass
     {
+        [TestInitialize]
+        public void InitDatabase()
+        {
+            DatabaseManager.DatabaseManager.Instance.createConnection();
+        }
+
         [TestMethod]
         //testare conectare la baza de date
         public void Test_Conectare_La_Baza_de_Date() 
@@ -34,200 +44,339 @@ namespace TaskManager
             }
         }
         [TestMethod]
+        //Testare metoda de inregistrare utilizator
+        public void Test_Inregistrare_Utilizator()
+        {
+            CleanTable("users");
+            string username = "TEST";
+            string password = "12345678";
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveUser(username, password);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            bool userExists = DatabaseManager.DatabaseManager.Instance.CheckUserExits(username, password);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(userExists);
+        }
+        [TestMethod]
+        //Testare metoda de salvare feature
+        public void Test_Salvare_Feature()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            int priority = 5;
+            TaskFactory.TaskFactory fabricaFeature = new FeatureFactory.FeatureFactory();
+            Elements.FeatureElement obF = (Elements.FeatureElement)fabricaFeature.CreateTask(1, descriere, titlu, priority, status, 1);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obF);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("FEATURE", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(priority, tasks[0]["priority"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNull(tasks[0]["asignee"]);
+        }
+        [TestMethod]
+        //Testare metoda de salvare task
+        public void Test_Salvare_Task()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            string purpose = "needed for next release";
+            TaskFactory.TaskFactory fabricaSpike = new SpikeFactory.SpikeFactory();
+            Elements.SpikeElement obS = (Elements.SpikeElement)fabricaSpike.CreateTask(1, descriere, titlu, 2, status, 0, purpose);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obS);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("SPIKE", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(purpose, tasks[0]["purpose"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNull(tasks[0]["asignee"]);
+        }
+        [TestMethod]
+        //Testare metoda de salvare bug
+        public void Test_Salvare_Bug()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "TO_DO";
+            int severity = 1;
+            TaskFactory.TaskFactory fabricaBug = new BugFactory.BugFactory();
+            Elements.BugElement obB = (Elements.BugElement)fabricaBug.CreateTask(0, descriere, titlu, severity, status, 0);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obB);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("BUG", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(severity, tasks[0]["severity"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNull(tasks[0]["asignee"]);
+        }
+        [TestMethod]
+        //Testare metoda de editare feature
+        public void Test_Editare_Feature()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            string edit = "NEW ";
+            int priority = 5;
+            TaskFactory.TaskFactory fabricaFeature = new FeatureFactory.FeatureFactory();
+            Elements.FeatureElement obF = (Elements.FeatureElement)fabricaFeature.CreateTask(1, descriere, titlu, priority, status, 1);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obF);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obF.Description = edit + descriere;
+            obF.Title = edit + titlu;
+            obF.SetPriority(priority + 1);
+            obF.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTask(obF);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("FEATURE", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(priority + 1, tasks[0]["priority"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(tasks[0]["asignee"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["asignee"]).Nickname);
+        }
+        [TestMethod]
+        //Testare metoda de editare task
+        public void Test_Editare_Task()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            string edit = "NEW ";
+            string purpose = "needed for next release";
+            TaskFactory.TaskFactory fabricaSpike = new SpikeFactory.SpikeFactory();
+            Elements.SpikeElement obS = (Elements.SpikeElement)fabricaSpike.CreateTask(1, descriere, titlu, 2, status, 0, purpose);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obS);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obS.Description = edit + descriere;
+            obS.Title = edit + titlu;
+            obS.SetPurpose(edit + purpose);
+            obS.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTask(obS);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("SPIKE", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + purpose, tasks[0]["purpose"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(tasks[0]["asignee"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["asignee"]).Nickname);
+        }
+        [TestMethod]
+        //Testare metoda de editare bug
+        public void Test_Editare_Bug()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "TO_DO";
+            string edit = "NEW ";
+            int severity = 1;
+            TaskFactory.TaskFactory fabricaBug = new BugFactory.BugFactory();
+            Elements.BugElement obB = (Elements.BugElement)fabricaBug.CreateTask(0, descriere, titlu, severity, status, 0);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obB);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obB.Description = edit + descriere;
+            obB.Title = edit + titlu;
+            obB.SetSeverity(severity + 1);
+            obB.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTask(obB);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + descriere, tasks[0]["description"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(edit + titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("BUG", tasks[0]["type"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(severity + 1, tasks[0]["severity"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["reporter"]).Nickname);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(tasks[0]["asignee"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TEST_USER", ((Member.Member)tasks[0]["asignee"]).Nickname);
+        }
+        [TestMethod]
+        //Testare metoda de editare status feature
+        public void Test_Editare_Status_Feature()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            int priority = 5;
+            TaskFactory.TaskFactory fabricaFeature = new FeatureFactory.FeatureFactory();
+            Elements.FeatureElement obF = (Elements.FeatureElement)fabricaFeature.CreateTask(1, descriere, titlu, priority, status, 1);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obF);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obF.SetStatus(status);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTaskStatus(obF);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, tasks[0]["status"]);
+
+        }
+        [TestMethod]
+        //Testare metoda de editare status task
+        public void Test_Editare_Status_Task()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            string purpose = "needed for next release";
+            TaskFactory.TaskFactory fabricaSpike = new SpikeFactory.SpikeFactory();
+            Elements.SpikeElement obS = (Elements.SpikeElement)fabricaSpike.CreateTask(1, descriere, titlu, 2, status, 0, purpose);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obS);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obS.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTaskStatus(obS);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, tasks[0]["status"]);
+        }
+        [TestMethod]
+        //Testare metoda de editare status bug
+        public void Test_Editare_Status_Bug()
+        {
+            CleanTable("task");
+            With_Registered_User("TEST_USER", "1");
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "TO_DO";
+            int severity = 1;
+            TaskFactory.TaskFactory fabricaBug = new BugFactory.BugFactory();
+            Elements.BugElement obB = (Elements.BugElement)fabricaBug.CreateTask(0, descriere, titlu, severity, status, 0);
+            bool success = DatabaseManager.DatabaseManager.Instance.SaveTask(obB);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
+            obB.CurrentAsignee = new Member.Member("TEST_USER", 1);
+            bool successUpdate = DatabaseManager.DatabaseManager.Instance.UpdateTaskStatus(obB);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(successUpdate);
+            List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, tasks[0]["status"]);
+        }
+        [TestMethod]
         // Testare functionare apasare buton de logare din UserControl:Login
         public void Test_Buton_LogIn_Login()
         {
-            var userControlLogIn = new TaskManager.UserControls.Login();
-            bool butonApsat = false;
-            userControlLogIn.button1_Click(null, null);
-            butonApsat = true;
-            NUnit.Framework.Assert.IsTrue(butonApsat);
+            With_Registered_User("TEST", Cryptography.HashString("12345678"));
+            var app = new TaskManager.FormMain();
+            app.login1.userBox.Text = "TEST";
+            app.login1.passwordBox.Text = "12345678";
+            app.ConnectionTry();
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("To-Dos", app.labelCurrent.Text);
         }
         [TestMethod]
         // Testare functionalitatem buton Register din UserControl:Login
         public void Test_Buton_Register_Login()
         {
-            
-            var userControlLogIn = new TaskManager.UserControls.Login();
-            bool butonApsat = false;
-            userControlLogIn.buttonRegister_Click(null, null);
-            butonApsat = true;
-            NUnit.Framework.Assert.IsTrue(butonApsat);
+            CleanTable("users");
+            var app = new TaskManager.FormMain();
+            app.register1.textBoxRegisterUsername.Text = "TEST";
+            app.register1.textBoxRegisterPassword.Text = "12345678";
+            app.register1.textBoxRegisterConfirmPassword.Text = "12345678";
+            app.register1.buttonRegisterAddUser_Click(null, null);
+            bool userExists = DatabaseManager.DatabaseManager.Instance.CheckUserExits("TEST", Cryptography.HashString("12345678"));
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(userExists);
         }
         [TestMethod]
         //Testare creare obiecte de tip Bug
         public void TestBug()
         {
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "TO_DO";
+            int severity = 1;
             TaskFactory.TaskFactory fabricaBug = new BugFactory.BugFactory();
-            var obB = fabricaBug.CreateTask(0, "Descriere", "Titlu", 0, "Done", 0);
-            NUnit.Framework.Assert.IsNotNull(obB);
-            
+            Elements.BugElement obB = (Elements.BugElement)fabricaBug.CreateTask(0, descriere, titlu, severity, status, 0);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, obB.Description);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, obB.Title);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, obB.GetStatus());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(severity, obB.GetSeverity());
         }
         [TestMethod]
         //Testare creare obiecte de tip Feature
         public void TestFeature()
         {
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            int priority = 5;
             TaskFactory.TaskFactory fabricaFeature = new FeatureFactory.FeatureFactory();
-            var obF = fabricaFeature.CreateTask(1, "Descriere", "Titlu", 3, "Waiting", 1);
-            NUnit.Framework.Assert.IsNotNull(obF);
-
+            Elements.FeatureElement obF = (Elements.FeatureElement)fabricaFeature.CreateTask(1, descriere, titlu, priority, status, 1);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, obF.Description);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, obF.Title);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, obF.GetStatus());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(priority, obF.GetPriority());
         }
         [TestMethod]
         //Testare creare obiecte de tip Spike
         public void TestSpike()
         {
+            string descriere = "Descriere";
+            string titlu = "Titlu";
+            string status = "DONE";
+            string purpose = "needed for next release";
             TaskFactory.TaskFactory fabricaSpike = new SpikeFactory.SpikeFactory();
-            var obS = fabricaSpike.CreateTask(1, "Descriere", "Titlu", 2, "Waiting", 0);
-            NUnit.Framework.Assert.IsNotNull(obS);
+            Elements.SpikeElement obS = (Elements.SpikeElement)fabricaSpike.CreateTask(1, descriere, titlu, 2, status, 0, purpose);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, obS.Description);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, obS.Title);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, obS.GetStatus());
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(purpose, obS.GetPurpose());
         }
-        [TestMethod]
-        //Testare inserare de valori in tabela users din baza de date
-        public void Test_Inserare_In_Baza_De_Date()
+
+        private void CleanTable(string tableName)
         {
-            string connectionString = @"Server=localhost;Port=5432;User Id=postgres;Password=postgres;";
+            string connectionString = @"Server=localhost;Port=5432;User Id=postgres;Password=postgres; Database=test_taskmanager";
             using (var con = new NpgsqlConnection(connectionString))
             {
                 con.Open();
 
-                // Curățare - ștergem toate înregistrările existente din tabela "users"
-                var deleteQuery = "DELETE FROM users";
-                using (var deleteCommand = new NpgsqlCommand(deleteQuery, con))
-                {
-                    deleteCommand.ExecuteNonQuery();
-                }
+                var deleteQuery = "DELETE FROM " + tableName + ";";
 
-                // Definirea interogării de inserare
-                var insertQuery = "INSERT INTO users (username, password) VALUES (@username, @password)";
-
-                // Creare comandă cu parametri specificati
-                using (var command = new NpgsqlCommand(insertQuery, con))
-                {
-                    command.Parameters.AddWithValue("username", "ion");
-                    command.Parameters.AddWithValue("password", "1on123098");
-
-                    // Executarea comenzii de inserare
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    // Verificare dacă inserarea a fost realizată cu succes
-                    Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, rowsAffected); // Verificăm dacă un singur rând a fost afectat (inserat)
-                }
-            }
-        }
-        [TestMethod]
-        //Testare stergere de valori in tabela users din baza de date
-        public void Testare_Sterge_Din_Baza_De_Date()
-        {
-            string connectionString = @"Server=localhost;Port=5432;User Id=postgres;Password=postgres;";
-            using (var con = new NpgsqlConnection(connectionString))
-            {
-                con.Open();
-
-                // Inserare înregistrare înainte de ștergere pentru a avea un rând de șters
-                var insertQuery = "INSERT INTO users (username, password) VALUES ('marcel', 'qwerty1234')";
-                using (var insertCommand = new NpgsqlCommand(insertQuery, con))
-                {
-                    insertCommand.ExecuteNonQuery();
-                }
-
-                // Definire interogarea de ștergere
-                var deleteQuery = "DELETE FROM users WHERE username = @username";
-
-                // Creare o nouă comandă de stergere după parametrul username
                 using (var command = new NpgsqlCommand(deleteQuery, con))
                 {
-                    command.Parameters.AddWithValue("username", "marcel");
-
-                    // Executare comanda de ștergere
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    // Verificare dacă ștergerea a fost realizată cu succes
-                    Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, rowsAffected); // Verificăm dacă un singur rând a fost afectat (șters)
+                    command.ExecuteNonQuery();
                 }
             }
-    }
-        [TestMethod]
-        //Verificare functionalitate buton Register din UserControl:Register
-        public void Test_Buton_Register_Register()
-        {
-            var userControlRegister = new UserControls.Register();
-            bool butonApsat = false;
-            userControlRegister.buttonRegisterAddUser_Click(null, null);
-            butonApsat = true;
-            NUnit.Framework.Assert.IsTrue(butonApsat);
         }
-        [TestMethod]
-        //Verificare functionalitate buton Create din UserControl:TaskDialogForm 
-        public void Test_Buton_Create_TaskDialogForm()
+
+        private void With_Registered_User(string username, string password)
         {
-            bool butonApasat = false;
-            var myUserControl = new UserControls.TaskDialogForm(1);
-            myUserControl.buttonCreateNewTask_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton LogOut din FormMain
-        public void Test_Buton_LogOut_FormMain()
-        {
-            bool butonApasat = false;
-            var myForm = new FormMain();
-            myForm.buttonLogout_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton Cancel&Delete din UserControl:TaskDialogForm 
-        public void Test_Buton_Delete_Si_Cancel_TaskDialogForm()
-        {
-            bool butonApasat = false;
-            var myUserControl = new UserControls.TaskDialogForm(1);
-            myUserControl.buttonCancel_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton Delete din UserControl:ProjectControl
-        public void Test_Buton_Delete_ProjectControl()
-        {
-            bool butonApasat = false;
-            var myUserControl = new TaskManager.ProjectControl();
-            myUserControl.buttonDeleteProject_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        //Verificare functionalitate buton Create din UserControl:ProjectControl
-        public void Test_Buton_Create_ProjectControl()
-        {
-            bool butonApasat = false;
-            var myUserControl = new TaskManager.ProjectControl();
-            myUserControl.buttonCreateProject_Click(null, null);
-            butonApasat = true;
-            NUnit.Framework.Assert.IsTrue(butonApasat);
-        }
-        [TestMethod]
-        public void Test15()
-        {
-        }
-        [TestMethod]
-        public void Test16()
-        {
-        }
-        [TestMethod]
-        public void Test17()
-        {
-        }
-        [TestMethod]
-        public void Test18()
-        {
-        }
-        [TestMethod]
-        public void Test19()
-        {
-        }
-        [TestMethod]
-        public void Test20()
-        {
+            CleanTable("users");
+            DatabaseManager.DatabaseManager.Instance.SaveUser(username, password);
         }
     }
 }

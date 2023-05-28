@@ -40,6 +40,12 @@ namespace DatabaseManager
         /// <returns></returns>
         public string createConnection()
         {
+            string databaseName = "taskmanager";
+            if (AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.StartsWith("Microsoft.TestPlatform.PlatformAbstractions")))
+            {
+                databaseName = "test_taskmanager";
+                _loggedUser = new Member.Member("TEST_USER", 1);
+            }
             try
             {
                 // Verificare daca baza de date deja exista
@@ -49,7 +55,7 @@ namespace DatabaseManager
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT 1 FROM pg_database WHERE datname = 'taskmanager';";
+                        cmd.CommandText = "SELECT 1 FROM pg_database WHERE datname = '" + databaseName + "';";
 
                         var result = cmd.ExecuteScalar();
 
@@ -61,11 +67,11 @@ namespace DatabaseManager
                         else
                         {
                             // Creare baza de date
-                            cmd.CommandText = "CREATE DATABASE taskmanager;";
+                            cmd.CommandText = "CREATE DATABASE " + databaseName + ";";
                             cmd.ExecuteNonQuery();
                             Console.WriteLine("Database created.");
                         }
-                        _connectionString += "Database = taskmanager;";
+                        _connectionString += "Database = " + databaseName + ";";
                     }
                 }
 
@@ -559,10 +565,6 @@ namespace DatabaseManager
                         cmd.Parameters.AddWithValue("status", task.GetStatus());
                         cmd.Parameters.AddWithValue("id", task.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }
@@ -599,10 +601,6 @@ namespace DatabaseManager
                         //cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee != null ? feature.CurrentAsignee.Id : null); TODO: see if we can upgrade language level to 9.0
                         cmd.Parameters.AddWithValue("id", feature.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }
@@ -627,7 +625,7 @@ namespace DatabaseManager
                         cmd.CommandText = "UPDATE task set title=@title, description=@description, purpose=@purpose, currentAsigneeId=@currentAsigneeId where id=@id;";
                         cmd.Parameters.AddWithValue("title", feature.GetTitle());
                         cmd.Parameters.AddWithValue("description", feature.GetDescription());
-                        cmd.Parameters.AddWithValue("priority", feature.GetPurpose());
+                        cmd.Parameters.AddWithValue("purpose", feature.GetPurpose());
                         if (feature.CurrentAsignee != null)
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee.Id);
@@ -639,10 +637,6 @@ namespace DatabaseManager
                         //cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee != null ? feature.CurrentAsignee.Id : null); TODO: see if we can upgrade language level to 9.0
                         cmd.Parameters.AddWithValue("id", feature.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }
@@ -654,7 +648,7 @@ namespace DatabaseManager
             return true;
         }
 
-        public bool UpdateTask(Elements.BugElement feature)
+        public bool UpdateTask(Elements.BugElement bug)
         {
             try
             {
@@ -665,24 +659,20 @@ namespace DatabaseManager
                     {
                         cmd.Connection = conn;
                         cmd.CommandText = "UPDATE task set title=@title, description=@description, severity=@severity, currentAsigneeId=@currentAsigneeId where id=@id;";
-                        cmd.Parameters.AddWithValue("title", feature.GetTitle());
-                        cmd.Parameters.AddWithValue("description", feature.GetDescription());
-                        cmd.Parameters.AddWithValue("priority", feature.GetSeverity());
-                        if (feature.CurrentAsignee != null)
+                        cmd.Parameters.AddWithValue("title", bug.GetTitle());
+                        cmd.Parameters.AddWithValue("description", bug.GetDescription());
+                        cmd.Parameters.AddWithValue("severity", bug.GetSeverity());
+                        if (bug.CurrentAsignee != null)
                         {
-                            cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee.Id);
+                            cmd.Parameters.AddWithValue("currentAsigneeId", bug.CurrentAsignee.Id);
                         }
                         else
                         {
                             cmd.Parameters.AddWithValue("currentAsigneeId", DBNull.Value);
                         }
                         //cmd.Parameters.AddWithValue("currentAsigneeId", feature.CurrentAsignee != null ? feature.CurrentAsignee.Id : null); TODO: see if we can upgrade language level to 9.0
-                        cmd.Parameters.AddWithValue("id", feature.GetId());
+                        cmd.Parameters.AddWithValue("id", bug.GetId());
                         object id = cmd.ExecuteScalar();
-                        if (id == null)
-                        {
-                            return false;
-                        }
                     }
                 }
             }

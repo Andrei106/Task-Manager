@@ -134,6 +134,10 @@
       <Project>{76cbbcef-15a9-42f7-a45f-4fae16a93b7b}</Project>
       <Name>Bug</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DatabaseManager\DatabaseManager.csproj">
+      <Project>{F557388B-9F21-4D18-8216-EB18771DC019}</Project>
+      <Name>DatabaseManager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeatureFactory\FeatureFactory.csproj">
       <Project>{bcf56329-ef4f-4542-8c0b-bfe0f79e5dfc}</Project>
       <Name>FeatureFactory</Name>
@@ -141,6 +145,14 @@
     <ProjectReference Include="..\Feature\Feature.csproj">
       <Project>{1b3595fe-bcf2-41d0-a844-308281ca7741}</Project>
       <Name>Feature</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Member\Member.csproj">
+      <Project>{B31CB141-0B0C-424C-9709-F36E858B01E7}</Project>
+      <Name>Member</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Proxy\Login.csproj">
+      <Project>{2AC035EA-8B2B-488A-9C16-FE62B865ED76}</Project>
+      <Name>Login</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpikeFactory\SpikeFactory.csproj">
       <Project>{ddc0bd02-f8d4-4757-a583-f86c301ea83f}</Project>

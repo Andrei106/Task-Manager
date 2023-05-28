@@ -8,7 +8,7 @@ namespace Elements
     public class FeatureElement:Elements.TaskElement
     {
         private int _priority { get; set; }
-        public FeatureElement(int id,string descpription,string title,int priority,string status, int projectId) :base(id,descpription,0,title, status,projectId)
+        public FeatureElement(int id,string description,string title,int priority,string status, int projectId) :base(id, description, 0,title, status,projectId)
         {
             _priority = priority;
         }
