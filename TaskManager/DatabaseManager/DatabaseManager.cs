@@ -1,4 +1,22 @@
-﻿using System;
+﻿/********************************************************************************************
+ *                                                                                          *
+ *  File:        DatabaseManager.cs                                                                     *
+ *  Copyright:   (c) 2023,Epure Andrei-Ioan, Lungu Bogdan-Andrei                            *
+ *  E-mail:      andrei-ioan.epure@student.tuiasi.ro,bogdan-andrei.lungu@tuiasi.ro          *                   *
+ *  Description: Studenti la Facultatea de Automatica si Calculatoare Iasi                   *
+ *                                                                                          *
+ *  This program is free software; you can redistribute it and/or modify                    *
+ *  it under the terms of the GNU General Public License as published by                    *
+ *  the Free Software Foundation. This program is distributed in the                        *
+ *  hope that it will be useful, but WITHOUT ANY WARRANTY; without even                     *
+ *  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR                     *
+ *  PURPOSE. See the GNU General Public License for more details.                           *
+ *                                                                                          *
+ *******************************************************************************************/
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +26,21 @@ using Npgsql;
 using Project;
 namespace DatabaseManager
 {
+   
+
+    /// <summary>
+    /// Clasa ce descrie elementele de tip DatabaseManager
+    /// </summary>
     public class DatabaseManager
     {
         private string _connectionString = @"Server=localhost;Port=5432;User Id=postgres;Password=postgres;";
         private static readonly DatabaseManager _dbInstance = new DatabaseManager();
         private static Member.Member _loggedUser = null;
         private static int _selectedProjectID = -1;
+
+        /// <summary>
+        /// Constructorii pentru clasa DatabaseManager(Singleton)
+        /// </summary>
         static DatabaseManager()
         {
         }
@@ -29,6 +56,9 @@ namespace DatabaseManager
             }
         }
 
+        /// <summary>
+        /// Setter pentru id ul proiectului curent
+        /// </summary>
         public int SelectedProject
         {
             set { _selectedProjectID = value; }
@@ -220,7 +250,11 @@ namespace DatabaseManager
                 return false;
             }
         }
-
+        /// <summary>
+        /// Metoda de verificare daca un proiect exista deja 
+        /// </summary>
+        /// <param name="name">Numele proiectului</param>
+        /// <returns></returns>
         public bool CheckProjectExits(string name)
         {
             try
@@ -255,6 +289,12 @@ namespace DatabaseManager
             }
         }
 
+        /// <summary>
+        /// Metoda de salvare a unui proiect
+        /// </summary>
+        /// <param name="name">Nume</param>
+        /// <param name="description">Descriere</param>
+        /// <returns></returns>
         public bool SaveProject(string name,string description)
         {
             try
@@ -287,6 +327,10 @@ namespace DatabaseManager
             }
         }
 
+        /// <summary>
+        /// Metoda ce returneaza toate proiectele existente in baza de date
+        /// </summary>
+        /// <returns></returns>
         public IDictionary<string, string> GetProjects()
         {
              IDictionary<string, string> projectsList = new Dictionary<string, string>();
@@ -321,6 +365,11 @@ namespace DatabaseManager
 
         }
 
+        /// <summary>
+        /// Metoda de salvare a taskurilor FeatureElement
+        /// </summary>
+        /// <param name="task">FeatureElement</param>
+        /// <returns></returns>
         public bool SaveTask(Elements.FeatureElement task)
         {
             try
@@ -333,7 +382,6 @@ namespace DatabaseManager
                     {
                         //Inserare in baza de date
                         cmd.Connection = conn;
-                        // TODO: populate boardId
                         cmd.CommandText = "INSERT INTO task (type,title,description,status,priority,reporterId ,projectId) VALUES ('FEATURE', @title, @description, 'TO_DO', @priority, @reporterId, @projectId) RETURNING id";
                         cmd.Parameters.AddWithValue("title", task.GetTitle());
                         cmd.Parameters.AddWithValue("description", task.GetDescription());
@@ -358,6 +406,13 @@ namespace DatabaseManager
             }
             return true;
         }
+
+
+        /// <summary>
+        /// Metoda de salvare a taskurilor SpikeElement
+        /// </summary>
+        /// <param name="task">SpikeElement</param>
+        /// <returns></returns>
         public bool SaveTask(Elements.SpikeElement task)
         {
             try
@@ -396,6 +451,12 @@ namespace DatabaseManager
             }
             return true;
         }
+
+        /// <summary>
+        /// Metoda de salvare a taskurilor BugElement
+        /// </summary>
+        /// <param name="task">BugElement</param>
+        /// <returns></returns>
         public bool SaveTask(Elements.BugElement task)
         {
             try
@@ -433,6 +494,12 @@ namespace DatabaseManager
             }
             return true;
         }
+
+        /// <summary>
+        /// Metoda ce returneaza user-ul cu id ul cerut 
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns></returns>
         private Member.Member FetchUserById(int id)
         {
             try
@@ -458,6 +525,11 @@ namespace DatabaseManager
             }
             return null;
         }
+
+        /// <summary>
+        /// Metoda ce returneaza toti users existenti
+        /// </summary>
+        /// <returns>Lista de users</returns>
         public List<Member.Member> FetchUsers()
         {
             List<Member.Member> users = new List<Member.Member>();
@@ -484,6 +556,10 @@ namespace DatabaseManager
             }
             return users;
         }
+        /// <summary>
+        /// Metoda ce returneaza lista de task-uri
+        /// </summary>
+        /// <returns>Lista de task-uri</returns>
         public List<Dictionary<string, object>> FetchTasks()
         {
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
@@ -551,6 +627,11 @@ namespace DatabaseManager
             return result;
         }
 
+        /// <summary>
+        /// Metoda de actualizare a statusulu unui task
+        /// </summary>
+        /// <param name="task">TaskElement</param>
+        /// <returns></returns>
         public bool UpdateTaskStatus(Elements.TaskElement task)
         {
             try
@@ -576,6 +657,11 @@ namespace DatabaseManager
             return true;
         }
 
+        /// <summary>
+        /// Metoda de actualizare a task-ului FeatureElement
+        /// </summary>
+        /// <param name="task">FeatureElement</param>
+        /// <returns>Boolean</returns>
         public bool UpdateTask(Elements.FeatureElement feature)
         {
             try
@@ -612,6 +698,11 @@ namespace DatabaseManager
             return true;
         }
 
+        /// <summary>
+        /// Metoda de actualizare a task-ului SpikeElement
+        /// </summary>
+        /// <param name="task">SpikeElement</param>
+        /// <returns>Boolean</returns>
         public bool UpdateTask(Elements.SpikeElement feature)
         {
             try
@@ -647,7 +738,11 @@ namespace DatabaseManager
             }
             return true;
         }
-
+        /// <summary>
+        /// Metoda de actualizare a task-ului BugElement
+        /// </summary>
+        /// <param name="task">BugElement</param>
+        /// <returns>Boolean</returns>
         public bool UpdateTask(Elements.BugElement bug)
         {
             try
@@ -684,6 +779,11 @@ namespace DatabaseManager
             return true;
         }
 
+        /// <summary>
+        /// Metoda de stergere a taskurilor dupa id
+        /// </summary>
+        /// <param name="taskId">Id</param>
+        /// <returns>Boolean</returns>
         public bool DeleteTask(int taskId)
         {
             try
@@ -709,6 +809,12 @@ namespace DatabaseManager
         }
 
 
+
+        /// <summary>
+        /// Metoda de obtinere a id-urilor proiectelor cu un anumit nume
+        /// </summary>
+        /// <param name="name">Nume</param>
+        /// <returns>Id</returns>
         public int GetProjectId(string name)
         {
             int projectId = -1;
@@ -738,7 +844,11 @@ namespace DatabaseManager
             return projectId;
         }
 
-
+        /// <summary>
+        /// Metoda de stergere a proiectelor dupa id
+        /// </summary>
+        /// <param name="projectId">Id</param>
+        /// <returns>Boolean</returns>
         public bool DeleteProject(int projectId)
         {
             try
