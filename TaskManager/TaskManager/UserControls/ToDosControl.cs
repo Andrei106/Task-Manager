@@ -31,11 +31,18 @@ using TaskManager.UserControls;
 
 namespace TaskManager
 {
+    /// <summary>
+    /// Clasa ToDosControl
+    /// </summary>
     public partial class ToDosControl : UserControl
     {
 
         private TaskFactory.TaskFactory _featureFactory, _spikeFactory, _bugFactory;
         private int _currentProject;
+
+        /// <summary>
+        /// Constructorul clasei ToDosControl
+        /// </summary>
         public ToDosControl()
         {
             InitializeComponent();
@@ -45,7 +52,10 @@ namespace TaskManager
             _currentProject = -1;
             //this.InitTasks(DatabaseManager.DatabaseManager.Instance.FetchTasks());
         }
-
+        /// <summary>
+        /// Metoda de initializare a task-urilor
+        /// </summary>
+        /// <param name="entries"></param>
         private void InitTasks(List<Dictionary<string, object>> entries)
         {
             foreach (var entry in entries)
@@ -74,7 +84,10 @@ namespace TaskManager
                 }
             }
         }
-        
+        /// <summary>
+        /// Metoda de adaugare in coloane a task-urilor
+        /// </summary>
+        /// <param name="task"></param>
         private void AddTaskToColumn(Elements.TaskElement task)
         {
             switch(task.GetStatus())
@@ -102,6 +115,11 @@ namespace TaskManager
             }
         } 
 
+        /// <summary>
+        /// Metoda de creare a unui task de tipul feature
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void storyNewItem_Click(object sender, EventArgs e)
         {
             TaskDialogForm form = new TaskDialogForm(0);
@@ -120,6 +138,9 @@ namespace TaskManager
             }
 
         }
+        /// <summary>
+        /// Metoda de afisare a task-urilor
+        /// </summary>
         public void hideAndshowTask()
         {
           
@@ -145,14 +166,20 @@ namespace TaskManager
               
             }
         }
-
+        /// <summary>
+        /// Setter si getter pentru id-ul proiectului curent selectat
+        /// </summary>
         public int CurrentProjectId
         {
             set { _currentProject = value; }
             get { return _currentProject; }
            
         }
-
+        /// <summary>
+        /// Metoda de creare a unui task de tipul spike
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void taskNewItem_Click(object sender, EventArgs e)
         {
             TaskDialogForm form = new TaskDialogForm(1);
@@ -170,6 +197,11 @@ namespace TaskManager
             }
         }
 
+        /// <summary>
+        /// Metoda de creare a unui task de tipul story
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void storyFilterItem_Click(object sender, EventArgs e)
         {
             List<Control> controlLists = new List<Control>
@@ -194,7 +226,11 @@ namespace TaskManager
 
             }
         }
-
+        /// <summary>
+        /// Metoda de filtrare a spike-urilor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void taskFilterItem_Click(object sender, EventArgs e)
         {
             List<Control> controlLists = new List<Control>
@@ -219,7 +255,11 @@ namespace TaskManager
 
             }
         }
-
+        /// <summary>
+        /// Metoda de filtrare a bug-urilor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bugFilterItem_Click(object sender, EventArgs e)
         {
             List<Control> controlLists = new List<Control>
@@ -245,11 +285,21 @@ namespace TaskManager
             }
         }
 
+        /// <summary>
+        /// Metoda de oprire a filtrului
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void noneFiltertem_Click(object sender, EventArgs e)
         {
             hideAndshowTask();
         }
 
+        /// <summary>
+        /// Metoda de creare a unui task de tipul bug
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bugNewtem_Click(object sender, EventArgs e)
         {
             TaskDialogForm form = new TaskDialogForm(2);
@@ -270,6 +320,9 @@ namespace TaskManager
         }
 
 
+        /// <summary>
+        /// Metoda de stergere a task-urilor
+        /// </summary>
         public void removeTasks()
         {
 
@@ -298,6 +351,9 @@ namespace TaskManager
             this.menuStripNewItem.Visible = false;
         }
 
+        /// <summary>
+        /// Metoda de activare a butoanelor 
+        /// </summary>
         public void activateButtons()
         {
              if (_currentProject == -1)

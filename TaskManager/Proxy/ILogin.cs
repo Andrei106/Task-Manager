@@ -22,8 +22,16 @@ using System.Threading.Tasks;
 
 namespace Proxy
 {
+    /// <summary>
+    /// Interfata ILogin
+    /// </summary>
     public interface ILogin
     {
+        /// <summary>
+        /// Metoda de logare
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         void LoginMethod(string username, string password);
     }
 }

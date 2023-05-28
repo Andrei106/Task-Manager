@@ -25,15 +25,26 @@ using System.Threading.Tasks;
 
 namespace Proxy
 {
+    /// <summary>
+    /// Clasa LoginProxy
+    /// </summary>
     public class LoginProxy : ILogin
     {
         private readonly ILogin realLogin;
 
+        /// <summary>
+        /// Constructorul clasei LoginProxy
+        /// </summary>
         public LoginProxy()
         {
             realLogin = new LoginService();
         }
 
+        /// <summary>
+        /// Metoda de logare
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public void LoginMethod(string username, string password)
         {
             // intai se testeaza daca parola indeplineste conditiile
@@ -49,6 +60,12 @@ namespace Proxy
             realLogin.LoginMethod(username, password);
         }
 
+        /// <summary>
+        /// Metoda de verificare daca incercarea de login e valida
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private bool IsValidLoginAttempt(string username, string password)
         {
             // daca parola contine caractere speciale nu e valida
@@ -67,7 +84,10 @@ namespace Proxy
 
             return true;
         }
-
+        /// <summary>
+        /// Metoda ce afiseaza o incercare de logare
+        /// </summary>
+        /// <param name="username"></param>
         private void LogLoginAttempt(string username)
         {
             Logger.LogIt($"Login attempts for user: {username}");

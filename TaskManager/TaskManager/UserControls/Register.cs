@@ -30,9 +30,16 @@ using LoggingModule;
 
 namespace TaskManager.UserControls
 {
+    /// <summary>
+    /// Clasa Register
+    /// </summary>
     public partial class Register : UserControl
     {
         private DatabaseManager.DatabaseManager _databaseManager = DatabaseManager.DatabaseManager.Instance;
+
+        /// <summary>
+        /// Constructorul clasei Register
+        /// </summary>
         public Register()
         {
             InitializeComponent();
@@ -41,7 +48,6 @@ namespace TaskManager.UserControls
             textBoxRegisterConfirmPassword.UseSystemPasswordChar = true;
         }
 
-        //public Action ConnectAction { get; set; }
         public Action ConnectActionBack { get; set; }
 
         /// <summary>

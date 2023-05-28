@@ -29,10 +29,16 @@ using LoggingModule;
 using Project;
 namespace TaskManager
 {
+    /// <summary>
+    /// Clasa ProjectControl
+    /// </summary>
     public partial class ProjectControl : UserControl
     {
         private DatabaseManager.DatabaseManager _databaseManager = DatabaseManager.DatabaseManager.Instance;
         private IDictionary<string, string> _projects;
+        /// <summary>
+        /// Constructorul Clasei ProjectControl
+        /// </summary>
         public ProjectControl()
         {
             InitializeComponent();
@@ -45,7 +51,11 @@ namespace TaskManager
                 comboBoxCurrentProject.Items.Add(project.Key);
             }
         }
-
+        /// <summary>
+        /// Metoda de creare a unui proiect
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void buttonCreateProject_Click(object sender, EventArgs e)
         {
             string name = textBoxProjectName.Text;
@@ -74,7 +84,11 @@ namespace TaskManager
                 Logger.PopUpIt("Invalid data");
             }
         }
-
+        /// <summary>
+        /// Metoda de selectare a proiectului
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxCurrentProject_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = comboBoxCurrentProject.SelectedIndex;
@@ -89,6 +103,10 @@ namespace TaskManager
                     _databaseManager.SelectedProject = selectedProject;
             }
         }
+        /// <summary>
+        /// Metoda de informare a proiectului selectat
+        /// </summary>
+        /// <returns></returns>
         public int GetComboBoxSelectedProject()
         {
             if (comboBoxCurrentProject.SelectedIndex != -1)
@@ -100,7 +118,11 @@ namespace TaskManager
                 return -1;
             }
         }
-
+        /// <summary>
+        /// Metoda de stergere a unui proiect
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void buttonDeleteProject_Click(object sender, EventArgs e)
         {
             if (comboBoxCurrentProject.SelectedIndex != -1)

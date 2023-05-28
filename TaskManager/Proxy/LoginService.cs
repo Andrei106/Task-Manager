@@ -23,6 +23,9 @@ using DatabaseManager;
 
 namespace Proxy
 { 
+    /// <summary>
+    /// Clasa LoginService
+    /// </summary>
     public class LoginService : ILogin
     {
         private DatabaseManager.DatabaseManager _databaseManager=DatabaseManager.DatabaseManager.Instance;
@@ -30,6 +33,11 @@ namespace Proxy
         public static event LoginAction OnLoginSuccessed;
         public static event LoginAction OnLoginFailed;
 
+        /// <summary>
+        /// Metoda de login
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public void LoginMethod(string username, string password)
         {
             var isValid = _databaseManager.CheckUserExits(username,Cryptography.HashString(password)); //Verificare existenta utilizator

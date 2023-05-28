@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 namespace TaskFactory
 {
     /// <summary>
-    ///  Interfata ce descrie elementele de tip TaskFactory
+    ///  Interfata TaskFactory
     /// </summary>
     public interface TaskFactory
     {

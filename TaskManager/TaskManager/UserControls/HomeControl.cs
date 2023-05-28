@@ -26,6 +26,9 @@ using System.Windows.Forms;
 
 namespace TaskManager
 {
+    /// <summary>
+    /// Clasa HomeControl 
+    /// </summary>
     public partial class HomeControl : UserControl
     {
         public HomeControl()
