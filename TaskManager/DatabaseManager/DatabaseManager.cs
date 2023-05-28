@@ -23,7 +23,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Member;
 using Npgsql;
-using Project;
 namespace DatabaseManager
 {
    

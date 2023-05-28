@@ -51,9 +51,6 @@
     <Reference Include="Npgsql, Version=7.0.4.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.7.0.4\lib\netstandard2.0\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="Project">
-      <HintPath>..\Project\bin\Debug\Project.dll</HintPath>
-    </Reference>
     <Reference Include="Spike">
       <HintPath>..\Spike\bin\Debug\Spike.dll</HintPath>
     </Reference>
