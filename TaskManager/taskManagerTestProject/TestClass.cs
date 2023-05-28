@@ -163,8 +163,8 @@ namespace TaskManager
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsTrue(success);
             List<Dictionary<string, object>> tasks = DatabaseManager.DatabaseManager.Instance.FetchTasks();
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(1, tasks.Count);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["description"]);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, tasks[0]["title"]);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, tasks[0]["description"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("BUG", tasks[0]["type"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual("TO_DO", tasks[0]["status"]);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(severity, tasks[0]["severity"]);
@@ -494,8 +494,8 @@ namespace TaskManager
             Elements.BugElement obB = (Elements.BugElement)fabricaBug.CreateTask(0, descriere, titlu, severity, status, 0);
 
             // verify
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, obB.Description);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, obB.Title);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(descriere, obB.Title);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(titlu, obB.Description);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(status, obB.GetStatus());
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(severity, obB.GetSeverity());
         }
