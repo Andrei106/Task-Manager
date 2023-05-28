@@ -193,7 +193,6 @@ namespace TaskManager.UserControls
             this.Controls.Add(this.labelTaskTitle);
             this.Name = "Task";
             this.Size = new System.Drawing.Size(189, 269);
-            this.Load += new System.EventHandler(this.Task_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Task_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Task_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Task_MouseUp);

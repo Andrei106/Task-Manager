@@ -1,4 +1,21 @@
-﻿using System;
+﻿/**************************************************************************
+ *                                                                        *
+ *  File:        Task.cs                                                   *
+ *  Copyright:   (c) 2023, Lungu Bogdan-Andrei                            *
+ *  E-mail:      bogdan-andrei.lungu@tuiasi.ro                            *
+ *  Description: Student la Facultatea de Automatica si Calculatoare Iasi *
+ *                                                                        *
+ *  This program is free software; you can redistribute it and/or modify  *
+ *  it under the terms of the GNU General Public License as published by  *
+ *  the Free Software Foundation. This program is distributed in the      *
+ *  hope that it will be useful, but WITHOUT ANY WARRANTY; without even   *
+ *  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR   *
+ *  PURPOSE. See the GNU General Public License for more details.         *
+ *                                                                        *
+ **************************************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +27,9 @@ using System.Windows.Forms;
 
 namespace TaskManager.UserControls
 {
+    /// <summary>
+    /// Clasa Task
+    /// </summary>
     public partial class Task : UserControl
     {
         private bool _isDragging = false;
@@ -17,6 +37,15 @@ namespace TaskManager.UserControls
         private Control _newPane, _blockedPane, _inProgressPane, _waitingPane, _donePane;
         private Elements.TaskElement _task;
 
+        /// <summary>
+        /// Constructorul clasei Task
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="newPane"></param>
+        /// <param name="blockedPane"></param>
+        /// <param name="inProgressPane"></param>
+        /// <param name="waitingPane"></param>
+        /// <param name="donePane"></param>
         public Task(Elements.TaskElement task, Control newPane, Control blockedPane, Control inProgressPane, Control waitingPane, Control donePane)
         {
             InitializeComponent();
@@ -41,6 +70,10 @@ namespace TaskManager.UserControls
             this._donePane = donePane;
         }
 
+        /// <summary>
+        /// Metoda de initializare pentru feature
+        /// </summary>
+        /// <param name="feature"></param>
         private void InitFeature(Elements.FeatureElement feature)
         {
             this.labelTitle.Text = feature.GetTitle();
@@ -55,6 +88,10 @@ namespace TaskManager.UserControls
             this.BackColor = Color.Lime;
         }
 
+        /// <summary>
+        /// Metoda de initializare pentru spike
+        /// </summary>
+        /// <param name="spike"></param>
         private void InitSpike(Elements.SpikeElement spike)
         {
             this.labelTitle.Text = spike.GetTitle();
@@ -68,7 +105,10 @@ namespace TaskManager.UserControls
             this.labelAsigneeUsername.Text = spike.CurrentAsignee != null ? spike.CurrentAsignee.Nickname : "Unassigned";
             this.BackColor = Color.Aqua;
         }
-
+        /// <summary>
+        /// Metoda de initializare pentru bug
+        /// </summary>
+        /// <param name="bug"></param>
         private void InitBug(Elements.BugElement bug)
         {
             this.labelTitle.Text = bug.GetTitle();
@@ -82,7 +122,11 @@ namespace TaskManager.UserControls
             this.labelAsigneeUsername.Text = bug.CurrentAsignee != null ? bug.CurrentAsignee.Nickname : "Unassigned";
             this.BackColor = Color.Tomato;
         }
-
+        /// <summary>
+        /// Metoda de editare a task-urilor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonEditTask_Click(object sender, EventArgs e)
         {
             TaskDialogForm editform = new TaskDialogForm(_task, DatabaseManager.DatabaseManager.Instance.FetchUsers());
@@ -134,12 +178,11 @@ namespace TaskManager.UserControls
             }
 
         }
-
-        private void Task_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Metoda de incepere a drag-ului
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Task_MouseDown(object sender, MouseEventArgs e)
         {
             this.Parent = this.TopLevelControl;
@@ -148,7 +191,11 @@ namespace TaskManager.UserControls
             _oldX = e.X;
             _oldY = e.Y;
         }
-
+        /// <summary>
+        /// Metoda de mutare a taskului
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Task_MouseMove(object sender, MouseEventArgs e)
         {
             if (_isDragging)
@@ -157,7 +204,11 @@ namespace TaskManager.UserControls
                 this.Left = this.Left + (e.X - _oldX);
             }
         }
-
+        /// <summary>
+        /// Metoda de terminare a drag-ului
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Task_MouseUp(object sender, MouseEventArgs e)
         {
             _isDragging = false;
@@ -188,12 +239,17 @@ namespace TaskManager.UserControls
             DatabaseManager.DatabaseManager.Instance.UpdateTaskStatus(this._task);
         }
 
-
+        /// <summary>
+        /// Getter pentru id-ul proiectului task-ului
+        /// </summary>
         public int TaskProjectId
         {
             get { return _task.ProjectId; }
         }
 
+        /// <summary>
+        /// Getter pentru tipul proiectului task-ului
+        /// </summary>
         public int TaskType
         {
             get { return _task.Type; }

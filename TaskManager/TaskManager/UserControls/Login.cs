@@ -15,7 +15,7 @@ namespace TaskManager.UserControls
         public Login()
         {
             InitializeComponent();
-
+            this.BackColor = Color.FromArgb(200, Color.Transparent);
             passwordBox.UseSystemPasswordChar = true;
         }
 
@@ -25,7 +25,7 @@ namespace TaskManager.UserControls
         {
             ConnectAction?.Invoke();
         }
-        private void buttonRegister_Click(object sender, EventArgs e)
+        public void buttonRegister_Click(object sender, EventArgs e)
         {
             ConnectActionRegister?.Invoke();
         }
@@ -46,7 +46,5 @@ namespace TaskManager.UserControls
         {
             passwordBox.Text=text;
         }
-
-
     }
 }

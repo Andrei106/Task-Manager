@@ -108,13 +108,13 @@ namespace TaskManager.UserControls
             panelPurpose.Visible = false;
         }
 
-        private void buttonCreateNewTask_Click(object sender, EventArgs e)
+        public void buttonCreateNewTask_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        public void buttonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();

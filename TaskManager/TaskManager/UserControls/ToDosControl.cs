@@ -1,4 +1,21 @@
-﻿using System;
+﻿/********************************************************************************************
+ *                                                                                          *
+ *  File:        ToDosControl.cs                                                            *
+ *  Copyright:   (c) 2023,Epure Andrei-Ioan, Lungu Bogdan-Andrei                            *
+ *  E-mail:      andrei-ioan.epure@student.tuiasi.ro,bogdan-andrei.lungu@tuiasi.ro          *                   *
+ *  Description: Student la Facultatea de Automatica si Calculatoare Iasi                   *
+ *                                                                                          *
+ *  This program is free software; you can redistribute it and/or modify                    *
+ *  it under the terms of the GNU General Public License as published by                    *
+ *  the Free Software Foundation. This program is distributed in the                        *
+ *  hope that it will be useful, but WITHOUT ANY WARRANTY; without even                     *
+ *  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR                     *
+ *  PURPOSE. See the GNU General Public License for more details.                           *
+ *                                                                                          *
+ *******************************************************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,11 +31,18 @@ using TaskManager.UserControls;
 
 namespace TaskManager
 {
+    /// <summary>
+    /// Clasa ToDosControl
+    /// </summary>
     public partial class ToDosControl : UserControl
     {
 
         private TaskFactory.TaskFactory _featureFactory, _spikeFactory, _bugFactory;
         private int _currentProject;
+
+        /// <summary>
+        /// Constructorul clasei ToDosControl
+        /// </summary>
         public ToDosControl()
         {
             InitializeComponent();
@@ -28,7 +52,10 @@ namespace TaskManager
             _currentProject = -1;
             //this.InitTasks(DatabaseManager.DatabaseManager.Instance.FetchTasks());
         }
-
+        /// <summary>
+        /// Metoda de initializare a task-urilor
+        /// </summary>
+        /// <param name="entries"></param>
         private void InitTasks(List<Dictionary<string, object>> entries)
         {
             foreach (var entry in entries)
@@ -57,7 +84,10 @@ namespace TaskManager
                 }
             }
         }
-        
+        /// <summary>
+        /// Metoda de adaugare in coloane a task-urilor
+        /// </summary>
+        /// <param name="task"></param>
         private void AddTaskToColumn(Elements.TaskElement task)
         {
             switch(task.GetStatus())
@@ -85,6 +115,11 @@ namespace TaskManager
             }
         } 
 
+        /// <summary>
+        /// Metoda de creare a unui task de tipul feature
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void storyNewItem_Click(object sender, EventArgs e)
         {
             TaskDialogForm form = new TaskDialogForm(0);
@@ -103,6 +138,9 @@ namespace TaskManager
             }
 
         }
+        /// <summary>
+        /// Metoda de afisare a task-urilor
+        /// </summary>
         public void hideAndshowTask()
         {
           
@@ -128,13 +166,20 @@ namespace TaskManager
               
             }
         }
-
+        /// <summary>
+        /// Setter si getter pentru id-ul proiectului curent selectat
+        /// </summary>
         public int CurrentProjectId
         {
             set { _currentProject = value; }
+            get { return _currentProject; }
            
         }
-
+        /// <summary>
+        /// Metoda de creare a unui task de tipul spike
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void taskNewItem_Click(object sender, EventArgs e)
         {
             TaskDialogForm form = new TaskDialogForm(1);
@@ -152,6 +197,11 @@ namespace TaskManager
             }
         }
 
+        /// <summary>
+        /// Metoda de creare a unui task de tipul story
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void storyFilterItem_Click(object sender, EventArgs e)
         {
             List<Control> controlLists = new List<Control>
@@ -176,7 +226,11 @@ namespace TaskManager
 
             }
         }
-
+        /// <summary>
+        /// Metoda de filtrare a spike-urilor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void taskFilterItem_Click(object sender, EventArgs e)
         {
             List<Control> controlLists = new List<Control>
@@ -201,7 +255,11 @@ namespace TaskManager
 
             }
         }
-
+        /// <summary>
+        /// Metoda de filtrare a bug-urilor
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bugFilterItem_Click(object sender, EventArgs e)
         {
             List<Control> controlLists = new List<Control>
@@ -227,11 +285,21 @@ namespace TaskManager
             }
         }
 
+        /// <summary>
+        /// Metoda de oprire a filtrului
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void noneFiltertem_Click(object sender, EventArgs e)
         {
             hideAndshowTask();
         }
 
+        /// <summary>
+        /// Metoda de creare a unui task de tipul bug
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bugNewtem_Click(object sender, EventArgs e)
         {
             TaskDialogForm form = new TaskDialogForm(2);
@@ -250,6 +318,42 @@ namespace TaskManager
                 }
             }
         }
+
+
+        /// <summary>
+        /// Metoda de stergere a task-urilor
+        /// </summary>
+        public void removeTasks()
+        {
+
+            List<Control> controlLists = new List<Control>
+            {
+                flowLayoutNewTasks,
+                flowLayoutBlockedTasks,
+                flowLayoutInProgressTasks,
+                flowLayoutWaitingTasks,
+                flowLayoutDoneTasks
+            };
+            foreach (var control in controlLists)
+            {
+                foreach (UserControls.Task task in control.Controls)
+                {
+
+                    if (task.TaskProjectId == _currentProject)
+                    {
+                        control.Controls.Remove(task);
+                    }
+                }
+
+            }
+            _currentProject = 0;
+      
+            this.menuStripNewItem.Visible = false;
+        }
+
+        /// <summary>
+        /// Metoda de activare a butoanelor 
+        /// </summary>
         public void activateButtons()
         {
              if (_currentProject == -1)
@@ -258,5 +362,7 @@ namespace TaskManager
              }
             this.menuStripNewItem.Visible = true;        
         }
+
+
     }
 }

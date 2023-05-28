@@ -1,4 +1,21 @@
-﻿using System;
+﻿/**************************************************************************
+ *                                                                        *
+ *  File:        Register.cs                                                   *
+ *  Copyright:   (c) 2023,Epure Andrei-Ioan                               *
+ *  E-mail:      andrei-ioan.epure@student.tuiasi.ro                      *
+ *  Description: Student la Facultatea de Automatica si Calculatoare Iasi *
+ *                                                                        *
+ *  This program is free software; you can redistribute it and/or modify  *
+ *  it under the terms of the GNU General Public License as published by  *
+ *  the Free Software Foundation. This program is distributed in the      *
+ *  hope that it will be useful, but WITHOUT ANY WARRANTY; without even   *
+ *  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR   *
+ *  PURPOSE. See the GNU General Public License for more details.         *
+ *                                                                        *
+ **************************************************************************/
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,17 +30,24 @@ using LoggingModule;
 
 namespace TaskManager.UserControls
 {
+    /// <summary>
+    /// Clasa Register
+    /// </summary>
     public partial class Register : UserControl
     {
         private DatabaseManager.DatabaseManager _databaseManager = DatabaseManager.DatabaseManager.Instance;
+
+        /// <summary>
+        /// Constructorul clasei Register
+        /// </summary>
         public Register()
         {
             InitializeComponent();
+            this.BackColor = Color.FromArgb(200, Color.Transparent);
             textBoxRegisterPassword.UseSystemPasswordChar = true;
             textBoxRegisterConfirmPassword.UseSystemPasswordChar = true;
         }
 
-        //public Action ConnectAction { get; set; }
         public Action ConnectActionBack { get; set; }
 
         /// <summary>
@@ -31,7 +55,7 @@ namespace TaskManager.UserControls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void buttonRegisterAddUser_Click(object sender, EventArgs e)
+        public void buttonRegisterAddUser_Click(object sender, EventArgs e)
         {
             // ConnectAction?.Invoke();
             // daca parola contine caractere speciale nu e valida

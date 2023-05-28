@@ -43,6 +43,9 @@
     <Reference Include="Bug">
       <HintPath>..\Bug\bin\Debug\Bug.dll</HintPath>
     </Reference>
+    <Reference Include="Project">
+      <HintPath>..\Project\bin\Debug\Project.dll</HintPath>
+    </Reference>
     <Reference Include="Spike">
       <HintPath>..\Spike\bin\Debug\Spike.dll</HintPath>
     </Reference>
@@ -66,6 +69,11 @@
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\HomeControl.cs">
       <SubType>UserControl</SubType>
@@ -144,11 +152,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -202,6 +205,7 @@
     <Content Include="resources\imgs\filter.png" />
     <Content Include="resources\imgs\help.png" />
     <Content Include="resources\imgs\home.png" />
+    <Content Include="resources\imgs\logIn_img.jpg" />
     <Content Include="resources\imgs\logout.png" />
     <Content Include="resources\imgs\plus.png" />
     <Content Include="resources\imgs\project.png" />

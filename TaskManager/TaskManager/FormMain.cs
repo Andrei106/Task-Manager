@@ -1,4 +1,22 @@
-﻿using LoggingModule;
+﻿/********************************************************************************************
+ *                                                                                          *
+ *  File:        FormMain.cs                                                                     *
+ *  Copyright:   (c) 2023,Epure Andrei-Ioan, Prigoreanu Andrei                           *
+ *  E-mail:      andrei-ioan.epure@student.tuiasi.ro,andrei.prigoreanu@tuiasi.ro          *                   *
+ *  Description: Student la Facultatea de Automatica si Calculatoare Iasi                   *
+ *                                                                                          *
+ *  This program is free software; you can redistribute it and/or modify                    *
+ *  it under the terms of the GNU General Public License as published by                    *
+ *  the Free Software Foundation. This program is distributed in the                        *
+ *  hope that it will be useful, but WITHOUT ANY WARRANTY; without even                     *
+ *  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR                     *
+ *  PURPOSE. See the GNU General Public License for more details.                           *
+ *                                                                                          *
+ *******************************************************************************************/
+
+
+
+using LoggingModule;
 using Proxy;
 using System;
 using System.Collections.Generic;
@@ -12,8 +30,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskManager.UserControls;
 using DatabaseManager;
+using TaskManager.Properties;
+using System.Resources;
+
 namespace TaskManager
 {
+    /// <summary>
+    /// Clasa FormMain
+    /// </summary>
     public partial class FormMain : Form
     {
         private DatabaseManager.DatabaseManager _databaseManager = DatabaseManager.DatabaseManager.Instance;
@@ -24,11 +48,16 @@ namespace TaskManager
             control.Location = new Point(x, y);
         }
 
+        /// <summary>
+        /// Constructorul clasei FormMain
+        /// </summary>
         public FormMain()
         {
-           
-            InitializeComponent();
+            this.BackgroundImage = TaskManager.Properties.Resources.logIn_img;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
 
+            InitializeComponent();
+            //this.BackgroundImage = Image.FromFile()
             //Initializare conectiune la baza de date(creare database si tabele)
             //_databaseManager.createConnection();
 
@@ -45,6 +74,9 @@ namespace TaskManager
             Logger.OnPopUpMessageLogged += ShowPopUp;
         }
 
+        /// <summary>
+        /// Metoda de initializare a login ului
+        /// </summary>
         private void LoginWindowInitialization()
         {
             login1.SetUserText("");
@@ -59,6 +91,9 @@ namespace TaskManager
             login1.ConnectActionRegister = RegisterWindowInitialization;
            
         }
+        /// <summary>
+        /// Metoda de initializare a register ului
+        /// </summary>
         private void RegisterWindowInitialization()
         {
             // Ascund toate controalele incat sa ramana doar casuta de login
@@ -74,6 +109,10 @@ namespace TaskManager
             //  register1.ConnectAction = ConnectionTry;
         }
 
+        /// <summary>
+        /// Metoda de ascundere a task-urilor 
+        /// </summary>
+        /// <param name="userControl"></param>
         private void HideAllExceptThis(Control userControl)
         {
             // trec prin toate controalele 
@@ -88,8 +127,10 @@ namespace TaskManager
             }
 
         }
-
-        private void ConnectionTry()
+        /// <summary>
+        /// Metoda de conectare a user-ului
+        /// </summary>
+        public void ConnectionTry()
         {
             // folosesc proxy-ul incat sa nu interoghez baza de date daca nu e nevoie 
             ILogin loginService = new LoginProxy();
@@ -100,7 +141,9 @@ namespace TaskManager
             // apelez metoda din proxy, incepe propriu zis verificarea pentru user si parola
             loginService.LoginMethod(username, password);
         }
-
+        /// <summary>
+        /// Metoda ce este apelate cand conexiunea e valida
+        /// </summary>
         private void ConnectionValid()
         {
             // ascund casuta de login si afisez restul interfetei
@@ -114,32 +157,50 @@ namespace TaskManager
             }
             labelCurrent.Text = "To-Dos";
         }
-
+        /// <summary>
+        /// Metoda ce este apelate cand conexiunea e invalida
+        /// </summary>
         private void ConnectionNotValid()
         {
             Logger.PopUpIt(Consts.message);
         }
 
+        /// <summary>
+        /// Metoda de afisare mesaj
+        /// </summary>
+        /// <param name="message"></param>
         private void ShowPopUp(string message)
         {
             MessageBox.Show(this, message, Consts.caption, MessageBoxButtons.OK);
         }
-
+        /// <summary>
+        /// Incarcare pagina default
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_Load(object sender,EventArgs e) {        
             homeCtrl.Show();
             projectCtrl.Hide();
             toDosCtrl.Hide();
             labelCurrent.Text = "Home";
         }
-
+        /// <summary>
+        /// Incarcare pagina Home
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHome_Click(object sender, EventArgs e)
         {
-               homeCtrl.Show();
+            homeCtrl.Show();
             projectCtrl.Hide();
             toDosCtrl.Hide();
             labelCurrent.Text = "Home";
         }
-
+        /// <summary>
+        /// Incarcare pagina Project
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnProject_Click(object sender, EventArgs e)
         {
             homeCtrl.Hide();
@@ -147,29 +208,49 @@ namespace TaskManager
             toDosCtrl.Hide();
             labelCurrent.Text = "Project";
         }
-
+        /// <summary>
+        /// Incarcare pagina ToDos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnToDos_Click(object sender, EventArgs e)
         {
             homeCtrl.Hide();
             projectCtrl.Hide();
             toDosCtrl.Show();
             labelCurrent.Text = "To-Dos";
-            int projectId = projectCtrl.ComboBoxSelectedProject;
-            if (projectId>0)
-             {
+            int projectId = projectCtrl.GetComboBoxSelectedProject();
+            if (projectId > 0)
+            {
                 toDosCtrl.activateButtons();
-                toDosCtrl.CurrentProjectId = projectCtrl.ComboBoxSelectedProject;
+                toDosCtrl.CurrentProjectId = projectId;
                 toDosCtrl.hideAndshowTask();
+            }
+            else
+            {
+                if (toDosCtrl.CurrentProjectId != 0)
+                {
+                    toDosCtrl.removeTasks();
+                }
+            
             }
            
         }
-
+        /// <summary>
+        /// Afisare Helper
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Help", "Help");
+            System.Diagnostics.Process.Start("A4Task.chm");
         }
-
-        private void buttonLogout_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Metoda de LogOut
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void buttonLogout_Click(object sender, EventArgs e)
         {
             LoginWindowInitialization();
         }

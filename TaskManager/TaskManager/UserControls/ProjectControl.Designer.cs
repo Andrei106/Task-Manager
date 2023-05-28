@@ -43,6 +43,7 @@ namespace TaskManager
             this.label1 = new System.Windows.Forms.Label();
             this.labelCreateProject = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonDeleteProject = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSelectOrCreateProject)).BeginInit();
             this.splitContainerSelectOrCreateProject.Panel1.SuspendLayout();
             this.splitContainerSelectOrCreateProject.Panel2.SuspendLayout();
@@ -67,6 +68,7 @@ namespace TaskManager
             // splitContainerSelectOrCreateProject.Panel1
             // 
             this.splitContainerSelectOrCreateProject.Panel1.BackColor = System.Drawing.Color.GhostWhite;
+            this.splitContainerSelectOrCreateProject.Panel1.Controls.Add(this.buttonDeleteProject);
             this.splitContainerSelectOrCreateProject.Panel1.Controls.Add(this.textBoxCurrentProjectDescription);
             this.splitContainerSelectOrCreateProject.Panel1.Controls.Add(this.labelCurrentProjectDescription);
             this.splitContainerSelectOrCreateProject.Panel1.Controls.Add(this.comboBoxCurrentProject);
@@ -188,6 +190,19 @@ namespace TaskManager
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // buttonDeleteProject
+            // 
+            this.buttonDeleteProject.BackColor = System.Drawing.Color.Tomato;
+            this.buttonDeleteProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonDeleteProject.Location = new System.Drawing.Point(246, 482);
+            this.buttonDeleteProject.Name = "buttonDeleteProject";
+            this.buttonDeleteProject.Size = new System.Drawing.Size(135, 41);
+            this.buttonDeleteProject.TabIndex = 9;
+            this.buttonDeleteProject.Text = "Delete";
+            this.buttonDeleteProject.UseVisualStyleBackColor = false;
+            this.buttonDeleteProject.Visible = false;
+            this.buttonDeleteProject.Click += new System.EventHandler(this.buttonDeleteProject_Click);
+            // 
             // ProjectControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -220,5 +235,6 @@ namespace TaskManager
         private System.Windows.Forms.TextBox textBoxProjectDescription;
         private System.Windows.Forms.TextBox textBoxCurrentProjectDescription;
         private System.Windows.Forms.Label labelCurrentProjectDescription;
+        private System.Windows.Forms.Button buttonDeleteProject;
     }
 }

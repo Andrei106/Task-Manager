@@ -1,5 +1,4 @@
-﻿
-namespace TaskManager
+﻿namespace TaskManager
 {
     partial class FormMain
     {
@@ -199,6 +198,7 @@ namespace TaskManager
             // 
             // register1
             // 
+            this.register1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.register1.ConnectActionBack = null;
             this.register1.Location = new System.Drawing.Point(844, 101);
             this.register1.Name = "register1";
@@ -207,6 +207,7 @@ namespace TaskManager
             // 
             // login1
             // 
+            this.login1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.login1.ConnectAction = null;
             this.login1.ConnectActionRegister = null;
             this.login1.Location = new System.Drawing.Point(525, 101);
@@ -217,6 +218,7 @@ namespace TaskManager
             // 
             // toDosCtrl
             // 
+            this.toDosCtrl.CurrentProjectId = -1;
             this.toDosCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toDosCtrl.Location = new System.Drawing.Point(200, 70);
             this.toDosCtrl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -277,14 +279,14 @@ namespace TaskManager
         private System.Windows.Forms.Button btnToDos;
         private System.Windows.Forms.Button btnProject;
         private System.Windows.Forms.Panel panelTitle;
-        private System.Windows.Forms.Label labelApp;
         private HomeControl homeCtrl;
         private ProjectControl projectCtrl;
-        private ToDosControl toDosCtrl;
-        private System.Windows.Forms.Label labelCurrent;
-        private UserControls.Login login1;
-        private UserControls.Register register1;
-        private System.Windows.Forms.Button buttonLogout;
+        public UserControls.Login login1;
+        public ToDosControl toDosCtrl;
+        public System.Windows.Forms.Button buttonLogout;
+        public System.Windows.Forms.Label labelApp;
+        public UserControls.Register register1;
+        public System.Windows.Forms.Label labelCurrent;
     }
 }
 
